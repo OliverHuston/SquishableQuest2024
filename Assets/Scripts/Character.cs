@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum CharacterType
@@ -14,9 +15,17 @@ public class Character : MonoBehaviour
     public int moveAllowance = 5;
     public CharacterType characterType;
 
+    //Move anim parameters (hardcoded)
+    public float moveAnimSpeed = 2f;
+    public float rotateAnimSpeed = 4f;
+    public float moveDestinationTolerance = .1f;
+    public float rotateAngleTolerance = .1f;
+
     // Status variables
-    [HideInInspector] public int xPos;
-    [HideInInspector] public int yPos;
+    //[HideInInspector] 
+    public int xPos;
+    //[HideInInspector] 
+    public int yPos;
     private Transform cellManagerTransform;
     [HideInInspector] public Cell cell;
 
@@ -24,8 +33,8 @@ public class Character : MonoBehaviour
     void Awake()
     {
         cellManagerTransform = FindAnyObjectByType<CellManager>().transform;
-/*        xPos = (int)transform.position.x;
-        yPos = (int)transform.position.z;*/
+        xPos = (int)transform.position.x;
+        yPos = (int)transform.position.z;
     }
 
     // Update is called once per frame
@@ -37,10 +46,6 @@ public class Character : MonoBehaviour
 
     public void OccupyCell()
     {
-        //Temp
-        xPos = (int)transform.position.x;
-        yPos = (int)transform.position.z;
-
         // Cell remains the same
         if (cell != null)
         {
@@ -64,23 +69,47 @@ public class Character : MonoBehaviour
 
     public IEnumerator MoveToCell(int x, int y)
     {
-        //this.transform.position = new Vector3(x, this.transform.position.y, y);
-        yield return MoveAnimation(x, y);
+        xPos = x;
+        yPos = y;
         this.OccupyCell();
+
+        yield return RotateAnimation(x, y);
+        yield return MoveAnimation(x, y);
+    }
+
+    private IEnumerator RotateAnimation (int x, int y)
+    {
+        Vector3 targetPosition = new Vector3(x, transform.position.y, y);
+        Vector3 targetDirection = (targetPosition - transform.position).normalized;
+
+        float angleDistance = Quaternion.Angle(transform.rotation, Quaternion.LookRotation(targetDirection));
+        while (angleDistance > rotateAngleTolerance)
+        {
+            Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, rotateAnimSpeed * Time.deltaTime, 0.0f);
+            transform.rotation = Quaternion.LookRotation(newDirection);
+
+            angleDistance = Quaternion.Angle(transform.rotation, Quaternion.LookRotation(targetDirection));
+            yield return new WaitForFixedUpdate();
+        }
+
+        transform.rotation = Quaternion.LookRotation(targetDirection);
+        yield break;
     }
 
     private IEnumerator MoveAnimation(int x, int y)
     {
-        Debug.Log("Start Coroutine");
-        while(!(transform.position.x == x && transform.position.z == y))
+        Vector3 targetPosition = new Vector3(x, transform.position.y, y);
+
+        float distance = Vector3.Distance(transform.position, targetPosition);
+        while (distance > moveDestinationTolerance)
         {
-            float moveSpeed = 5f;
-            transform.position -= new Vector3(Time.deltaTime * moveSpeed * (transform.position.x - x), 0, Time.deltaTime * moveSpeed * (transform.position.z - y));
-            //Increase or decrease the parameter of WaitForSeconds
-            //to test different speeds.
-            yield return new WaitForSeconds(0.01f);
-            Debug.Log("moving...");
+            transform.Translate(Vector3.forward * moveAnimSpeed * Time.deltaTime);
+            
+            distance = Vector3.Distance(transform.position, targetPosition);
+            yield return new WaitForFixedUpdate();
         }
-        Debug.Log("End Coroutine");
+
+        transform.position = targetPosition;
+        yield break;
     }
 }
