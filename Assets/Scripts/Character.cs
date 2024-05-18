@@ -10,21 +10,22 @@ public enum CharacterType
 
 public class Character : MonoBehaviour
 {
-    // Start is called before the first frame update
-    public int xPos;
-    public int yPos;
+    // Settings variables
     public int moveAllowance = 5;
-
     public CharacterType characterType;
-    public Transform cellManagerTransform;
-    public Cell cell;
+
+    // Status variables
+    [HideInInspector] public int xPos;
+    [HideInInspector] public int yPos;
+    private Transform cellManagerTransform;
+    [HideInInspector] public Cell cell;
 
 
     void Awake()
     {
         cellManagerTransform = FindAnyObjectByType<CellManager>().transform;
-        xPos = (int)transform.position.x;
-        yPos = (int)transform.position.z;
+/*        xPos = (int)transform.position.x;
+        yPos = (int)transform.position.z;*/
     }
 
     // Update is called once per frame
