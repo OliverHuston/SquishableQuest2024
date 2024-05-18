@@ -211,7 +211,7 @@ public class Room : ScriptableObject
     //-----------------------------------------------------------------------------------------------------------------//
     //***DEBUGGING FUNCTIONS***
     // Print contents of cells array to debug log.
-    private void printCellsToLog()
+    private void PrintCellsToLog()
     {
         for (int i = 0; i < rows; i++)
         {

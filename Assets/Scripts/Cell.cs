@@ -71,12 +71,6 @@ public class Cell: MonoBehaviour
 
     private void OnMouseDown()
     {
-        // Temp exploration by click
-/*        if (cell_code == 'o') {
-            MapManager mapManager = FindAnyObjectByType<MapManager>();
-            mapManager.SetNextRoomActive(room, exitCode);
-        }*/
-
         cellManager.ReceiveClick(this);
     }
 
