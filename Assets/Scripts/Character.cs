@@ -13,7 +13,7 @@ public class Character : MonoBehaviour
 {
     // Settings variables
     public int moveAllowance = 5;
-    public CharacterType characterType;
+    public CharacterType characterType = CharacterType.HERO;
 
     //Move anim parameters (hardcoded)
     public float moveAnimSpeed = 2f;

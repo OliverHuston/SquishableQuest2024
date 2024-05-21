@@ -360,6 +360,10 @@ PrefabInstance:
       value: Character (1)
       objectReference: {fileID: 0}
     - target: {fileID: 8660839832883721442, guid: 0c56937bffadeaf42b706f5af55809cb, type: 3}
+      propertyPath: moveAllowance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8660839832883721442, guid: 0c56937bffadeaf42b706f5af55809cb, type: 3}
       propertyPath: moveAnimSpeed
       value: 2
       objectReference: {fileID: 0}

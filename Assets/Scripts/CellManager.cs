@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.UI.Image;
 
 public enum SelectionPhase
 {
@@ -14,6 +15,11 @@ public class CellManager : MonoBehaviour
 {
     private SelectionPhase selectionPhase;
     private Cell originCell;
+
+    // Cell storage array
+    private Cell[,] cells;
+    private int cellStart_x;
+    private int cellStart_y;
 
     // Start is called before the first frame update
     void Awake()
@@ -37,7 +43,7 @@ public class CellManager : MonoBehaviour
             if(source.occupant.characterType == CharacterType.HERO)
             {
                 ResetSelection();
-                DisplayMoveRange(source, source.occupant.moveAllowance); //temp hardcode
+                DisplayMoveRange(source, source.occupant.moveAllowance, source.occupant.characterType); //temp hardcode
                 originCell = source;
                 selectionPhase = SelectionPhase.HERO_CHOSEN;
                 return;
@@ -79,7 +85,7 @@ public class CellManager : MonoBehaviour
             else if(source.status == CellStatus.AVAILABLE)
             {
                 ResetSelection();
-                DisplayMoveRange(originCell, originCell.occupant.moveAllowance); //temp hardcode
+                DisplayMoveRange(originCell, originCell.occupant.moveAllowance, originCell.occupant.characterType); //temp hardcode
                 source.status = CellStatus.SELECTED;
                 selectionPhase = SelectionPhase.TARGET_SELECTED;
                 return;
@@ -107,30 +113,62 @@ public class CellManager : MonoBehaviour
         }
     }
 
-    private void DisplayMoveRange(Cell origin, int moveRange)
+    private void DisplayMoveRange(Cell origin, int moveRange, CharacterType characterType)
     {
-        TraverseCells(origin, moveRange);
+        TraverseCells(origin, moveRange, characterType);
     }
-    private void TraverseCells(Cell origin, int movesRemaining)
+    private void TraverseCells(Cell origin, int movesRemaining, CharacterType characterType)
     {
         if (movesRemaining <= 0) return;
         for(int i = -1; i < 2; i++)
         {
             for (int j = -1; j < 2; j++)
             {
-                Transform next_cell_transform = this.transform.Find("Cell (" + (origin.x + i) + ", " + (origin.y + j) + ")");
-                if (!(i == 0 && j == 0) && next_cell_transform != null)
+                Cell next_cell = FindCell(origin.x + i, origin.y + j);
+                //Transform next_cell_transform = this.transform.Find("Cell (" + (origin.x + i) + ", " + (origin.y + j) + ")");
+                if (!(i == 0 && j == 0) && next_cell != null)
                 {
-                    Cell next_cell = next_cell_transform.GetComponent<Cell>();
-
                     if (next_cell.occupant == null)
-                    {  
-                        next_cell.status = CellStatus.AVAILABLE;
-                        TraverseCells(next_cell, movesRemaining-1);
+                    {
+                        // Always allow for non-diagonals
+                        if(i == 0 || j == 0)
+                        {
+                            next_cell.status = CellStatus.AVAILABLE;
+                            TraverseCells(next_cell, movesRemaining - 1, characterType);
+                        } 
+                        else if (DiagonalAllowed(origin.x, origin.y, i, j, characterType))
+                        {
+                            next_cell.status = CellStatus.AVAILABLE;
+                            TraverseCells(next_cell, movesRemaining - 1, characterType);
+                        }
                     }
                 }
             }
         }
+    }
+
+    private Cell FindCell(int x, int y)
+    {
+        Transform cell_transform = this.transform.Find("Cell (" + x + ", " + y + ")");
+        if (cell_transform == null) return null;
+
+        Cell cell = cell_transform.gameObject.GetComponent<Cell>();
+        return cell;
+    }
+
+    private bool DiagonalAllowed(int originX, int originY, int toX, int toY, CharacterType characterType)
+    {
+        Cell a = FindCell(originX, originY + toY);
+        Cell b = FindCell(originX + toX, originY);
+
+        if (a == null || b == null) return false;
+        //else if (a.occupant == null && b.occupant == null) return true;
+        else if(a.occupant == null || b.occupant == null) { return true; }
+        
+        //if (a.occupant.characterType == characterType && b == null) return true;
+        //else if (a == null && b.occupant.characterType == characterType) return true;
+
+        return true;
     }
 
     private void SetAllToStatus(CellStatus cellStatus)
