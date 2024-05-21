@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using UnityEngine;
 using static UnityEngine.UI.Image;
 
@@ -20,6 +22,7 @@ public class CellManager : MonoBehaviour
     private Cell[,] cells;
     private int cellStart_x;
     private int cellStart_y;
+    private int[,] cellDistances;
 
     // Convenience references
     MapManager mapManager;
@@ -80,6 +83,8 @@ public class CellManager : MonoBehaviour
         {
             // Move function (eventually add attack functions; [NEEDS WORK])
             Character character = originCell.occupant;
+            int distanceMoved = FindDistance(originCell, source, character.remainingMoves);
+            character.remainingMoves -= distanceMoved;
             StartCoroutine(character.MoveToCell(source.x, source.y));
 
             if (character.cell.cell_code == 'o')
@@ -109,6 +114,7 @@ public class CellManager : MonoBehaviour
         }
 
         cells = new Cell[maxX - minX + 1, maxY - minY + 1];
+        cellDistances = new int[maxX - minX + 1, maxY - minY + 1];
         cellStart_x = minX; cellStart_y = minY;
     }
     public void UpdateCellArray()
@@ -124,14 +130,56 @@ public class CellManager : MonoBehaviour
         if (x < cellStart_x || y < cellStart_y) return null;
         return cells[x - cellStart_x, y - cellStart_y];
     }
+    private int GetCellDistance(int x, int y)
+    {
+        if (x < cellStart_x || y < cellStart_y) return -100;
+        return cellDistances[x - cellStart_x, y - cellStart_y];
+    }
+    private void SetCellDistance(int x, int y, int distance)
+    {
+        if (x < cellStart_x || y < cellStart_y) return;
+        cellDistances[x - cellStart_x, y - cellStart_y] = distance;
+    }
+    private void ClearCellDistances()
+    {
+        for(int i = 0; i < cellDistances.GetLength(0); i++)
+        {
+            for(int j = 0; j < cellDistances.GetLength(1); j++)
+            {
+                cellDistances[i, j] = -1;
+            }
+        }
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------//
+
+    private int FindDistance(Cell origin, Cell destination, int searchLength)
+    {
+        ClearCellDistances();
+        TraverseCells(origin, searchLength, MarkDistance);
+        return searchLength + 1 - GetCellDistance(destination.x, destination.y);
+    }
+    // (NOTE: requires cell distances setup for path length area.)
+    private Cell[] FindPath(Cell origin, Cell destination, int pathLength )
+    {
+
+        return null;
+    }
+
+    private int MarkDistance(Cell c, int movesRemaining)
+    {
+        if (GetCellDistance(c.x, c.y) == -1 || GetCellDistance(c.x, c.y) < movesRemaining) SetCellDistance(c.x, c.y, movesRemaining);
+        return 0;
+    }
 
     //-----------------------------------------------------------------------------------------------------------------//
     //***RANGE DISPLAY AND HELPER FUNCTIONS***
     private void DisplayMoveRange(Cell origin)
     {
-        TraverseCells(origin, origin.occupant.remainingMoves, origin.occupant.characterType);
+        TraverseCells(origin, origin.occupant.remainingMoves, SetCellToAvailable);
     }
-    private void TraverseCells(Cell origin, int movesRemaining, CharacterType characterType)
+    
+    private void TraverseCells(Cell origin, int movesRemaining, Func<Cell, int, int> Method)
     {
         if (movesRemaining <= 0) return;
         for(int i = -1; i < 2; i++)
@@ -143,18 +191,18 @@ public class CellManager : MonoBehaviour
                 {
                     if (next_cell.occupant == null)
                     {
-                        // Always allow for non-diagonals
-                        if(i == 0 || j == 0 || DiagonalAllowed(origin.x, origin.y, i, j, characterType))
+                        if(i == 0 || j == 0 || DiagonalAllowed(origin.x, origin.y, i, j))
                         {
-                            next_cell.status = CellStatus.AVAILABLE;
-                            TraverseCells(next_cell, movesRemaining - 1, characterType);
+                            TraverseCells(next_cell, movesRemaining - 1, Method);
+                            Method(next_cell, movesRemaining);
                         }
                     }
                 }
             }
         }
+        return;
     }
-    private bool DiagonalAllowed(int originX, int originY, int toX, int toY, CharacterType characterType)
+    private bool DiagonalAllowed(int originX, int originY, int toX, int toY)
     {
         Cell a = FindCell(originX, originY + toY);
         Cell b = FindCell(originX + toX, originY);
@@ -179,6 +227,11 @@ public class CellManager : MonoBehaviour
         {
             if (c != null) c.status = cellStatus;
         }
+    }
+    private int SetCellToAvailable(Cell c, int i)
+    {
+        c.status = CellStatus.AVAILABLE;
+        return 0;
     }
     private void MakeCharactersAvailable()
     {

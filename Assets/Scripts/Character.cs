@@ -75,6 +75,15 @@ public class Character : MonoBehaviour
         return;
     }
 
+    public void ResetActionAllowances()
+    {
+        remainingMoves = statline.moves;
+        remainingMeleeAttacks = statline.meleeAttacks;
+        remainingRangedAttacks = statline.rangedAttacks;
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------//
+    //***MOVE ANIMATIONS
     public IEnumerator MoveToCell(int x, int y)
     {
         xPos = x;
@@ -84,7 +93,6 @@ public class Character : MonoBehaviour
         yield return RotateAnimation(x, y);
         yield return MoveAnimation(x, y);
     }
-
     private IEnumerator RotateAnimation (int x, int y)
     {
         Vector3 targetPosition = new Vector3(x, transform.position.y, y);
@@ -103,7 +111,6 @@ public class Character : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(targetDirection);
         yield break;
     }
-
     private IEnumerator MoveAnimation(int x, int y)
     {
         Vector3 targetPosition = new Vector3(x, transform.position.y, y);
@@ -119,12 +126,5 @@ public class Character : MonoBehaviour
 
         transform.position = targetPosition;
         yield break;
-    }
-
-    public void ResetActionAllowances()
-    {
-        remainingMoves = statline.moves;
-        remainingMeleeAttacks = statline.meleeAttacks;
-        remainingRangedAttacks = statline.rangedAttacks;
     }
 }
