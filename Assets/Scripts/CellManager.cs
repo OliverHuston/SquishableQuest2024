@@ -23,6 +23,7 @@ public class CellManager : MonoBehaviour
     private int cellStart_x;
     private int cellStart_y;
     private int[,] cellDistances;
+    private Cell[] path;
 
     // Convenience references
     MapManager mapManager;
@@ -84,8 +85,11 @@ public class CellManager : MonoBehaviour
             // Move function (eventually add attack functions; [NEEDS WORK])
             Character character = originCell.occupant;
             int distanceMoved = FindDistance(originCell, source, character.remainingMoves);
+            FindPath(originCell, source, distanceMoved);
+            PrintPath(); //temp debugging
+
             character.remainingMoves -= distanceMoved;
-            StartCoroutine(character.MoveToCell(source.x, source.y));
+            StartCoroutine(character.MoveAlongPath(path));
 
             if (character.cell.cell_code == 'o')
             {
@@ -99,7 +103,7 @@ public class CellManager : MonoBehaviour
     }
 
     //-----------------------------------------------------------------------------------------------------------------//
-    //***CELLS ARRAY MANAGEMENT AND ACCESS***
+    //***ARRAYS MANAGEMENT AND ACCESS***
     public void SetCellArrayDimensions(Room[] rooms)
     {
         int minX = 1000; int maxX = -1000;
@@ -152,33 +156,61 @@ public class CellManager : MonoBehaviour
     }
 
     //-----------------------------------------------------------------------------------------------------------------//
-
+    //***DISTANCES AND PATHFINDING***
+    // Return the distance between two cells; the cells must be within
     private int FindDistance(Cell origin, Cell destination, int searchLength)
     {
         ClearCellDistances();
         TraverseCells(origin, searchLength, MarkDistance);
-        return searchLength + 1 - GetCellDistance(destination.x, destination.y);
+        FixDistances(searchLength);
+        SetCellDistance(origin.x, origin.y, 0);
+        return GetCellDistance(destination.x, destination.y);
     }
-    // (NOTE: requires cell distances setup for path length area.)
-    private Cell[] FindPath(Cell origin, Cell destination, int pathLength )
-    {
-
-        return null;
-    }
-
+    // FindDistance helper function (called through TraverseCells).
     private int MarkDistance(Cell c, int movesRemaining)
     {
         if (GetCellDistance(c.x, c.y) == -1 || GetCellDistance(c.x, c.y) < movesRemaining) SetCellDistance(c.x, c.y, movesRemaining);
         return 0;
     }
+    // Invert distances to be relative to start position.
+    private void FixDistances(int searchLength)
+    {
+        for (int i = 0; i < cellDistances.GetLength(0); i++)
+        {
+            for (int j = 0; j < cellDistances.GetLength(1); j++)
+            {
+                if (cellDistances[i, j] != -1)
+                {
+                    cellDistances[i, j] = searchLength + 1 - cellDistances[i, j];
+                }
+            }
+        }
+    }
+
+    // (NOTE: requires FindDistances to be called first; otherwise, the cellDistances array will be incorrect.)
+    private void FindPath(Cell origin, Cell destination, int pathLength )
+    {
+        path = new Cell[pathLength+1];
+        path[0] = origin;
+        path[pathLength] = destination;
+        TraverseCells(destination, pathLength, AddCellToPath);
+    }
+    // FindPath helper function (called through TraverseCells).
+    private int AddCellToPath(Cell cell, int movesRemaining) {
+        if (GetCellDistance(cell.x, cell.y) == -1 || path[movesRemaining] != null) return 0;
+        if (GetCellDistance(cell.x, cell.y) == movesRemaining && IsAdjacent(cell, path[movesRemaining + 1]))
+        {
+            path[movesRemaining] = cell;
+        }
+        return 0;
+    }
 
     //-----------------------------------------------------------------------------------------------------------------//
-    //***RANGE DISPLAY AND HELPER FUNCTIONS***
+    //***RANGE DISPLAY***
     private void DisplayMoveRange(Cell origin)
     {
         TraverseCells(origin, origin.occupant.remainingMoves, SetCellToAvailable);
     }
-    
     private void TraverseCells(Cell origin, int movesRemaining, Func<Cell, int, int> Method)
     {
         if (movesRemaining <= 0) return;
@@ -202,15 +234,25 @@ public class CellManager : MonoBehaviour
         }
         return;
     }
+
+    //-----------------------------------------------------------------------------------------------------------------//
+    //***HELPER FUNCTIONS***
     private bool DiagonalAllowed(int originX, int originY, int toX, int toY)
     {
+        if (toX == 0 || toY == 0) return true;
         Cell a = FindCell(originX, originY + toY);
         Cell b = FindCell(originX + toX, originY);
 
         if (a == null || b == null) return false;
         else if (a.occupant == null || b.occupant == null) { return true; }
         return true;
-    } 
+    }
+    private bool IsAdjacent(Cell a, Cell b)
+    {
+        if (a == null || b == null) return false;
+        if (Mathf.Abs(a.x - b.x) <= 1 && Mathf.Abs(a.y - b.y) <= 1 && DiagonalAllowed(a.x, a.y, a.x-b.x, a.y-b.y)) return true;
+        return false;
+    }
 
     //-----------------------------------------------------------------------------------------------------------------//
     //***CELL STATUS SETTERS***
@@ -243,5 +285,17 @@ public class CellManager : MonoBehaviour
                 if (c.occupant != null && c.occupant.characterType == CharacterType.HERO) c.status = CellStatus.AVAILABLE;
             }
         }
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------//
+    //***DEBUGGING***
+    private void PrintPath()
+    {
+        string print = "";
+        foreach (Cell c in path)
+        {
+            if (c != null) print += ("(" + c.x + ", " + c.y + ") -> ");
+        }
+        Debug.Log(print);
     }
 }

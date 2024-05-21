@@ -84,12 +84,21 @@ public class Character : MonoBehaviour
 
     //-----------------------------------------------------------------------------------------------------------------//
     //***MOVE ANIMATIONS
-    public IEnumerator MoveToCell(int x, int y)
+    public IEnumerator MoveAlongPath(Cell[] path)
     {
-        xPos = x;
-        yPos = y;
+        Cell destination = path[path.Length-1];
+        xPos = destination.x; 
+        yPos = destination.y;
         this.OccupyCell();
 
+        for(int i = 1; i < path.Length; i++)
+        {
+            yield return MoveToNextCell(path[i].x, path[i].y);
+        }
+    }
+
+    private IEnumerator MoveToNextCell(int x, int y)
+    {
         yield return RotateAnimation(x, y);
         yield return MoveAnimation(x, y);
     }
