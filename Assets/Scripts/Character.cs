@@ -12,8 +12,14 @@ public enum CharacterType
 public class Character : MonoBehaviour
 {
     // Settings variables
-    public int moveAllowance = 5;
     public CharacterType characterType = CharacterType.HERO;
+    public CharacterStatline statline;
+
+    // Current variable statuses
+    public int currentHealth;
+    public int remainingMoves;
+    public int remainingMeleeAttacks;
+    public int remainingRangedAttacks;
 
     //Move anim parameters (hardcoded)
     public float moveAnimSpeed = 2f;
@@ -33,6 +39,8 @@ public class Character : MonoBehaviour
     void Awake()
     {
         cellManagerTransform = FindAnyObjectByType<CellManager>().transform;
+        currentHealth = statline.health;
+        ResetActionAllowances();    
         xPos = (int)transform.position.x;
         yPos = (int)transform.position.z;
     }
@@ -111,5 +119,12 @@ public class Character : MonoBehaviour
 
         transform.position = targetPosition;
         yield break;
+    }
+
+    public void ResetActionAllowances()
+    {
+        remainingMoves = statline.moves;
+        remainingMeleeAttacks = statline.meleeAttacks;
+        remainingRangedAttacks = statline.rangedAttacks;
     }
 }

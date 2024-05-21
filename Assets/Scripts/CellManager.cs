@@ -53,7 +53,7 @@ public class CellManager : MonoBehaviour
             // Selecting a hero (player character):
             if (source.occupant.characterType == CharacterType.HERO)
             {
-                DisplayMoveRange(source, source.occupant.moveAllowance, source.occupant.characterType);
+                DisplayMoveRange(source);
                 originCell = source;
 
                 selectionPhase = SelectionPhase.HERO_CHOSEN;
@@ -67,7 +67,7 @@ public class CellManager : MonoBehaviour
             if (selectionPhase == SelectionPhase.TARGET_SELECTED)
             {
                 SetAllToStatus(CellStatus.BASE);
-                DisplayMoveRange(originCell, originCell.occupant.moveAllowance, originCell.occupant.characterType);
+                DisplayMoveRange(originCell);
             }
 
             // Select the cell.
@@ -127,9 +127,9 @@ public class CellManager : MonoBehaviour
 
     //-----------------------------------------------------------------------------------------------------------------//
     //***RANGE DISPLAY AND HELPER FUNCTIONS***
-    private void DisplayMoveRange(Cell origin, int moveRange, CharacterType characterType)
+    private void DisplayMoveRange(Cell origin)
     {
-        TraverseCells(origin, moveRange, characterType);
+        TraverseCells(origin, origin.occupant.remainingMoves, origin.occupant.characterType);
     }
     private void TraverseCells(Cell origin, int movesRemaining, CharacterType characterType)
     {

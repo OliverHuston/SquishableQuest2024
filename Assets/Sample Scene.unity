@@ -780,7 +780,8 @@ PrefabInstance:
       propertyPath: rotateAnimSpeed
       value: 4
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2451847374874854076, guid: 0c56937bffadeaf42b706f5af55809cb, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
