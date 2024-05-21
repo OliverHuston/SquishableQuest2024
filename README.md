@@ -1,7 +1,10 @@
 # SquishableQuest2024
 
 ## To do
-	- fix selection issues (from selected tile, cannot select others)
+	- create scriptable object for keeping track of character stats, remaining moves, etc.
+	- add end turn system
+	- add melee attack targeting for heroes
+	- add ranged attack targeting for heroes
 	- correct sequencing for room exploration (room reveals before destination reached in animation)
 
 ## Possible changes

@@ -5,10 +5,9 @@ using UnityEngine;
 public enum CellStatus
 {
     BASE = 0,
-    MOUSED = 1,
-    AVAILABLE = 2,
-    SELECTED = 3,
-    TARGETED = 4
+    AVAILABLE = 1,
+    SELECTED = 2,
+    TARGETED = 3
 }
 
 public class Cell: MonoBehaviour
@@ -23,6 +22,7 @@ public class Cell: MonoBehaviour
 
     private CellManager cellManager;
     private Material cell_material;
+    private bool moused;
 
     //Colors
     [SerializeField] private Color mousedColor = Color.gray;
@@ -94,20 +94,21 @@ public class Cell: MonoBehaviour
             cell_material.SetColor("_BaseColor", Color.clear);
         }
 
-        if (status == CellStatus.MOUSED)
+        // Override color for moused
+/*        if (moused)
         {
             cell_material.SetColor("_BaseColor", mousedColor);
-        }
+        }*/
     }
 
- 
+
     private void OnMouseEnter()
     {
-        if(status == CellStatus.BASE) status = CellStatus.MOUSED;
+        moused = true;
     }
 
     private void OnMouseExit()
     {
-        if(status == CellStatus.MOUSED) status = CellStatus.BASE;
+        moused = false;
     }
 }

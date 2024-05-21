@@ -21,20 +21,22 @@ public class CellManager : MonoBehaviour
     private int cellStart_x;
     private int cellStart_y;
 
+    // Convenience references
+    MapManager mapManager;
+
     // Start is called before the first frame update
     void Awake()
     {
+        mapManager = FindAnyObjectByType<MapManager>();
+
         ResetSelection();
     }
 
-
-
-
-    //-----------------------------------------------------------
-    //PUBLIC
+    //-----------------------------------------------------------------------------------------------------------------//
+    //***CELL CLICK HANDLING
     public void ReceiveClick(Cell source)
     {
-        //Debug.Log("Clicked " + source.gameObject.name);
+        // If click received from Table:
         if (source == null)
         {
             ResetSelection();
@@ -42,65 +44,57 @@ public class CellManager : MonoBehaviour
         }
 
         // Initial character selection.
-        if(source.status != CellStatus.AVAILABLE && source.occupant != null)
+        if (source.status == CellStatus.BASE && source.occupant != null)
         {
-            // Selecting a character.
-            if(source.occupant.characterType == CharacterType.HERO)
+            ResetSelection();
+
+            //Display stats of selected hero or enemy [NEEDS WORK]
+
+            // Selecting a hero (player character):
+            if (source.occupant.characterType == CharacterType.HERO)
             {
-                ResetSelection();
-                DisplayMoveRange(source, source.occupant.moveAllowance, source.occupant.characterType); //temp hardcode
+                DisplayMoveRange(source, source.occupant.moveAllowance, source.occupant.characterType);
                 originCell = source;
+
                 selectionPhase = SelectionPhase.HERO_CHOSEN;
                 return;
             }
-            // Selecting an enemy (view stats). [NEEDS WORK]
-            else if (source.occupant.characterType == CharacterType.ENEMY) 
-            {
-                //Display code here....
-                return;
-            }
         }
-        else if(selectionPhase == SelectionPhase.HERO_CHOSEN)
+        // Select an available cell.
+        else if (source.status == CellStatus.AVAILABLE)
         {
-            if(source.status == CellStatus.AVAILABLE)
+            // If another cell is already selected, reset for selecting new cell.
+            if (selectionPhase == SelectionPhase.TARGET_SELECTED)
             {
-                source.status = CellStatus.SELECTED;
-                selectionPhase = SelectionPhase.TARGET_SELECTED;
-                return;
+                SetAllToStatus(CellStatus.BASE);
+                DisplayMoveRange(originCell, originCell.occupant.moveAllowance, originCell.occupant.characterType);
             }
+
+            // Select the cell.
+            source.status = CellStatus.SELECTED;
+            selectionPhase = SelectionPhase.TARGET_SELECTED;
+            return;
         }
-        else if(selectionPhase == SelectionPhase.TARGET_SELECTED)
+        // Activate selected cell.
+        else if (source.status == CellStatus.SELECTED)
         {
-            if(source.status == CellStatus.SELECTED)
-            {
-                // Hardcoded move function (needs fixing)
-                Character mover = originCell.occupant;
-                StartCoroutine(mover.MoveToCell(source.x, source.y));
-                
+            // Move function (eventually add attack functions; [NEEDS WORK])
+            Character character = originCell.occupant;
+            StartCoroutine(character.MoveToCell(source.x, source.y));
 
-                if (mover.cell.cell_code == 'o')
-                {
-                    MapManager mapManager = FindAnyObjectByType<MapManager>();
-                    mapManager.ExploreRoom(mover.cell.room, mover.cell.exitCode);
-                }
-
-                ResetSelection();
-                return;
-            }
-            else if(source.status == CellStatus.AVAILABLE)
+            if (character.cell.cell_code == 'o')
             {
-                ResetSelection();
-                DisplayMoveRange(originCell, originCell.occupant.moveAllowance, originCell.occupant.characterType); //temp hardcode
-                source.status = CellStatus.SELECTED;
-                selectionPhase = SelectionPhase.TARGET_SELECTED;
-                return;
+                mapManager.ExploreRoom(character.cell.room, character.cell.exitCode);
             }
+
+            // Reset and return;
+            ResetSelection();
+            return;
         }
-
-        // if nothing else works
-        ResetSelection();
-        return;
     }
+
+    //-----------------------------------------------------------------------------------------------------------------//
+    //***CELLS ARRAY MANAGEMENT AND ACCESS***
     public void SetCellArrayDimensions(Room[] rooms)
     {
         int minX = 1000; int maxX = -1000;
@@ -125,26 +119,14 @@ public class CellManager : MonoBehaviour
             cells[c.x - cellStart_x, c.y - cellStart_y] = c;
         }
     }
-
-
-    //----------------------------------
-    //PRIVATE
-    private void ResetSelection()
+    private Cell FindCell(int x, int y)
     {
-        selectionPhase = SelectionPhase.CHOOSE_CHARACTER;
-        SetAllToStatus(CellStatus.BASE);
-        originCell = null;
+        if (x < cellStart_x || y < cellStart_y) return null;
+        return cells[x - cellStart_x, y - cellStart_y];
     }
 
-    private void MakeCharactersAvailable()
-    {
-        foreach (Transform child in this.transform)
-        {
-            Cell cell = child.GetComponent<Cell>();
-            if (cell.occupant != null && cell.occupant.characterType == CharacterType.HERO) cell.status = CellStatus.AVAILABLE;
-        }
-    }
-    
+    //-----------------------------------------------------------------------------------------------------------------//
+    //***RANGE DISPLAY AND HELPER FUNCTIONS***
     private void DisplayMoveRange(Cell origin, int moveRange, CharacterType characterType)
     {
         TraverseCells(origin, moveRange, characterType);
@@ -157,18 +139,12 @@ public class CellManager : MonoBehaviour
             for (int j = -1; j < 2; j++)
             {
                 Cell next_cell = FindCell(origin.x + i, origin.y + j);
-                //Transform next_cell_transform = this.transform.Find("Cell (" + (origin.x + i) + ", " + (origin.y + j) + ")");
                 if (!(i == 0 && j == 0) && next_cell != null)
                 {
                     if (next_cell.occupant == null)
                     {
                         // Always allow for non-diagonals
-                        if(i == 0 || j == 0)
-                        {
-                            next_cell.status = CellStatus.AVAILABLE;
-                            TraverseCells(next_cell, movesRemaining - 1, characterType);
-                        } 
-                        else if (DiagonalAllowed(origin.x, origin.y, i, j, characterType))
+                        if(i == 0 || j == 0 || DiagonalAllowed(origin.x, origin.y, i, j, characterType))
                         {
                             next_cell.status = CellStatus.AVAILABLE;
                             TraverseCells(next_cell, movesRemaining - 1, characterType);
@@ -178,39 +154,41 @@ public class CellManager : MonoBehaviour
             }
         }
     }
-
-    // Old FindCell
-/*    private Cell FindCell(int x, int y)
-    {
-        Transform cell_transform = this.transform.Find("Cell (" + x + ", " + y + ")");
-        if (cell_transform == null) return null;
-
-        Cell cell = cell_transform.gameObject.GetComponent<Cell>();
-        return cell;
-    }*/
-
-    private Cell FindCell(int x, int y)
-    {
-        if (x < cellStart_x || y < cellStart_y) return null;
-        return cells[x - cellStart_x, y - cellStart_y]; 
-    }
-
     private bool DiagonalAllowed(int originX, int originY, int toX, int toY, CharacterType characterType)
     {
         Cell a = FindCell(originX, originY + toY);
         Cell b = FindCell(originX + toX, originY);
 
         if (a == null || b == null) return false;
-        else if(a.occupant == null || b.occupant == null) { return true; }
+        else if (a.occupant == null || b.occupant == null) { return true; }
         return true;
-    }
+    } 
 
+    //-----------------------------------------------------------------------------------------------------------------//
+    //***CELL STATUS SETTERS***
+    private void ResetSelection()
+    {
+        selectionPhase = SelectionPhase.CHOOSE_CHARACTER;
+        SetAllToStatus(CellStatus.BASE);
+        originCell = null;
+    }
     private void SetAllToStatus(CellStatus cellStatus)
     {
-        foreach (Transform child in this.transform)
+        if (cells == null) return;
+        foreach (Cell c in cells)
         {
-            Cell cell = child.GetComponent<Cell>();
-            cell.status = cellStatus;
+            if (c != null) c.status = cellStatus;
+        }
+    }
+    private void MakeCharactersAvailable()
+    {
+        if (cells == null) return;
+        foreach (Cell c in cells)
+        {
+            if (c != null) 
+            {
+                if (c.occupant != null && c.occupant.characterType == CharacterType.HERO) c.status = CellStatus.AVAILABLE;
+            }
         }
     }
 }
