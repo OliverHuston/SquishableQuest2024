@@ -14,23 +14,29 @@ public class MapManager : MonoBehaviour
     private Room[] rooms;
     private int roomsCount = 0;
 
+    // Convenience variables
+    CellManager cellManager;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        cellManager = GetComponentInChildren<CellManager>();    
     }
 
     private void Update()
     {
         if (Input.GetKey(KeyCode.Q))
         {
+            // Generation map
             int iterations = GenerateRandomMap(20, 3, 0);
+            cellManager.SetCellArrayDimensions(rooms); //necessary after all map generations
+
+            // Begin display
             rooms[0].active = true;
             PrintRoom(rooms[0]);
 
-            //SetAllRoomsActive();
-            //PrintFullMap();
-            //Debug.Log("Generated in " + iterations + " iterations.");
+/*            SetAllRoomsActive();
+            PrintFullMap();*/
         }
     }
 
@@ -42,7 +48,7 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    public void SetNextRoomActive(Room currentRoom, int exitNum)
+    public void ExploreRoom(Room currentRoom, int exitNum)
     {
         if( currentRoom.exitRooms[exitNum].active == false)
         {
@@ -350,7 +356,6 @@ public class MapManager : MonoBehaviour
     // Instantiate cells for a given room.
     private void PrintRoomCells(Room room)
     {
-        
         int cols = room.cols;
         int rows = room.rows;
         char[,] cells = room.getCells();
@@ -372,6 +377,7 @@ public class MapManager : MonoBehaviour
                 }
             }
         }
+        cellManager.UpdateCellArray();
     }
     // Create a placeholder model for a given room.
     private void PrintRoomPlaceholder(Room room)

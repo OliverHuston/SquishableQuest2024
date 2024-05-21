@@ -27,6 +27,11 @@ public class CellManager : MonoBehaviour
         ResetSelection();
     }
 
+
+
+
+    //-----------------------------------------------------------
+    //PUBLIC
     public void ReceiveClick(Cell source)
     {
         //Debug.Log("Clicked " + source.gameObject.name);
@@ -76,7 +81,7 @@ public class CellManager : MonoBehaviour
                 if (mover.cell.cell_code == 'o')
                 {
                     MapManager mapManager = FindAnyObjectByType<MapManager>();
-                    mapManager.SetNextRoomActive(mover.cell.room, mover.cell.exitCode);
+                    mapManager.ExploreRoom(mover.cell.room, mover.cell.exitCode);
                 }
 
                 ResetSelection();
@@ -96,7 +101,34 @@ public class CellManager : MonoBehaviour
         ResetSelection();
         return;
     }
+    public void SetCellArrayDimensions(Room[] rooms)
+    {
+        int minX = 1000; int maxX = -1000;
+        int minY = 1000; int maxY = -1000;
 
+        foreach(Room r in rooms) 
+        {
+            if (r.xPos < minX) minX = r.xPos;
+            if(r.xPos + r.cols > maxX) maxX = r.xPos + r.cols;
+            if(r.yPos - 1 < minY) minY = r.yPos - 1;
+            if (r.yPos + r.rows - 1 > maxY) maxY = r.yPos + r.rows - 1;
+        }
+
+        cells = new Cell[maxX - minX + 1, maxY - minY + 1];
+        cellStart_x = minX; cellStart_y = minY;
+    }
+    public void UpdateCellArray()
+    {
+        foreach(Transform child in transform)
+        {
+            Cell c = child.gameObject.GetComponent<Cell>(); 
+            cells[c.x - cellStart_x, c.y - cellStart_y] = c;
+        }
+    }
+
+
+    //----------------------------------
+    //PRIVATE
     private void ResetSelection()
     {
         selectionPhase = SelectionPhase.CHOOSE_CHARACTER;
@@ -112,7 +144,7 @@ public class CellManager : MonoBehaviour
             if (cell.occupant != null && cell.occupant.characterType == CharacterType.HERO) cell.status = CellStatus.AVAILABLE;
         }
     }
-
+    
     private void DisplayMoveRange(Cell origin, int moveRange, CharacterType characterType)
     {
         TraverseCells(origin, moveRange, characterType);
@@ -147,13 +179,20 @@ public class CellManager : MonoBehaviour
         }
     }
 
-    private Cell FindCell(int x, int y)
+    // Old FindCell
+/*    private Cell FindCell(int x, int y)
     {
         Transform cell_transform = this.transform.Find("Cell (" + x + ", " + y + ")");
         if (cell_transform == null) return null;
 
         Cell cell = cell_transform.gameObject.GetComponent<Cell>();
         return cell;
+    }*/
+
+    private Cell FindCell(int x, int y)
+    {
+        if (x < cellStart_x || y < cellStart_y) return null;
+        return cells[x - cellStart_x, y - cellStart_y]; 
     }
 
     private bool DiagonalAllowed(int originX, int originY, int toX, int toY, CharacterType characterType)
@@ -162,12 +201,7 @@ public class CellManager : MonoBehaviour
         Cell b = FindCell(originX + toX, originY);
 
         if (a == null || b == null) return false;
-        //else if (a.occupant == null && b.occupant == null) return true;
         else if(a.occupant == null || b.occupant == null) { return true; }
-        
-        //if (a.occupant.characterType == characterType && b == null) return true;
-        //else if (a == null && b.occupant.characterType == characterType) return true;
-
         return true;
     }
 
