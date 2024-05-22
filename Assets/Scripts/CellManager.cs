@@ -26,11 +26,14 @@ public class CellManager : MonoBehaviour
     private Cell[] path;
 
     // Convenience references
+    DungeonManager dungeonManager;
     MapManager mapManager;
+
 
     // Start is called before the first frame update
     void Awake()
     {
+        dungeonManager = FindAnyObjectByType<DungeonManager>(); 
         mapManager = FindAnyObjectByType<MapManager>();
 
         ResetSelection();
@@ -61,7 +64,6 @@ public class CellManager : MonoBehaviour
                 originCell = source;
 
                 selectionPhase = SelectionPhase.HERO_CHOSEN;
-                return;
             }
         }
         // Select an available cell.
@@ -77,7 +79,6 @@ public class CellManager : MonoBehaviour
             // Select the cell.
             source.status = CellStatus.SELECTED;
             selectionPhase = SelectionPhase.TARGET_SELECTED;
-            return;
         }
         // Activate selected cell.
         else if (source.status == CellStatus.SELECTED)
@@ -98,8 +99,9 @@ public class CellManager : MonoBehaviour
 
             // Reset and return;
             ResetSelection();
-            return;
         }
+
+        dungeonManager.CellManagerStatusUpdate(selectionPhase);
     }
 
     //-----------------------------------------------------------------------------------------------------------------//

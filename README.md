@@ -2,7 +2,6 @@
 
 ## To do
 	- Display UI for remaing moves, attacks, stats, etc. for selected character
-	- add end turn system
 	- add melee attack targeting for heroes
 	- add ranged attack targeting for heroes
 	- correct sequencing for room exploration (room reveals before destination reached in animation)
