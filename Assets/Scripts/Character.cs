@@ -67,9 +67,11 @@ public class Character : MonoBehaviour
             cell = null; 
             return; 
         }
-
-        Debug.Log("Changed cells!");
-        if (cell != null) cell.GetComponent<Cell>().occupant = null;
+        
+        if (cell != null) {
+            Debug.Log("Changed cells!");
+            cell.GetComponent<Cell>().occupant = null; 
+        }
         new_cell.GetComponent<Cell>().occupant = this.GetComponent<Character>();
         cell = new_cell.GetComponent<Cell>();
         return;

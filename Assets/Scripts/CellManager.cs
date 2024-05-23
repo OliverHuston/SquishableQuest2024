@@ -33,7 +33,7 @@ public class CellManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        dungeonManager = FindAnyObjectByType<DungeonManager>(); 
+        dungeonManager = FindAnyObjectByType<DungeonManager>();
         mapManager = FindAnyObjectByType<MapManager>();
 
         ResetSelection();
@@ -111,11 +111,11 @@ public class CellManager : MonoBehaviour
         int minX = 1000; int maxX = -1000;
         int minY = 1000; int maxY = -1000;
 
-        foreach(Room r in rooms) 
+        foreach (Room r in rooms)
         {
             if (r.xPos < minX) minX = r.xPos;
-            if(r.xPos + r.cols > maxX) maxX = r.xPos + r.cols;
-            if(r.yPos - 1 < minY) minY = r.yPos - 1;
+            if (r.xPos + r.cols > maxX) maxX = r.xPos + r.cols;
+            if (r.yPos - 1 < minY) minY = r.yPos - 1;
             if (r.yPos + r.rows - 1 > maxY) maxY = r.yPos + r.rows - 1;
         }
 
@@ -125,9 +125,9 @@ public class CellManager : MonoBehaviour
     }
     public void UpdateCellArray()
     {
-        foreach(Transform child in transform)
+        foreach (Transform child in transform)
         {
-            Cell c = child.gameObject.GetComponent<Cell>(); 
+            Cell c = child.gameObject.GetComponent<Cell>();
             cells[c.x - cellStart_x, c.y - cellStart_y] = c;
         }
     }
@@ -148,9 +148,9 @@ public class CellManager : MonoBehaviour
     }
     private void ClearCellDistances()
     {
-        for(int i = 0; i < cellDistances.GetLength(0); i++)
+        for (int i = 0; i < cellDistances.GetLength(0); i++)
         {
-            for(int j = 0; j < cellDistances.GetLength(1); j++)
+            for (int j = 0; j < cellDistances.GetLength(1); j++)
             {
                 cellDistances[i, j] = -1;
             }
@@ -169,10 +169,10 @@ public class CellManager : MonoBehaviour
         return GetCellDistance(destination.x, destination.y);
     }
     // FindDistance helper function (called through TraverseCells).
-    private int MarkDistance(Cell c, int movesRemaining)
+    private void MarkDistance(Cell c, int movesRemaining)
     {
         if (GetCellDistance(c.x, c.y) == -1 || GetCellDistance(c.x, c.y) < movesRemaining) SetCellDistance(c.x, c.y, movesRemaining);
-        return 0;
+        return;
     }
     // Invert distances to be relative to start position.
     private void FixDistances(int searchLength)
@@ -190,21 +190,28 @@ public class CellManager : MonoBehaviour
     }
 
     // (NOTE: requires FindDistances to be called first; otherwise, the cellDistances array will be incorrect.)
-    private void FindPath(Cell origin, Cell destination, int pathLength )
+    private void FindPath(Cell origin, Cell destination, int pathLength)
     {
-        path = new Cell[pathLength+1];
+        path = new Cell[pathLength + 1];
         path[0] = origin;
         path[pathLength] = destination;
         TraverseCells(destination, pathLength, AddCellToPath);
     }
     // FindPath helper function (called through TraverseCells).
-    private int AddCellToPath(Cell cell, int movesRemaining) {
-        if (GetCellDistance(cell.x, cell.y) == -1 || path[movesRemaining] != null) return 0;
-        if (GetCellDistance(cell.x, cell.y) == movesRemaining && IsAdjacent(cell, path[movesRemaining + 1]))
+    private void AddCellToPath(Cell cell, int movesRemaining) {
+        //Debug.Log("Trying to add (" +cell.x + ", " +cell.y + ") with " + movesRemaining + "moves remaining");
+        if (GetCellDistance(cell.x, cell.y) == -1 || path[movesRemaining] != null) { 
+            //Debug.Log("Failed A"); 
+            return; 
+        }
+        else if (GetCellDistance(cell.x, cell.y) == movesRemaining && IsAdjacent(cell, path[movesRemaining + 1]))
         {
             path[movesRemaining] = cell;
+            //Debug.Log("Success");
+            return;
         }
-        return 0;
+        //Debug.Log("Failed B");
+        return;
     }
 
     //-----------------------------------------------------------------------------------------------------------------//
@@ -213,7 +220,7 @@ public class CellManager : MonoBehaviour
     {
         TraverseCells(origin, origin.occupant.remainingMoves, SetCellToAvailable);
     }
-    private void TraverseCells(Cell origin, int movesRemaining, Func<Cell, int, int> Method)
+    private void TraverseCells(Cell origin, int movesRemaining, Action<Cell, int> Method)
     {
         if (movesRemaining <= 0) return;
         for(int i = -1; i < 2; i++)
@@ -225,10 +232,10 @@ public class CellManager : MonoBehaviour
                 {
                     if (next_cell.occupant == null)
                     {
-                        if(i == 0 || j == 0 || DiagonalAllowed(origin.x, origin.y, i, j))
+                        if(DiagonalAllowed(origin.x, origin.y, i, j))
                         {
-                            TraverseCells(next_cell, movesRemaining - 1, Method);
                             Method(next_cell, movesRemaining);
+                            TraverseCells(next_cell, movesRemaining - 1, Method);                           
                         }
                     }
                 }
@@ -241,18 +248,20 @@ public class CellManager : MonoBehaviour
     //***HELPER FUNCTIONS***
     private bool DiagonalAllowed(int originX, int originY, int toX, int toY)
     {
-        if (toX == 0 || toY == 0) return true;
+        if (toX == 0 || toY == 0) { return true; }
+        else if (toX < -1 || toY < -1 || toX > 1 || toY > 1) { return false; }
+
         Cell a = FindCell(originX, originY + toY);
         Cell b = FindCell(originX + toX, originY);
 
-        if (a == null || b == null) return false;
+        if (a == null || b == null) { return false; }
         else if (a.occupant == null || b.occupant == null) { return true; }
-        return true;
+        return false;
     }
     private bool IsAdjacent(Cell a, Cell b)
     {
         if (a == null || b == null) return false;
-        if (Mathf.Abs(a.x - b.x) <= 1 && Mathf.Abs(a.y - b.y) <= 1 && DiagonalAllowed(a.x, a.y, a.x-b.x, a.y-b.y)) return true;
+        if (DiagonalAllowed(a.x, a.y, b.x-a.x, b.y-a.y)) return true;
         return false;
     }
 
@@ -272,10 +281,10 @@ public class CellManager : MonoBehaviour
             if (c != null) c.status = cellStatus;
         }
     }
-    private int SetCellToAvailable(Cell c, int i)
+    private void SetCellToAvailable(Cell c, int i)
     {
         c.status = CellStatus.AVAILABLE;
-        return 0;
+        return;
     }
     private void MakeCharactersAvailable()
     {

@@ -8,5 +8,8 @@
 	- optimize pathfinding, move display
 
 ## Known Bugs
+	- unusual paths generated when moving around an ENEMY character; the move expense seems nonetheless to be accurate?
+
+## Old Bugs
 	- sometimes, character will rotate but not move and remains frozen; location updates, but IEnumeratior MoveAnimation apparently never ends
 	- Sometimes moving to an exit cell does not trigger room open?
