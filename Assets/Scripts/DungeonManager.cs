@@ -36,7 +36,7 @@ public class DungeonManager : MonoBehaviour
 
     public void CellManagerStatusUpdate(SelectionPhase selectionPhase)
     {
-        if(selectionPhase == SelectionPhase.CHOOSE_CHARACTER) endTurnButton.SetActive(true);
+        if (selectionPhase == SelectionPhase.CHOOSE_CHARACTER) { endTurnButton.SetActive(true); }
         else { endTurnButton.SetActive(false); }
     }
 

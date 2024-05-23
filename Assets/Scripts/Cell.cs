@@ -29,6 +29,8 @@ public class Cell: MonoBehaviour
     [SerializeField] private Color exitColor = Color.blue;
     [SerializeField] private Color availableColor = Color.green;
     [SerializeField] private Color selectedColor = Color.green;
+    [SerializeField] private Color enemyAvailableColor = Color.red;
+    [SerializeField] private Color enemySelectedColor = Color.red;
 
     private void Awake()
     {
@@ -77,13 +79,20 @@ public class Cell: MonoBehaviour
     // Temp color change anim
     private void Update()
     {
+        SetCellColor();
+    }
+
+    private void SetCellColor()
+    {
         if (status == CellStatus.AVAILABLE)
         {
-            cell_material.SetColor("_BaseColor", availableColor);
+            if (this.occupant == null) { cell_material.SetColor("_BaseColor", availableColor); }
+            else { cell_material.SetColor("_BaseColor", enemyAvailableColor); }
         }
         else if (status == CellStatus.SELECTED)
         {
-            cell_material.SetColor("_BaseColor", selectedColor);
+            if (this.occupant == null) { cell_material.SetColor("_BaseColor", selectedColor); }
+            else { cell_material.SetColor("_BaseColor", enemySelectedColor); }
         }
         else if (cell_code == 'o' && !room.exitRooms[exitCode].active)
         {
@@ -95,10 +104,10 @@ public class Cell: MonoBehaviour
         }
 
         // Override color for moused
-/*        if (moused)
-        {
-            cell_material.SetColor("_BaseColor", mousedColor);
-        }*/
+        /*        if (moused)
+                {
+                    cell_material.SetColor("_BaseColor", mousedColor);
+                }*/
     }
 
 

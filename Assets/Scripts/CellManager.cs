@@ -47,6 +47,7 @@ public class CellManager : MonoBehaviour
         if (source == null)
         {
             ResetSelection();
+            dungeonManager.CellManagerStatusUpdate(selectionPhase);
             return;
         }
 
@@ -60,8 +61,9 @@ public class CellManager : MonoBehaviour
             // Selecting a hero (player character):
             if (source.occupant.characterType == CharacterType.HERO)
             {
-                DisplayMoveRange(source);
                 originCell = source;
+                DisplayMoveRange(originCell);
+                DisplayMeleeTargets(originCell);
 
                 selectionPhase = SelectionPhase.HERO_CHOSEN;
             }
@@ -74,6 +76,7 @@ public class CellManager : MonoBehaviour
             {
                 SetAllToStatus(CellStatus.BASE);
                 DisplayMoveRange(originCell);
+                DisplayMeleeTargets(originCell);
             }
 
             // Select the cell.
@@ -83,18 +86,32 @@ public class CellManager : MonoBehaviour
         // Activate selected cell.
         else if (source.status == CellStatus.SELECTED)
         {
-            // Move function (eventually add attack functions; [NEEDS WORK])
-            Character character = originCell.occupant;
-            int distanceMoved = FindDistance(originCell, source, character.remainingMoves);
-            FindPath(originCell, source, distanceMoved);
-            PrintPath(); //temp debugging
-
-            character.remainingMoves -= distanceMoved;
-            StartCoroutine(character.MoveAlongPath(path));
-
-            if (character.cell.cell_code == 'o')
+            // Move function
+            if (source.occupant == null)
             {
-                mapManager.ExploreRoom(character.cell.room, character.cell.exitCode);
+                Character character = originCell.occupant;
+                int distanceMoved = FindDistance(originCell, source, character.remainingMoves);
+                FindPath(originCell, source, distanceMoved);
+                PrintPath(); //temp debugging
+
+                character.remainingMoves -= distanceMoved;
+                StartCoroutine(character.MoveAlongPath(path));
+
+                if (character.cell.cell_code == 'o')
+                {
+                    mapManager.ExploreRoom(character.cell.room, character.cell.exitCode);
+                }
+            }
+            //Attack function
+            else
+            {
+                if (source.occupant.characterType != originCell.occupant.characterType)
+                {
+                    originCell.occupant.remainingMeleeAttacks--;
+                    originCell.occupant.remainingMoves = 0; //decrease melee by 1, no moves after attacking
+                    //Attack code here
+                }
+                // eventually add further code for special healing abilities etc. that target friendly characters
             }
 
             // Reset and return;
@@ -159,8 +176,35 @@ public class CellManager : MonoBehaviour
 
     //-----------------------------------------------------------------------------------------------------------------//
     //***DISTANCES AND PATHFINDING***
-    // Return the distance between two cells; the cells must be within
-    private int FindDistance(Cell origin, Cell destination, int searchLength)
+    // Multi-purpose function uses for iterating through adjacent and diagonally valid cells. [NEEDS optimization]
+    private void TraverseCells(Cell origin, int movesRemaining, Action<Cell, int> Method, bool allDiagonalsAllowed)
+    {
+        if (movesRemaining <= 0) return;
+        for (int i = -1; i < 2; i++)
+        {
+            for (int j = -1; j < 2; j++)
+            {
+                Cell next_cell = FindCell(origin.x + i, origin.y + j);
+                if (!(i == 0 && j == 0) && next_cell != null)
+                {
+                        if (DiagonalAllowed(origin.x, origin.y, i, j) || allDiagonalsAllowed)
+                        {
+                            Method(next_cell, movesRemaining);
+                            TraverseCells(next_cell, movesRemaining - 1, Method, allDiagonalsAllowed);
+                        }
+                }
+            }
+        }
+        return;
+    }
+    // Unless explicitly specified, allDiagonalsAllowed will be false.
+    private void TraverseCells(Cell origin, int movesRemaining, Action<Cell, int> Method)
+    {
+        TraverseCells(origin, movesRemaining, Method, false);
+    }
+
+        // Return the distance between two cells; the cells must be within
+        private int FindDistance(Cell origin, Cell destination, int searchLength)
     {
         ClearCellDistances();
         TraverseCells(origin, searchLength, MarkDistance);
@@ -169,9 +213,10 @@ public class CellManager : MonoBehaviour
         return GetCellDistance(destination.x, destination.y);
     }
     // FindDistance helper function (called through TraverseCells).
-    private void MarkDistance(Cell c, int movesRemaining)
+    private void MarkDistance(Cell cell, int movesRemaining)
     {
-        if (GetCellDistance(c.x, c.y) == -1 || GetCellDistance(c.x, c.y) < movesRemaining) SetCellDistance(c.x, c.y, movesRemaining);
+        if (cell.occupant != null) return;
+        if (GetCellDistance(cell.x, cell.y) == -1 || GetCellDistance(cell.x, cell.y) < movesRemaining) SetCellDistance(cell.x, cell.y, movesRemaining);
         return;
     }
     // Invert distances to be relative to start position.
@@ -199,6 +244,7 @@ public class CellManager : MonoBehaviour
     }
     // FindPath helper function (called through TraverseCells).
     private void AddCellToPath(Cell cell, int movesRemaining) {
+        if (cell.occupant != null) return;
         //Debug.Log("Trying to add (" +cell.x + ", " +cell.y + ") with " + movesRemaining + "moves remaining");
         if (GetCellDistance(cell.x, cell.y) == -1 || path[movesRemaining] != null) { 
             //Debug.Log("Failed A"); 
@@ -218,31 +264,24 @@ public class CellManager : MonoBehaviour
     //***RANGE DISPLAY***
     private void DisplayMoveRange(Cell origin)
     {
-        TraverseCells(origin, origin.occupant.remainingMoves, SetCellToAvailable);
+        TraverseCells(origin, origin.occupant.remainingMoves, MakeAvailableForMove);
     }
-    private void TraverseCells(Cell origin, int movesRemaining, Action<Cell, int> Method)
+    private void MakeAvailableForMove(Cell cell, int i) 
     {
-        if (movesRemaining <= 0) return;
-        for(int i = -1; i < 2; i++)
-        {
-            for (int j = -1; j < 2; j++)
-            {
-                Cell next_cell = FindCell(origin.x + i, origin.y + j);
-                if (!(i == 0 && j == 0) && next_cell != null)
-                {
-                    if (next_cell.occupant == null)
-                    {
-                        if(DiagonalAllowed(origin.x, origin.y, i, j))
-                        {
-                            Method(next_cell, movesRemaining);
-                            TraverseCells(next_cell, movesRemaining - 1, Method);                           
-                        }
-                    }
-                }
-            }
-        }
-        return;
+        if (cell.occupant == null) { cell.status = CellStatus.AVAILABLE;  }
     }
+    private void DisplayMeleeTargets(Cell origin)
+    {
+        if (origin.occupant.remainingMeleeAttacks == 0) return;
+        TraverseCells(origin, 1, MakeAvailableForAttack, true);
+    }
+    private void MakeAvailableForAttack(Cell cell, int i)
+    {
+        if (cell.occupant != null) { 
+            if(cell.occupant.characterType != originCell.occupant.characterType) cell.status = CellStatus.AVAILABLE; 
+        }
+    }
+
 
     //-----------------------------------------------------------------------------------------------------------------//
     //***HELPER FUNCTIONS***
@@ -280,11 +319,6 @@ public class CellManager : MonoBehaviour
         {
             if (c != null) c.status = cellStatus;
         }
-    }
-    private void SetCellToAvailable(Cell c, int i)
-    {
-        c.status = CellStatus.AVAILABLE;
-        return;
     }
     private void MakeCharactersAvailable()
     {
