@@ -1,8 +1,7 @@
 # SquishableQuest2024
 
 ## To do
-	- add attack damage calculation
-	- (add attack damage number UI display)
+	- add full attack damage calculation
 	- Display UI for remaing moves, attacks, stats, etc. for selected character
 	- correct sequencing for room exploration (room reveals before destination reached in animation)
 	- optimize pathfinding, move display

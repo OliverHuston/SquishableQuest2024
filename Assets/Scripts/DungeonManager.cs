@@ -21,12 +21,17 @@ public class DungeonManager : MonoBehaviour
 {
     public Turn turn;
     public GameObject endTurnButton;
+    public AnimatedText attackDisplayText;
+
     public Character[] characters;
+
+    public Camera mainCamera;
 
     // Start is called before the first frame update
     void Awake()
     {
         characters = FindObjectsOfType<Character>();  //needs fixing to exclude enemies
+        mainCamera = Camera.main;
         endTurnButton.SetActive(false);
     }
 
@@ -68,11 +73,15 @@ public class DungeonManager : MonoBehaviour
         // Rotate to target
         StartCoroutine(attacker.RotateToFace(defender.cell));
 
+/*        Vector3 screenPos = Position
+        defender.gameObject
+*/
         // To hit
         if (attackType == AttackType.MELEE)
         {
             if (!Roll(7 - attacker.statline.weaponskill)) {
                 Debug.Log("MISSED MELEE!");
+                MissedText(defender);
                 return;
             }
         }
@@ -80,6 +89,7 @@ public class DungeonManager : MonoBehaviour
         {
             if (!Roll(7 - attacker.statline.ballisticskill)) {
                 Debug.Log("MISSED SHOOTING!");
+                MissedText(defender);
                 return; 
             }
         }
@@ -89,11 +99,36 @@ public class DungeonManager : MonoBehaviour
 
         // Inflict damage
         //(temp)
-        defender.currentHealth -= 2;
+        int damage = 2;
+        DamageText(defender, damage);
+        defender.currentHealth -= damage;
 
 
         // Check for deathblow if melee
 
+    }
+
+    private void DamageText(Character damagedCharacter, int damage)
+    {
+        attackDisplayText.gameObject.transform.position = mainCamera.WorldToScreenPoint(damagedCharacter.gameObject.transform.position);
+
+        attackDisplayText.gameObject.SetActive(true);
+        attackDisplayText.SetMessage("-" + damage);
+        attackDisplayText.SetColor(Color.white);        
+        StartCoroutine(attackDisplayText.FadeInAndOut(.6f, 1f));
+        attackDisplayText.gameObject.SetActive(true);
+    }
+
+    private void MissedText(Character missedCharacter)
+    {
+        attackDisplayText.gameObject.transform.position = mainCamera.WorldToScreenPoint(missedCharacter.gameObject.transform.position);
+
+        attackDisplayText.gameObject.SetActive(true);
+        attackDisplayText.SetMessage("MISSED!");
+        attackDisplayText.SetColor(Color.white);
+        
+        StartCoroutine(attackDisplayText.FadeInAndOut(.6f, 1f));
+        attackDisplayText.gameObject.SetActive(true);
     }
 
     //-----------------------------------------------------------------------------------------------------------------//
