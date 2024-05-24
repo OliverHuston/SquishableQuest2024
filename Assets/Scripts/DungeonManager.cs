@@ -17,13 +17,12 @@ public class DungeonManager : MonoBehaviour
 
     public GameObject endTurnButton;
 
-    private Character[] heroes;
-    private Character[] enemies;
+    public Character[] characters;
 
     // Start is called before the first frame update
     void Awake()
     {
-        heroes = FindObjectsOfType<Character>();  //needs fixing to exclude enemies
+        characters = FindObjectsOfType<Character>();  //needs fixing to exclude enemies
         endTurnButton.SetActive(false);
     }
 
@@ -51,9 +50,9 @@ public class DungeonManager : MonoBehaviour
 
     private void StartPlayerTurn()
     {
-        foreach (Character c in heroes)
+        foreach (Character c in characters)
         {
-            c.ResetActionAllowances();
+            if(c.characterType == CharacterType.HERO) c.ResetActionAllowances();
         }
     }
 }

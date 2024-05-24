@@ -7,7 +7,7 @@ public enum CellStatus
     BASE = 0,
     AVAILABLE = 1,
     SELECTED = 2,
-    TARGETED = 3
+    //TARGETED = 3
 }
 
 public class Cell: MonoBehaviour

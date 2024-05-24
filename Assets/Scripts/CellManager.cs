@@ -1,8 +1,13 @@
+using OpenCover.Framework.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
 using UnityEngine;
+using UnityEngine.UIElements;
+using static UnityEditor.PlayerSettings;
+using static UnityEngine.GraphicsBuffer;
+using static UnityEngine.InputManagerEntry;
 using static UnityEngine.UI.Image;
 
 public enum SelectionPhase
@@ -64,6 +69,7 @@ public class CellManager : MonoBehaviour
                 originCell = source;
                 DisplayMoveRange(originCell);
                 DisplayMeleeTargets(originCell);
+                DisplayRangedTargets(originCell);
 
                 selectionPhase = SelectionPhase.HERO_CHOSEN;
             }
@@ -75,8 +81,10 @@ public class CellManager : MonoBehaviour
             if (selectionPhase == SelectionPhase.TARGET_SELECTED)
             {
                 SetAllToStatus(CellStatus.BASE);
+
                 DisplayMoveRange(originCell);
                 DisplayMeleeTargets(originCell);
+                DisplayRangedTargets(originCell);
             }
 
             // Select the cell.
@@ -107,9 +115,17 @@ public class CellManager : MonoBehaviour
             {
                 if (source.occupant.characterType != originCell.occupant.characterType)
                 {
-                    originCell.occupant.remainingMeleeAttacks--;
-                    originCell.occupant.remainingMoves = 0; //decrease melee by 1, no moves after attacking
-                    //Attack code here
+                    originCell.occupant.remainingMoves = 0; //no moves after attacking
+                    // Melee Attack
+                    if(IsAdjacent(source, originCell))
+                    {
+                        originCell.occupant.remainingMeleeAttacks--;
+                    }
+                    // Ranged Attack
+                    else
+                    {
+                        originCell.occupant.remainingRangedAttacks--;
+                    }
                 }
                 // eventually add further code for special healing abilities etc. that target friendly characters
             }
@@ -187,11 +203,11 @@ public class CellManager : MonoBehaviour
                 Cell next_cell = FindCell(origin.x + i, origin.y + j);
                 if (!(i == 0 && j == 0) && next_cell != null)
                 {
-                        if (DiagonalAllowed(origin.x, origin.y, i, j) || allDiagonalsAllowed)
-                        {
-                            Method(next_cell, movesRemaining);
-                            TraverseCells(next_cell, movesRemaining - 1, Method, allDiagonalsAllowed);
-                        }
+                    if ((DiagonalAllowed(origin.x, origin.y, i, j) || allDiagonalsAllowed) && next_cell.occupant == null)
+                    {
+                        Method(next_cell, movesRemaining);
+                        TraverseCells(next_cell, movesRemaining - 1, Method, allDiagonalsAllowed);
+                    }
                 }
             }
         }
@@ -215,7 +231,6 @@ public class CellManager : MonoBehaviour
     // FindDistance helper function (called through TraverseCells).
     private void MarkDistance(Cell cell, int movesRemaining)
     {
-        if (cell.occupant != null) return;
         if (GetCellDistance(cell.x, cell.y) == -1 || GetCellDistance(cell.x, cell.y) < movesRemaining) SetCellDistance(cell.x, cell.y, movesRemaining);
         return;
     }
@@ -244,13 +259,12 @@ public class CellManager : MonoBehaviour
     }
     // FindPath helper function (called through TraverseCells).
     private void AddCellToPath(Cell cell, int movesRemaining) {
-        if (cell.occupant != null) return;
         //Debug.Log("Trying to add (" +cell.x + ", " +cell.y + ") with " + movesRemaining + "moves remaining");
         if (GetCellDistance(cell.x, cell.y) == -1 || path[movesRemaining] != null) { 
             //Debug.Log("Failed A"); 
             return; 
         }
-        else if (GetCellDistance(cell.x, cell.y) == movesRemaining && IsAdjacent(cell, path[movesRemaining + 1]))
+        else if (GetCellDistance(cell.x, cell.y) == movesRemaining && IsAdjacentByMove(cell, path[movesRemaining + 1]))
         {
             path[movesRemaining] = cell;
             //Debug.Log("Success");
@@ -268,18 +282,82 @@ public class CellManager : MonoBehaviour
     }
     private void MakeAvailableForMove(Cell cell, int i) 
     {
-        if (cell.occupant == null) { cell.status = CellStatus.AVAILABLE;  }
+        cell.status = CellStatus.AVAILABLE;
     }
     private void DisplayMeleeTargets(Cell origin)
     {
-        if (origin.occupant.remainingMeleeAttacks == 0) return;
-        TraverseCells(origin, 1, MakeAvailableForAttack, true);
-    }
-    private void MakeAvailableForAttack(Cell cell, int i)
-    {
-        if (cell.occupant != null) { 
-            if(cell.occupant.characterType != originCell.occupant.characterType) cell.status = CellStatus.AVAILABLE; 
+        if(origin.occupant.remainingMeleeAttacks <= 0) { return; }
+        for (int i = -1; i < 2; i++)
+        {
+            for (int j = -1; j < 2; j++)
+            {
+                Cell next_cell = FindCell(origin.x + i, origin.y + j);
+                if (!(i == 0 && j == 0) && next_cell != null)
+                {
+                    if (next_cell.occupant != null)
+                    {
+                        if(next_cell.occupant.characterType != origin.occupant.characterType) { next_cell.status = CellStatus.AVAILABLE; }
+                    }
+                }
+            }
         }
+    }
+    private void DisplayRangedTargets(Cell origin)
+    {
+        if(origin.occupant.remainingRangedAttacks <= 0) { return; }
+
+        foreach(Character c in dungeonManager.characters)
+        {
+            if (c != origin.occupant)
+            {
+                //Debug.Log("PATH to " + c.name);
+                //Debug.DrawLine(origin.occupant.transform.position, c.transform.position,
+                 //   Color.white, 10f, false);
+
+                if(LineOfSight(origin, c.cell))
+                {
+                    if (c.characterType != origin.occupant.characterType && !IsAdjacent(origin, c.cell)) { c.cell.status = CellStatus.AVAILABLE; }
+
+/*                    if (c.characterType != origin.occupant.characterType
+                    && !(origin.x - c.cell.x < -1 || origin.y - c.cell.y < -1 || origin.x - c.cell.x > 1 || origin.y - c.cell.y > 1)) 
+                    { c.cell.status = CellStatus.AVAILABLE; }*/
+                }
+            }
+        }
+    }
+
+    private bool LineOfSight(Cell a, Cell b)
+    {
+        if(a == null || b == null) {return false;}
+
+        float m = 10000f;
+        if (a.x != b.x) m = (float)(a.y - b.y) / (a.x - b.x);
+        float c = - (a.x * m) + a.y;
+
+        //Debug.Log(Mathf.Min(a.x, b.x) + "," + Mathf.Max(a.x, b.x) + "," + Mathf.Min(a.y, b.y) + "," + Mathf.Max(a.y, b.y));
+
+        for (int i = Mathf.Min(a.x, b.x); i < Mathf.Max(a.x, b.x) + 1; i++)
+        {
+            for (int j = Mathf.Min(a.y, b.y); j < Mathf.Max(a.y, b.y) + 1; j++)
+            {
+                
+                float x_min = i - .5f;   float x_max = i + .5f;
+                float y_min = j - .5f;   float y_max = j + .5f;
+
+                if ((m > 0 && m * x_min + c <= y_max && m * x_max + c >= y_min) 
+                    || (m <= 0 && m * x_min + c >= y_min && m * x_max + c <= y_max))
+                {
+                    //Debug.Log("* " + i + ", " + j);
+                    if (FindCell(i, j) == null) return false;
+                }
+                else
+                {
+                    //Debug.Log(i + ", " + j);
+                }  
+            }
+        }
+
+        return true;
     }
 
 
@@ -297,11 +375,18 @@ public class CellManager : MonoBehaviour
         else if (a.occupant == null || b.occupant == null) { return true; }
         return false;
     }
-    private bool IsAdjacent(Cell a, Cell b)
+    private bool IsAdjacentByMove(Cell a, Cell b)
     {
         if (a == null || b == null) return false;
         if (DiagonalAllowed(a.x, a.y, b.x-a.x, b.y-a.y)) return true;
         return false;
+    }
+    private bool IsAdjacent(Cell a, Cell b)
+    {
+        int toX = a.x - b.x;
+        int toY = a.y - b.x;
+        if (toX < -1 || toY < -1 || toX > 1 || toY > 1) { return false; }
+        return true;
     }
 
     //-----------------------------------------------------------------------------------------------------------------//
