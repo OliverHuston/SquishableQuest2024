@@ -67,10 +67,7 @@ public class CellManager : MonoBehaviour
             if (source.occupant.characterType == CharacterType.HERO)
             {
                 originCell = source;
-                DisplayMoveRange(originCell);
-                DisplayMeleeTargets(originCell);
-                DisplayRangedTargets(originCell);
-
+                DisplayMoveMeleeRanged(originCell);
                 selectionPhase = SelectionPhase.HERO_CHOSEN;
             }
         }
@@ -81,10 +78,7 @@ public class CellManager : MonoBehaviour
             if (selectionPhase == SelectionPhase.TARGET_SELECTED)
             {
                 SetAllToStatus(CellStatus.BASE);
-
-                DisplayMoveRange(originCell);
-                DisplayMeleeTargets(originCell);
-                DisplayRangedTargets(originCell);
+                DisplayMoveMeleeRanged(originCell);
             }
 
             // Select the cell.
@@ -100,8 +94,8 @@ public class CellManager : MonoBehaviour
                 Character character = originCell.occupant;
                 int distanceMoved = FindDistance(originCell, source, character.remainingMoves);
                 FindPath(originCell, source, distanceMoved);
-                PrintPath(); //temp debugging
-
+/*                PrintPath(); //temp debugging
+*/
                 character.remainingMoves -= distanceMoved;
                 StartCoroutine(character.MoveAlongPath(path));
 
@@ -116,15 +110,18 @@ public class CellManager : MonoBehaviour
                 if (source.occupant.characterType != originCell.occupant.characterType)
                 {
                     originCell.occupant.remainingMoves = 0; //no moves after attacking
+
                     // Melee Attack
                     if(IsAdjacent(source, originCell))
                     {
                         originCell.occupant.remainingMeleeAttacks--;
+                        dungeonManager.ProcessAttack(originCell.occupant, source.occupant, AttackType.MELEE);
                     }
                     // Ranged Attack
                     else
                     {
                         originCell.occupant.remainingRangedAttacks--;
+                        dungeonManager.ProcessAttack(originCell.occupant, source.occupant, AttackType.RANGED);
                     }
                 }
                 // eventually add further code for special healing abilities etc. that target friendly characters
@@ -132,10 +129,19 @@ public class CellManager : MonoBehaviour
 
             // Reset and return;
             ResetSelection();
+            return;
         }
 
         dungeonManager.CellManagerStatusUpdate(selectionPhase);
     }
+
+    private void DisplayMoveMeleeRanged(Cell cell)
+    {
+        DisplayMoveRange(cell);
+        DisplayMeleeTargets(cell);
+        DisplayRangedTargets(cell);
+    }
+
 
     //-----------------------------------------------------------------------------------------------------------------//
     //***ARRAYS MANAGEMENT AND ACCESS***
@@ -261,16 +267,13 @@ public class CellManager : MonoBehaviour
     private void AddCellToPath(Cell cell, int movesRemaining) {
         //Debug.Log("Trying to add (" +cell.x + ", " +cell.y + ") with " + movesRemaining + "moves remaining");
         if (GetCellDistance(cell.x, cell.y) == -1 || path[movesRemaining] != null) { 
-            //Debug.Log("Failed A"); 
             return; 
         }
         else if (GetCellDistance(cell.x, cell.y) == movesRemaining && IsAdjacentByMove(cell, path[movesRemaining + 1]))
         {
             path[movesRemaining] = cell;
-            //Debug.Log("Success");
             return;
         }
-        //Debug.Log("Failed B");
         return;
     }
 
@@ -310,22 +313,13 @@ public class CellManager : MonoBehaviour
         {
             if (c != origin.occupant)
             {
-                //Debug.Log("PATH to " + c.name);
-                //Debug.DrawLine(origin.occupant.transform.position, c.transform.position,
-                 //   Color.white, 10f, false);
-
                 if(LineOfSight(origin, c.cell))
                 {
                     if (c.characterType != origin.occupant.characterType && !IsAdjacent(origin, c.cell)) { c.cell.status = CellStatus.AVAILABLE; }
-
-/*                    if (c.characterType != origin.occupant.characterType
-                    && !(origin.x - c.cell.x < -1 || origin.y - c.cell.y < -1 || origin.x - c.cell.x > 1 || origin.y - c.cell.y > 1)) 
-                    { c.cell.status = CellStatus.AVAILABLE; }*/
                 }
             }
         }
     }
-
     private bool LineOfSight(Cell a, Cell b)
     {
         if(a == null || b == null) {return false;}
@@ -360,7 +354,6 @@ public class CellManager : MonoBehaviour
         return true;
     }
 
-
     //-----------------------------------------------------------------------------------------------------------------//
     //***HELPER FUNCTIONS***
     private bool DiagonalAllowed(int originX, int originY, int toX, int toY)
@@ -384,7 +377,7 @@ public class CellManager : MonoBehaviour
     private bool IsAdjacent(Cell a, Cell b)
     {
         int toX = a.x - b.x;
-        int toY = a.y - b.x;
+        int toY = a.y - b.y;
         if (toX < -1 || toY < -1 || toX > 1 || toY > 1) { return false; }
         return true;
     }

@@ -21,11 +21,13 @@ public class Character : MonoBehaviour
     public int remainingMeleeAttacks;
     public int remainingRangedAttacks;
 
-    //Move anim parameters (hardcoded)
+    // Move anim parameters (hardcoded)
     public float moveAnimSpeed = 2f;
     public float rotateAnimSpeed = 4f;
     public float moveDestinationTolerance = .1f;
     public float rotateAngleTolerance = .1f;
+
+    // Fixed Stat Modifiers
 
     // Status variables
     //[HideInInspector] 
@@ -95,15 +97,16 @@ public class Character : MonoBehaviour
 
         for(int i = 1; i < path.Length; i++)
         {
-            yield return MoveToNextCell(path[i].x, path[i].y);
+            yield return RotateAnimation(path[i].x, path[i].y);
+            yield return MoveAnimation(path[i].x, path[i].y);
         }
     }
-
-    private IEnumerator MoveToNextCell(int x, int y)
+    public IEnumerator RotateToFace(Cell cell)
     {
-        yield return RotateAnimation(x, y);
-        yield return MoveAnimation(x, y);
+        yield return RotateAnimation(cell.x, cell.y);
     }
+
+
     private IEnumerator RotateAnimation (int x, int y)
     {
         Vector3 targetPosition = new Vector3(x, transform.position.y, y);
