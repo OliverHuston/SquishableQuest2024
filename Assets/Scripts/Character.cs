@@ -15,6 +15,9 @@ public class Character : MonoBehaviour
     public CharacterType characterType = CharacterType.HERO;
     public CharacterStatline statline;
 
+    // Description Variables
+    public string characterDisplayName;
+
     // Current variable statuses
     public int currentHealth;
     public int remainingMoves;

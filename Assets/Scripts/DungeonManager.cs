@@ -15,19 +15,38 @@ public enum AttackType
     MELEE = 0,
     RANGED = 1
 }
+ 
 
 
 public class DungeonManager : MonoBehaviour
 {
-    public Turn turn;
+    // UI elements
     public GameObject endTurnButton;
     public AnimatedText attackDisplayText;
+    public StatsDisplayPanel heroDisplayPanel;
+    public StatsDisplayPanel enemyDisplayPanel;
 
-    public Character[] characters;
+    // Status vars
+    [HideInInspector] public Turn turn;
+    
+    // Convenience reference
+    [HideInInspector] public Character[] characters;
+    [HideInInspector] public Camera mainCamera;
 
-    public Camera mainCamera;
+    // Charts
+    private int[,] ToHitChart =                 //attacker, defender
+        {{4, 4, 5, 6, 6, 6, 6, 6, 6, 6, 6},
+         {3, 4, 4, 4, 5, 5, 6, 6, 6, 6, 6},
+         {2, 3, 4, 4, 4, 4, 4, 5, 5, 5, 6},
+         {2, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5},
+         {2, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4},
+         {2, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4},
+         {2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4},
+         {2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4},
+         {2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4},
+         {2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4}};
 
-    // Start is called before the first frame update
+
     void Awake()
     {
         characters = FindObjectsOfType<Character>();  //needs fixing to exclude enemies
@@ -65,68 +84,54 @@ public class DungeonManager : MonoBehaviour
         if (selectionPhase == SelectionPhase.CHOOSE_CHARACTER) { endTurnButton.SetActive(true); }
         else { endTurnButton.SetActive(false); }
     }
+    
 
     //-----------------------------------------------------------------------------------------------------------------//
-    //  (called from CellManager when processing click)
+    //***ATTACK MANAGEMENT***
     public void ProcessAttack(Character attacker, Character defender, AttackType attackType)
     {
         // Rotate to target
         StartCoroutine(attacker.RotateToFace(defender.cell));
 
-/*        Vector3 screenPos = Position
-        defender.gameObject
-*/
-        // To hit
-        if (attackType == AttackType.MELEE)
+        // Roll to hit
+        if (attackType == AttackType.MELEE && !Roll(ToHitChart[attacker.statline.weaponskill, defender.statline.weaponskill]))
         {
-            if (!Roll(7 - attacker.statline.weaponskill)) {
-                Debug.Log("MISSED MELEE!");
-                MissedText(defender);
-                return;
-            }
+            MissedText(defender);
+            return;
         }
-        else if (attackType == AttackType.RANGED)
+        else if (attackType == AttackType.RANGED && !Roll(7 - attacker.statline.ballisticskill))
         {
-            if (!Roll(7 - attacker.statline.ballisticskill)) {
-                Debug.Log("MISSED SHOOTING!");
-                MissedText(defender);
-                return; 
-            }
+            MissedText(defender);
+            return;
         }
-
-        // To wound
-
 
         // Inflict damage
-        //(temp)
-        int damage = 2;
+        int weapon_damage = D6(); // temp: some weapons may deal more base damage
+        int damage = weapon_damage + Mathf.Min(0, attacker.statline.strength - defender.statline.toughness); // temp: add str bonus, toughness bonuses, armor bonuses, ignore armor etc.
+
         DamageText(defender, damage);
         defender.currentHealth -= damage;
 
-
-        // Check for deathblow if melee
-
+        // Check for deathblow if melee [NEEDS work]
+        //....
     }
 
+    // Attack UI display functions
     private void DamageText(Character damagedCharacter, int damage)
     {
         attackDisplayText.gameObject.transform.position = mainCamera.WorldToScreenPoint(damagedCharacter.gameObject.transform.position);
-
         attackDisplayText.gameObject.SetActive(true);
         attackDisplayText.SetMessage("-" + damage);
         attackDisplayText.SetColor(Color.white);        
         StartCoroutine(attackDisplayText.FadeInAndOut(.6f, 1f));
         attackDisplayText.gameObject.SetActive(true);
     }
-
     private void MissedText(Character missedCharacter)
     {
         attackDisplayText.gameObject.transform.position = mainCamera.WorldToScreenPoint(missedCharacter.gameObject.transform.position);
-
         attackDisplayText.gameObject.SetActive(true);
         attackDisplayText.SetMessage("MISSED!");
         attackDisplayText.SetColor(Color.white);
-        
         StartCoroutine(attackDisplayText.FadeInAndOut(.6f, 1f));
         attackDisplayText.gameObject.SetActive(true);
     }

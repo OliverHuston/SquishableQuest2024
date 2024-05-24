@@ -94,14 +94,17 @@ public class CellManager : MonoBehaviour
                 Character character = originCell.occupant;
                 int distanceMoved = FindDistance(originCell, source, character.remainingMoves);
                 FindPath(originCell, source, distanceMoved);
-/*                PrintPath(); //temp debugging
-*/
-                character.remainingMoves -= distanceMoved;
-                StartCoroutine(character.MoveAlongPath(path));
 
-                if (character.cell.cell_code == 'o')
+                if (CheckPathIntegrity() == true)
                 {
-                    mapManager.ExploreRoom(character.cell.room, character.cell.exitCode);
+                    character.remainingMoves -= distanceMoved;
+                    StartCoroutine(character.MoveAlongPath(path));
+
+                    if (character.cell.cell_code == 'o') { mapManager.ExploreRoom(character.cell.room, character.cell.exitCode); }
+                }
+                else
+                {
+                    Debug.Log("ERROR: Incomplete path generated.");
                 }
             }
             //Attack function
@@ -225,8 +228,8 @@ public class CellManager : MonoBehaviour
         TraverseCells(origin, movesRemaining, Method, false);
     }
 
-        // Return the distance between two cells; the cells must be within
-        private int FindDistance(Cell origin, Cell destination, int searchLength)
+    // Return the distance between two cells; the cells must be within
+    private int FindDistance(Cell origin, Cell destination, int searchLength)
     {
         ClearCellDistances();
         TraverseCells(origin, searchLength, MarkDistance);
@@ -275,6 +278,11 @@ public class CellManager : MonoBehaviour
             return;
         }
         return;
+    }
+    private bool CheckPathIntegrity()
+    {
+        for(int i = 0; i < path.Length; i++) { if (path[i] == null) return false; }
+        return true;
     }
 
     //-----------------------------------------------------------------------------------------------------------------//

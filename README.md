@@ -1,8 +1,13 @@
 # SquishableQuest2024
 
 ## To do
-	- add full attack damage calculation
 	- Display UI for remaing moves, attacks, stats, etc. for selected character
+	- add enemy AI: move and attacks on turn, with different behavior mode presets and special enemy statlines (i.e. simplified
+	armor bonuses, etc.); each enemy has a hero they are current targeting that is assigned at placement; characters moving out of 
+	range may allow enemy to change target
+	- add equipment stats to attack calculations
+	- enemy death in combat
+	- deathblow for hero melee attacks
 	- correct sequencing for room exploration (room reveals before destination reached in animation)
 	- optimize pathfinding, move display
 
@@ -11,5 +16,7 @@
 	- rarely move does not occur and character gets stuck
 
 ## Safety Code to add
-	- prevent move attempt if calculcated path is incomplete
 	- move anim should end/timeout after a certain amount of time to prevent characters from getting stuck
+
+## Additional Features
+	- add Dodge special rule (chance to avoid attack using initiative)?
