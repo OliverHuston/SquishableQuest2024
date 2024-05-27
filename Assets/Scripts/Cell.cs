@@ -36,10 +36,7 @@ public class Cell: MonoBehaviour
     {
         cellManager = FindAnyObjectByType<CellManager>();
         cell_material = this.gameObject.GetComponent<Renderer>().material;
-
         this.FindExitCode();
-
-
     }
 
     public void FindExitCode()

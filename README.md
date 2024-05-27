@@ -1,10 +1,12 @@
 # SquishableQuest2024
 
 ## To do
-	- Display UI for remaing moves, attacks, stats, etc. for selected character
+	- stat display shows remaining moves, attacks, ranged attacks, & health
+	- add Enemy scriptable object for specialize statlines
 	- add enemy AI: move and attacks on turn, with different behavior mode presets and special enemy statlines (i.e. simplified
 	armor bonuses, etc.); each enemy has a hero they are current targeting that is assigned at placement; characters moving out of 
 	range may allow enemy to change target
+	- Stat display shows special rules
 	- add equipment stats to attack calculations
 	- enemy death in combat
 	- deathblow for hero melee attacks

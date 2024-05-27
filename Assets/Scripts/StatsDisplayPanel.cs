@@ -14,6 +14,11 @@ public class StatsDisplayPanel : MonoBehaviour
 
     public void UpdateStats(Character newDisplayCharacter)
     {
+        if (newDisplayCharacter == null) { 
+            this.gameObject.SetActive(false);
+            return; 
+        }
+
         source_character = newDisplayCharacter;
         foreach(DisplayText dt in displayTexts)
         {

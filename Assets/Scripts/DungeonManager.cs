@@ -17,7 +17,6 @@ public enum AttackType
 }
  
 
-
 public class DungeonManager : MonoBehaviour
 {
     // UI elements
@@ -79,10 +78,34 @@ public class DungeonManager : MonoBehaviour
     }
 
     //-----------------------------------------------------------------------------------------------------------------//
+    //***UI MANAGEMENT***
     public void CellManagerStatusUpdate(SelectionPhase selectionPhase)
     {
-        if (selectionPhase == SelectionPhase.CHOOSE_CHARACTER) { endTurnButton.SetActive(true); }
+        if (selectionPhase == SelectionPhase.CHOOSE_CHARACTER) { 
+            endTurnButton.SetActive(true);
+/*            heroDisplayPanel.gameObject.SetActive(false);
+            enemyDisplayPanel.gameObject.SetActive(false);*/
+        }
         else { endTurnButton.SetActive(false); }
+    }
+    public void DisplayCharacterStats(Character character)
+    {
+        if (character == null)
+        {
+            heroDisplayPanel.gameObject.SetActive(false);
+            enemyDisplayPanel.gameObject.SetActive(false);
+
+        }
+        else if(character.characterType == CharacterType.HERO)
+        {
+            heroDisplayPanel.gameObject.SetActive(true);
+            heroDisplayPanel.UpdateStats(character);
+        }
+        else if(character.characterType == CharacterType.ENEMY)
+        {
+            enemyDisplayPanel.gameObject.SetActive(true);
+            enemyDisplayPanel.UpdateStats(character);
+        }
     }
     
 
@@ -115,7 +138,6 @@ public class DungeonManager : MonoBehaviour
         // Check for deathblow if melee [NEEDS work]
         //....
     }
-
     // Attack UI display functions
     private void DamageText(Character damagedCharacter, int damage)
     {
@@ -148,11 +170,10 @@ public class DungeonManager : MonoBehaviour
         if (D6() >= target) return true;
         return false;
     }
-
+    // Returns a d6 value.
     public int D6()
     {
         int roll = (int)Random.Range(0, 5) + 1;
         return roll;
     }
-
 }

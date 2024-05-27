@@ -13,12 +13,12 @@ public class DisplayText : MonoBehaviour
     void Awake()
     {
         tmp = GetComponent<TMP_Text>();
-        UpdateText(source_character);
     }
 
     public void UpdateText(Character newSourceCharacter)
     {
         source_character = newSourceCharacter;
+        Debug.Log(source_var_name);
         string newDisplayString = (string)source_character.GetType().GetField(source_var_name).GetValue(source_character);
         tmp.text = newDisplayString;
     }

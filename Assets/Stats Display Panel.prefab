@@ -713,6 +713,7 @@ GameObject:
   - component: {fileID: 296704086394724597}
   - component: {fileID: 2759354280029782620}
   - component: {fileID: 7105987524995264495}
+  - component: {fileID: 970150596028703401}
   m_Layer: 5
   m_Name: Stat Value
   m_TagString: Untagged
@@ -767,7 +768,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 4
+  m_text: '-'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
   m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
@@ -836,6 +837,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &970150596028703401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4940831828743155442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b13bbe1763df15a419051d59aba65b40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source_character: {fileID: 0}
+  source_var_name: weaponskill
 --- !u!1 &5145095827534307434
 GameObject:
   m_ObjectHideFlags: 0
@@ -883,6 +898,7 @@ GameObject:
   - component: {fileID: 807055858130045631}
   - component: {fileID: 4569211880405800963}
   - component: {fileID: 674639901676242508}
+  - component: {fileID: 4519181025092115093}
   m_Layer: 5
   m_Name: Stat Value
   m_TagString: Untagged
@@ -937,7 +953,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 4
+  m_text: '-'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
   m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
@@ -1006,6 +1022,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4519181025092115093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5378305363104376399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b13bbe1763df15a419051d59aba65b40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source_character: {fileID: 0}
+  source_var_name: initiative
 --- !u!1 &5981871850100427602
 GameObject:
   m_ObjectHideFlags: 0
@@ -1227,10 +1257,10 @@ RectTransform:
   - {fileID: 4950975571296163201}
   - {fileID: 1924927588763429636}
   - {fileID: 296704086394724597}
-  - {fileID: 807055858130045631}
   - {fileID: 8090156183155787345}
   - {fileID: 7703415194102225000}
   - {fileID: 6789727927448831078}
+  - {fileID: 807055858130045631}
   - {fileID: 8527579301441175508}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1450,6 +1480,7 @@ GameObject:
   - component: {fileID: 7703415194102225000}
   - component: {fileID: 1800414915717067284}
   - component: {fileID: 133377643173563913}
+  - component: {fileID: 8714808920477671980}
   m_Layer: 5
   m_Name: Stat Value
   m_TagString: Untagged
@@ -1504,7 +1535,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 4
+  m_text: '-'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
   m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
@@ -1573,6 +1604,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &8714808920477671980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7250987044775535644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b13bbe1763df15a419051d59aba65b40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source_character: {fileID: 0}
+  source_var_name: strength
 --- !u!1 &7537318184571205719
 GameObject:
   m_ObjectHideFlags: 0
@@ -1584,6 +1629,7 @@ GameObject:
   - component: {fileID: 6789727927448831078}
   - component: {fileID: 3668945474294962098}
   - component: {fileID: 6783589513993722158}
+  - component: {fileID: 1207820578162615262}
   m_Layer: 5
   m_Name: Stat Value
   m_TagString: Untagged
@@ -1638,7 +1684,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 4
+  m_text: '-'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
   m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
@@ -1707,6 +1753,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1207820578162615262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7537318184571205719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b13bbe1763df15a419051d59aba65b40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source_character: {fileID: 0}
+  source_var_name: toughness
 --- !u!1 &8477121635115813906
 GameObject:
   m_ObjectHideFlags: 0
@@ -1718,6 +1778,7 @@ GameObject:
   - component: {fileID: 8090156183155787345}
   - component: {fileID: 3553584557440872375}
   - component: {fileID: 685844363502688383}
+  - component: {fileID: 7399962854606123683}
   m_Layer: 5
   m_Name: Stat Value
   m_TagString: Untagged
@@ -1772,7 +1833,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 4
+  m_text: '-'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
   m_sharedMaterial: {fileID: 2147374, guid: 0161d805a3764c089bef00bfe00793f5, type: 2}
@@ -1841,6 +1902,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7399962854606123683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8477121635115813906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b13bbe1763df15a419051d59aba65b40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source_character: {fileID: 0}
+  source_var_name: ballisticskill
 --- !u!1 &8686950360585065348
 GameObject:
   m_ObjectHideFlags: 0

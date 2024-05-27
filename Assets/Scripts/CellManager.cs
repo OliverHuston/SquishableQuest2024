@@ -48,13 +48,19 @@ public class CellManager : MonoBehaviour
     //***CELL CLICK HANDLING
     public void ReceiveClick(Cell source)
     {
+
+
         // If click received from Table:
         if (source == null)
         {
             ResetSelection();
             dungeonManager.CellManagerStatusUpdate(selectionPhase);
+            dungeonManager.DisplayCharacterStats(null);
+
             return;
         }
+
+
 
         // Initial character selection.
         if (source.status == CellStatus.BASE && source.occupant != null)
@@ -62,6 +68,8 @@ public class CellManager : MonoBehaviour
             ResetSelection();
 
             //Display stats of selected hero or enemy [NEEDS WORK]
+/*            dungeonManager.DisplayCharacterStats(source.occupant);
+*/            
 
             // Selecting a hero (player character):
             if (source.occupant.characterType == CharacterType.HERO)
@@ -135,7 +143,13 @@ public class CellManager : MonoBehaviour
             return;
         }
 
+
         dungeonManager.CellManagerStatusUpdate(selectionPhase);
+        if(originCell != null) dungeonManager.DisplayCharacterStats(originCell.occupant);
+        if(source.occupant != null)
+        {
+            if (source.occupant.characterType == CharacterType.ENEMY) { dungeonManager.DisplayCharacterStats(source.occupant); }
+        }
     }
 
     private void DisplayMoveMeleeRanged(Cell cell)

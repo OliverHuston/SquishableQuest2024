@@ -24,6 +24,13 @@ public class Character : MonoBehaviour
     public int remainingMeleeAttacks;
     public int remainingRangedAttacks;
 
+    // Stats
+    [HideInInspector] public string weaponskill;
+    [HideInInspector] public string ballisticskill;
+    [HideInInspector] public string strength;
+    [HideInInspector] public string toughness;
+    [HideInInspector] public string initiative;
+
     // Move anim parameters (hardcoded)
     public float moveAnimSpeed = 2f;
     public float rotateAnimSpeed = 4f;
@@ -48,6 +55,12 @@ public class Character : MonoBehaviour
         ResetActionAllowances();    
         xPos = (int)transform.position.x;
         yPos = (int)transform.position.z;
+
+        weaponskill = statline.weaponskill + "";
+        ballisticskill = statline.ballisticskill + "";
+        strength = statline.strength + "";
+        toughness = statline.toughness + "";
+        initiative = statline.initiative + "";
     }
 
     // Update is called once per frame
