@@ -6,10 +6,12 @@ public class StatsDisplayPanel : MonoBehaviour
 {
     public Character source_character;
     private DisplayText[] displayTexts;
+    private DisplayBar[] displayBars;
 
     void Awake()
     {
         displayTexts = GetComponentsInChildren<DisplayText>();
+        displayBars = GetComponentsInChildren<DisplayBar>();
     }
 
     public void UpdateStats(Character newDisplayCharacter)
@@ -23,6 +25,10 @@ public class StatsDisplayPanel : MonoBehaviour
         foreach(DisplayText dt in displayTexts)
         {
             dt.UpdateText(source_character);
+        }
+        foreach (DisplayBar db in displayBars)
+        {
+            db.UpdateBar(source_character);
         }
     }
 }

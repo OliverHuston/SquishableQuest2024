@@ -18,8 +18,16 @@ public class DisplayText : MonoBehaviour
     public void UpdateText(Character newSourceCharacter)
     {
         source_character = newSourceCharacter;
-        Debug.Log(source_var_name);
-        string newDisplayString = (string)source_character.GetType().GetField(source_var_name).GetValue(source_character);
-        tmp.text = newDisplayString;
+        //Debug.Log(source_var_name);
+        try
+        {
+            string newDisplayString = (string)source_character.GetType().GetField(source_var_name).GetValue(source_character);
+            tmp.text = newDisplayString;
+        }
+        catch
+        {
+            int newDisplayInt = (int)source_character.GetType().GetField(source_var_name).GetValue(source_character);
+            tmp.text = newDisplayInt + "";
+        }
     }
 }

@@ -114,6 +114,8 @@ public class CellManager : MonoBehaviour
                 {
                     Debug.Log("ERROR: Incomplete path generated.");
                 }
+
+                dungeonManager.DisplayCharacterStats(character);
             }
             //Attack function
             else
@@ -136,16 +138,18 @@ public class CellManager : MonoBehaviour
                     }
                 }
                 // eventually add further code for special healing abilities etc. that target friendly characters
+
+                dungeonManager.DisplayCharacterStats(originCell.occupant);
             }
 
-            // Reset and return;
+            // Reset
             ResetSelection();
-            return;
         }
 
 
         dungeonManager.CellManagerStatusUpdate(selectionPhase);
         if(originCell != null) dungeonManager.DisplayCharacterStats(originCell.occupant);
+        //else { dungeonManager.DisplayCharacterStats(null); }
         if(source.occupant != null)
         {
             if (source.occupant.characterType == CharacterType.ENEMY) { dungeonManager.DisplayCharacterStats(source.occupant); }

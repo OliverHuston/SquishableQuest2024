@@ -25,11 +25,13 @@ public class Character : MonoBehaviour
     public int remainingRangedAttacks;
 
     // Stats
-    [HideInInspector] public string weaponskill;
-    [HideInInspector] public string ballisticskill;
-    [HideInInspector] public string strength;
-    [HideInInspector] public string toughness;
-    [HideInInspector] public string initiative;
+    [HideInInspector] public int weaponskill;
+    [HideInInspector] public int ballisticskill;
+    [HideInInspector] public int strength;
+    [HideInInspector] public int toughness;
+    [HideInInspector] public int initiative;
+    [HideInInspector] public int maxHealth;
+
 
     // Move anim parameters (hardcoded)
     public float moveAnimSpeed = 2f;
@@ -56,11 +58,12 @@ public class Character : MonoBehaviour
         xPos = (int)transform.position.x;
         yPos = (int)transform.position.z;
 
-        weaponskill = statline.weaponskill + "";
-        ballisticskill = statline.ballisticskill + "";
-        strength = statline.strength + "";
-        toughness = statline.toughness + "";
-        initiative = statline.initiative + "";
+        weaponskill = statline.weaponskill;
+        ballisticskill = statline.ballisticskill;
+        strength = statline.strength;
+        toughness = statline.toughness;
+        initiative = statline.initiative;
+        maxHealth = statline.health;
     }
 
     // Update is called once per frame

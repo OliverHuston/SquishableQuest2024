@@ -620,6 +620,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stats Display Panel (Enemy)
       objectReference: {fileID: 0}
+    - target: {fileID: 6636021659110389918, guid: 659849889e86fbc40924d79c5fb7154c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1748,7 +1752,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6636021659110389918, guid: 659849889e86fbc40924d79c5fb7154c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6769407516382857474, guid: 659849889e86fbc40924d79c5fb7154c, type: 3}
       propertyPath: source_character
