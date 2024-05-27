@@ -191,8 +191,9 @@ public class CellManager : MonoBehaviour
             cells[c.x - cellStart_x, c.y - cellStart_y] = c;
         }
     }
-    private Cell FindCell(int x, int y)
+    public Cell FindCell(int x, int y)
     {
+        if (cells == null) return null;
         if (x < cellStart_x || y < cellStart_y) return null;
         return cells[x - cellStart_x, y - cellStart_y];
     }

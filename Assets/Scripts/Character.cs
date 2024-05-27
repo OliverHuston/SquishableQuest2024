@@ -19,12 +19,12 @@ public class Character : MonoBehaviour
     public string characterDisplayName;
 
     // Current variable statuses
-    public int currentHealth;
-    public int remainingMoves;
-    public int remainingMeleeAttacks;
-    public int remainingRangedAttacks;
+    [HideInInspector] public int currentHealth;
+    [HideInInspector] public int remainingMoves;
+    [HideInInspector] public int remainingMeleeAttacks;
+    [HideInInspector] public int remainingRangedAttacks;
 
-    // Stats
+    // Stats from this.statline
     [HideInInspector] public int weaponskill;
     [HideInInspector] public int ballisticskill;
     [HideInInspector] public int strength;
@@ -32,29 +32,29 @@ public class Character : MonoBehaviour
     [HideInInspector] public int initiative;
     [HideInInspector] public int maxHealth;
 
-
     // Move anim parameters (hardcoded)
     public float moveAnimSpeed = 2f;
     public float rotateAnimSpeed = 4f;
     public float moveDestinationTolerance = .1f;
     public float rotateAngleTolerance = .1f;
 
-    // Fixed Stat Modifiers
-
     // Status variables
-    //[HideInInspector] 
-    public int xPos;
-    //[HideInInspector] 
-    public int yPos;
-    private Transform cellManagerTransform;
+    [HideInInspector] public int xPos;
+    [HideInInspector] public int yPos;
     [HideInInspector] public Cell cell;
+
+
+    // Convenience
+    private CellManager cellManager;
 
 
     void Awake()
     {
-        cellManagerTransform = FindAnyObjectByType<CellManager>().transform;
+        cellManager = FindObjectOfType<CellManager>();
+
         currentHealth = statline.health;
-        ResetActionAllowances();    
+        ResetActionAllowances();
+        OccupyCell();
         xPos = (int)transform.position.x;
         yPos = (int)transform.position.z;
 
@@ -66,38 +66,33 @@ public class Character : MonoBehaviour
         maxHealth = statline.health;
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // Update occupied cell connection
         OccupyCell();
     }
 
-    public void OccupyCell()
+
+    //-----------------------------------------------------------------------------------------------------------------//
+    // Set this.cell and cell.occupant as appropriate after changing cells.
+    private void OccupyCell()
     {
-        // Cell remains the same
+        // Return if cell remains the same
         if (cell != null)
         {
             if (cell.x == xPos && cell.y == yPos) return;
         }
         
         // Character changed cells. Clear old cell's occupant. Set new cell occupant and set new cell to cell.
-        Transform new_cell = cellManagerTransform.Find("Cell (" + xPos + ", " + yPos + ")");
-        if (new_cell == null)
-        { 
-            cell = null; 
-            return; 
-        }
-        
-        if (cell != null) {
-            Debug.Log("Changed cells!");
-            cell.GetComponent<Cell>().occupant = null; 
-        }
-        new_cell.GetComponent<Cell>().occupant = this.GetComponent<Character>();
-        cell = new_cell.GetComponent<Cell>();
+        Cell new_cell = cellManager.FindCell(xPos, yPos);
+        if (new_cell == null) { cell = null; return; }
+
+        if (cell != null) { cell.occupant = null; }
+        new_cell.occupant = this.GetComponent<Character>();
+        cell = new_cell;
         return;
     }
-
+    // Reset moves, melee attack, and ranged attacks (called at start of a new turn).
     public void ResetActionAllowances()
     {
         remainingMoves = statline.moves;
@@ -106,13 +101,14 @@ public class Character : MonoBehaviour
     }
 
     //-----------------------------------------------------------------------------------------------------------------//
-    //***MOVE ANIMATIONS
+    //***MOVE ANIMATIONS***
+    // Move and rotate along provided cell path.
     public IEnumerator MoveAlongPath(Cell[] path)
     {
         Cell destination = path[path.Length-1];
         xPos = destination.x; 
         yPos = destination.y;
-        this.OccupyCell();
+        OccupyCell();
 
         for(int i = 1; i < path.Length; i++)
         {
@@ -120,12 +116,12 @@ public class Character : MonoBehaviour
             yield return MoveAnimation(path[i].x, path[i].y);
         }
     }
+    // Rotate to face a provided cell.
     public IEnumerator RotateToFace(Cell cell)
     {
         yield return RotateAnimation(cell.x, cell.y);
     }
-
-
+    // Rotate towards point (x, y).
     private IEnumerator RotateAnimation (int x, int y)
     {
         Vector3 targetPosition = new Vector3(x, transform.position.y, y);
@@ -144,6 +140,7 @@ public class Character : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(targetDirection);
         yield break;
     }
+    // Move towards point (x, y). Character must already be rotated to face the point.
     private IEnumerator MoveAnimation(int x, int y)
     {
         Vector3 targetPosition = new Vector3(x, transform.position.y, y);
