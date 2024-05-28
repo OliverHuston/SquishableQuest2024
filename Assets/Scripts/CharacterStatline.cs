@@ -2,9 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CharacterType
+{
+    HERO = 0,
+    ENEMY = 1
+}
+
 [CreateAssetMenu]
 public class CharacterStatline : ScriptableObject
 {
+    // Set automatically by EnemyStatline/HeroStatline objects
+    [HideInInspector] public CharacterType characterType;
+
+    // Display features
+    public string displayName;
+
     // Turn action allowances:
     public int moves = 4;
     public int meleeAttacks = 1;

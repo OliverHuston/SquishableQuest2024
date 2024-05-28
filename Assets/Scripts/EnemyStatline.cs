@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum EnemyBehavior
@@ -16,7 +17,7 @@ public enum EnemySpawn
 
 
 [CreateAssetMenu]
-public class EnemyStatline : ScriptableObject
+public class EnemyStatline : CharacterStatline
 {
     public int gold = 10;
     public int armor = 0;
@@ -25,4 +26,9 @@ public class EnemyStatline : ScriptableObject
 
     public EnemyBehavior enemyBehavior;
     public EnemySpawn enemySpawn;
+
+    private void Awake()
+    {
+        this.characterType = CharacterType.ENEMY;
+    }
 }

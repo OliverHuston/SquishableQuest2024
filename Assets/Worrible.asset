@@ -10,9 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b6eb985dd7c4124bb302fdcb74a9bdb, type: 3}
-  m_Name: New Enemy Statline
+  m_Name: Worrible
   m_EditorClassIdentifier: 
-  gold: 10
+  characterType: 1
+  displayName: Worrible
+  moves: 4
+  meleeAttacks: 1
+  rangedAttacks: 0
+  health: 5
+  weaponskill: 3
+  ballisticskill: 0
+  strength: 3
+  toughness: 4
+  initiative: 3
+  gold: 50
   armor: 0
   damage: d6
   specialRules: []

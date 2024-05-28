@@ -1,11 +1,10 @@
 # SquishableQuest2024
 
 ## To do
-	- add Enemy scriptable object for specialized statlines
 	- add enemy AI: move and attacks on turn, with different behavior mode presets and special enemy statlines (i.e. simplified
 	armor bonuses, etc.); each enemy has a hero they are current targeting that is assigned at placement; characters moving out of 
 	range may allow enemy to change target
-	- Stat display includes character portrait and shows special rules (stat display can also be turned into a still image)
+	- Stat display includes character portrait and shows special rules (stat display can also be turned into a still image for optimization)
 	- add equipment stats to attack calculations
 	- enemy death in combat
 	- deathblow for hero melee attacks

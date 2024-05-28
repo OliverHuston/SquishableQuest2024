@@ -129,8 +129,10 @@ public class DungeonManager : MonoBehaviour
         }
 
         // Inflict damage
-        int weapon_damage = D6(); // temp: some weapons may deal more base damage
-        int damage = weapon_damage + Mathf.Min(0, attacker.statline.strength - defender.statline.toughness); // temp: add str bonus, toughness bonuses, armor bonuses, ignore armor etc.
+        int weapon_damage = ParseDiceString(attacker.GetDamage());
+        int damage = weapon_damage + attacker.statline.strength - defender.statline.toughness;
+        if (true) damage -= defender.GetArmor(); //temp: some weapons/abilities ignore armor
+        damage = Mathf.Max(1, damage); // every hit should do at least one damage, regardless of any modifiers
 
         DamageText(defender, damage);
         defender.currentHealth -= damage;
@@ -170,10 +172,32 @@ public class DungeonManager : MonoBehaviour
         if (D6() >= target) return true;
         return false;
     }
+
+    // NEEDS work for parsing 2d6, 3d6, d6 + 1 etc.
+    public int ParseDiceString (string dice)
+    {
+        int result = 0;
+        if (dice == null) return 0;
+
+        if(dice.Equals("d6")) { result = D6(); }
+        else if(dice.Equals("d3")) { result = D3(); }
+        else if (dice.Equals("d66")) { result = D66(); }
+        return result;
+    }
+
     // Returns a d6 value.
     public int D6()
     {
         int roll = (int)Random.Range(0, 5) + 1;
         return roll;
+    }
+    public int D3()
+    {
+        int roll = (int)Random.Range(0, 2) + 1;
+        return roll;
+    }
+    public int D66()
+    {
+        return (D6() * 10) + D6();
     }
 }

@@ -1180,9 +1180,17 @@ PrefabInstance:
       value: Character (2) [enemy]
       objectReference: {fileID: 0}
     - target: {fileID: 8660839832883721442, guid: 0c56937bffadeaf42b706f5af55809cb, type: 3}
+      propertyPath: statline
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8660839832883721442, guid: 0c56937bffadeaf42b706f5af55809cb, type: 3}
       propertyPath: characterType
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8660839832883721442, guid: 0c56937bffadeaf42b706f5af55809cb, type: 3}
+      propertyPath: enemyStatline
+      value: 
+      objectReference: {fileID: 11400000, guid: fd5ba9f13150389469711e59239761ba, type: 2}
     - target: {fileID: 8660839832883721442, guid: 0c56937bffadeaf42b706f5af55809cb, type: 3}
       propertyPath: characterDisplayName
       value: Worrible

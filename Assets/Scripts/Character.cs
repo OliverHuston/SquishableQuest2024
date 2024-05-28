@@ -3,20 +3,18 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public enum CharacterType
-{
-    HERO = 0,
-    ENEMY = 1
-}
+
 
 public class Character : MonoBehaviour
 {
     // Settings variables
-    public CharacterType characterType = CharacterType.HERO;
+    //public HeroStatline heroStatline;
+    public EnemyStatline enemyStatline;
+
     public CharacterStatline statline;
 
     // Description Variables
-    public string characterDisplayName;
+    [HideInInspector] public string characterDisplayName;
 
     // Current variable statuses
     [HideInInspector] public int currentHealth;
@@ -25,6 +23,7 @@ public class Character : MonoBehaviour
     [HideInInspector] public int remainingRangedAttacks;
 
     // Stats from this.statline
+    [HideInInspector] public CharacterType characterType;
     [HideInInspector] public int weaponskill;
     [HideInInspector] public int ballisticskill;
     [HideInInspector] public int strength;
@@ -51,6 +50,9 @@ public class Character : MonoBehaviour
     void Awake()
     {
         cellManager = FindObjectOfType<CellManager>();
+        if(enemyStatline != null ) { statline = enemyStatline; }
+
+        characterDisplayName = statline.displayName;
 
         currentHealth = statline.health;
         ResetActionAllowances();
@@ -58,6 +60,7 @@ public class Character : MonoBehaviour
         xPos = (int)transform.position.x;
         yPos = (int)transform.position.z;
 
+        characterType = statline.characterType;
         weaponskill = statline.weaponskill;
         ballisticskill = statline.ballisticskill;
         strength = statline.strength;
@@ -98,6 +101,22 @@ public class Character : MonoBehaviour
         remainingMoves = statline.moves;
         remainingMeleeAttacks = statline.meleeAttacks;
         remainingRangedAttacks = statline.rangedAttacks;
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------//
+    //***STAT REPORTING*** (method varies depending on whether character is using an EnemyStatline or a HeroStatline
+
+    public string GetDamage()
+    {
+        if (characterType == CharacterType.ENEMY) return enemyStatline.damage;
+
+        // Default d6 damage.
+        return "d6";
+    }
+    public int GetArmor()
+    {
+        if (characterType == CharacterType.ENEMY) return enemyStatline.armor;
+        return 0;
     }
 
     //-----------------------------------------------------------------------------------------------------------------//
