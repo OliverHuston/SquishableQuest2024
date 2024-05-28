@@ -4,12 +4,15 @@
 	- add enemy AI: move and attacks on turn, with different behavior mode presets and special enemy statlines (i.e. simplified
 	armor bonuses, etc.); each enemy has a hero they are current targeting that is assigned at placement; characters moving out of 
 	range may allow enemy to change target
-	- Stat display includes character portrait and shows special rules (stat display can also be turned into a still image for optimization)
-	- add equipment stats to attack calculations
+	- Stat display includes character portrait
+	- Stat display shows special rules with pop up
+	- Add character equipment system
+	- Add character abilities system
 	- enemy death in combat
 	- deathblow for hero melee attacks
 	- correct sequencing for room exploration (room reveals before destination reached in animation)
 	- optimize pathfinding, move display
+	- stat display backdrop turned into a still image for optimization)
 
 ## Known Bugs
 	- often unusual paths generated when moving around an ENEMY character; the move expense seems nonetheless to be accurate?

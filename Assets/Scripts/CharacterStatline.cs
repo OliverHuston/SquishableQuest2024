@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public enum CharacterType
 {
@@ -16,6 +17,7 @@ public class CharacterStatline : ScriptableObject
 
     // Display features
     public string displayName;
+    public Image portrait;
 
     // Turn action allowances:
     public int moves = 4;

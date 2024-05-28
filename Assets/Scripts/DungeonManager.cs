@@ -63,7 +63,14 @@ public class DungeonManager : MonoBehaviour
     }
     private void EnemyTurn()
     {
-        //work here
+        foreach (Character c in characters)
+        {
+            if (c.characterType == CharacterType.ENEMY) c.ResetActionAllowances();
+        }
+        foreach (Character c in characters)
+        {
+            if (c.characterType == CharacterType.ENEMY) c.TakeTurn();
+        }
 
         turn = Turn.PLAYER;
         StartPlayerTurn();

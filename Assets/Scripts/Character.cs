@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 
 
@@ -13,8 +14,9 @@ public class Character : MonoBehaviour
 
     public CharacterStatline statline;
 
-    // Description Variables
+    // Display Variables
     [HideInInspector] public string characterDisplayName;
+    [HideInInspector] public Image characterDisplayPortrait;
 
     // Current variable statuses
     [HideInInspector] public int currentHealth;
@@ -45,14 +47,18 @@ public class Character : MonoBehaviour
 
     // Convenience
     private CellManager cellManager;
+    private DungeonManager dungeonManager;
 
 
     void Awake()
     {
         cellManager = FindObjectOfType<CellManager>();
+        dungeonManager = FindObjectOfType<DungeonManager>();
+
         if(enemyStatline != null ) { statline = enemyStatline; }
 
         characterDisplayName = statline.displayName;
+        characterDisplayPortrait = statline.portrait;
 
         currentHealth = statline.health;
         ResetActionAllowances();
@@ -117,6 +123,25 @@ public class Character : MonoBehaviour
     {
         if (characterType == CharacterType.ENEMY) return enemyStatline.armor;
         return 0;
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------//
+    //***ENEMY BEHAVIOR***
+    public void TakeTurn()
+    {
+        if (characterType != CharacterType.ENEMY) return;
+
+        // Choosing target
+        Character target = enemyStatline.target;
+        if (target != null)
+        {
+            if(enemyStatline.enemyBehavior == EnemyBehavior.DEFAULT_MELEE)
+            {
+
+            }
+        }
+
+        StartCoroutine(RotateAnimation(1, 3));
     }
 
     //-----------------------------------------------------------------------------------------------------------------//

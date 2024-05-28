@@ -5,7 +5,7 @@ using UnityEngine;
 
 public enum EnemyBehavior
 {
-    DEFAULT_MELEE = 0,
+    DEFAULT_MELEE = 0,  // move toward chosen target, attack that target
     DEFAULT_RANGED =1
 }
 
@@ -26,6 +26,8 @@ public class EnemyStatline : CharacterStatline
 
     public EnemyBehavior enemyBehavior;
     public EnemySpawn enemySpawn;
+
+    [HideInInspector] public Character target;
 
     private void Awake()
     {
