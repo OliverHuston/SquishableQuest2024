@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing.Text;
 using UnityEngine;
+using static Unity.VisualScripting.Member;
 
 public enum Turn
 {
@@ -120,6 +121,11 @@ public class DungeonManager : MonoBehaviour
     //***ATTACK MANAGEMENT***
     public void ProcessAttack(Character attacker, Character defender, AttackType attackType)
     {
+        attacker.remainingMoves = 0; //no moves after attacking
+        if(attackType == AttackType.MELEE) { attacker.remainingMeleeAttacks--; }
+        else if (attackType == AttackType.RANGED) { attacker.remainingRangedAttacks--; }
+
+
         // Rotate to target
         StartCoroutine(attacker.RotateToFace(defender.cell));
 
@@ -147,6 +153,8 @@ public class DungeonManager : MonoBehaviour
         // Check for deathblow if melee [NEEDS work]
         //....
     }
+
+
     // Attack UI display functions
     private void DamageText(Character damagedCharacter, int damage)
     {

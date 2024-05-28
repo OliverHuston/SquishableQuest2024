@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UIElements;
+using static Unity.VisualScripting.Member;
 
 
 
@@ -133,15 +135,51 @@ public class Character : MonoBehaviour
 
         // Choosing target
         Character target = enemyStatline.target;
-        if (target != null)
+        if (target == null)
         {
             if(enemyStatline.enemyBehavior == EnemyBehavior.DEFAULT_MELEE)
             {
-
+                target = FindFirstObjectByType<Character>(); //temp
+                Debug.Log(target.name); //temp
             }
         }
 
-        StartCoroutine(RotateAnimation(1, 3));
+        // Move behavior
+        if (enemyStatline.enemyBehavior == EnemyBehavior.DEFAULT_MELEE)
+        {
+            MoveTowardTarget(target);
+        }
+        else if (enemyStatline.enemyBehavior == EnemyBehavior.DEFAULT_RANGED)
+        {
+
+        }
+
+        // Attack behavior
+        MakeAllAttacks(target);
+    }
+    private void MoveTowardTarget(Character target)
+    {
+        cellManager.MoveCharacterToCell(this, target.cell, true);
+
+    }
+    private void MakeAllAttacks(Character target)
+    {
+        while(Attack(target)) { }
+        //NEEDS WORK: allow temp target switching to use up all melee and ranged attacks
+    }
+
+
+    //-----------------------------------------------------------------------------------------------------------------//
+    //***ACTIONS***
+    public bool Attack(Character target)
+    {
+        AttackType attackType = AttackType.RANGED;
+        if (cellManager.IsAdjacent(this.cell, target.cell)) { attackType = AttackType.MELEE; }
+        if((attackType == AttackType.MELEE && remainingMeleeAttacks < 1) 
+            || (attackType == AttackType.RANGED && remainingRangedAttacks < 1)) { return false; }
+
+        dungeonManager.ProcessAttack(this, target, attackType);
+        return true;
     }
 
     //-----------------------------------------------------------------------------------------------------------------//
@@ -150,11 +188,16 @@ public class Character : MonoBehaviour
     public IEnumerator MoveAlongPath(Cell[] path)
     {
         Cell destination = path[path.Length-1];
+        int iterations = path.Length;
+        if (destination.occupant != null) { 
+            destination = path[path.Length-2];
+            iterations--;
+        }
         xPos = destination.x; 
         yPos = destination.y;
         OccupyCell();
 
-        for(int i = 1; i < path.Length; i++)
+        for(int i = 1; i < iterations; i++)
         {
             yield return RotateAnimation(path[i].x, path[i].y);
             yield return MoveAnimation(path[i].x, path[i].y);

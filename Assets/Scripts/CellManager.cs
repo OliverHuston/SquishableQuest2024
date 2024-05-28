@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data.SqlTypes;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static Unity.VisualScripting.Member;
 using static UnityEditor.PlayerSettings;
 using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.InputManagerEntry;
@@ -20,6 +21,11 @@ public enum SelectionPhase
 
 public class CellManager : MonoBehaviour
 {
+    // Method adjustment variables
+    [Tooltip("The factor by which MoveTowards search is expanded if target is out of move range")]
+    public float searchExpansionFactor = 1f;
+
+    //
     private SelectionPhase selectionPhase;
     private Cell originCell;
 
@@ -100,21 +106,7 @@ public class CellManager : MonoBehaviour
             if (source.occupant == null)
             {
                 Character character = originCell.occupant;
-                int distanceMoved = FindDistance(originCell, source, character.remainingMoves);
-                FindPath(originCell, source, distanceMoved);
-
-                if (CheckPathIntegrity() == true)
-                {
-                    character.remainingMoves -= distanceMoved;
-                    StartCoroutine(character.MoveAlongPath(path));
-
-                    if (character.cell.cell_code == 'o') { mapManager.ExploreRoom(character.cell.room, character.cell.exitCode); }
-                }
-                else
-                {
-                    Debug.Log("ERROR: Incomplete path generated.");
-                }
-
+                MoveCharacterToCell(character, source);
                 dungeonManager.DisplayCharacterStats(character);
             }
             //Attack function
@@ -122,20 +114,7 @@ public class CellManager : MonoBehaviour
             {
                 if (source.occupant.characterType != originCell.occupant.characterType)
                 {
-                    originCell.occupant.remainingMoves = 0; //no moves after attacking
-
-                    // Melee Attack
-                    if(IsAdjacent(source, originCell))
-                    {
-                        originCell.occupant.remainingMeleeAttacks--;
-                        dungeonManager.ProcessAttack(originCell.occupant, source.occupant, AttackType.MELEE);
-                    }
-                    // Ranged Attack
-                    else
-                    {
-                        originCell.occupant.remainingRangedAttacks--;
-                        dungeonManager.ProcessAttack(originCell.occupant, source.occupant, AttackType.RANGED);
-                    }
+                    originCell.occupant.Attack(source.occupant);
                 }
                 // eventually add further code for special healing abilities etc. that target friendly characters
 
@@ -246,14 +225,16 @@ public class CellManager : MonoBehaviour
     {
         TraverseCells(origin, movesRemaining, Method, false);
     }
-
-    // Return the distance between two cells; the cells must be within
+    // Return the distance between two cells; the cells must be within searchLength
     private int FindDistance(Cell origin, Cell destination, int searchLength)
     {
+        Character removed_occupant = destination.occupant;
+        destination.occupant = null; // to avoid issues arising from TraverseCells avoiding occupied cells; maybe there's a more elegant way to do this, but I can't think of one
         ClearCellDistances();
         TraverseCells(origin, searchLength, MarkDistance);
         FixDistances(searchLength);
         SetCellDistance(origin.x, origin.y, 0);
+        destination.occupant = removed_occupant;
         return GetCellDistance(destination.x, destination.y);
     }
     // FindDistance helper function (called through TraverseCells).
@@ -297,6 +278,42 @@ public class CellManager : MonoBehaviour
             return;
         }
         return;
+    }
+    // Move character to cell; returns false if move is more than allowance.
+    public bool MoveCharacterToCell(Character character, Cell destination, int searchRange, bool moveTowardsIfOutOfMoveRange) 
+    {
+        if(character.remainingMoves == 0) { return false;  }
+        int distanceMoved = FindDistance(character.cell, destination, searchRange);
+        if(distanceMoved == -1) {
+            if (moveTowardsIfOutOfMoveRange) {
+                return MoveCharacterToCell(character, destination, searchRange + (int)(character.remainingMoves * searchExpansionFactor), true);
+            }
+            else { return false; }
+        }
+        FindPath(character.cell, destination, distanceMoved);
+
+        if (CheckPathIntegrity() == true)
+        {
+            character.remainingMoves -= distanceMoved;
+            StartCoroutine(character.MoveAlongPath(path));
+
+            if (character.cell.cell_code == 'o') { mapManager.ExploreRoom(character.cell.room, character.cell.exitCode); }
+        }
+        else
+        {
+            Debug.Log("ERROR: Incomplete path generated.");
+            return false;
+        }
+
+        return true;
+    }
+    public bool MoveCharacterToCell(Character character, Cell destination)
+    {
+        return MoveCharacterToCell(character, destination, character.remainingMoves, false);
+    }
+    public bool MoveCharacterToCell(Character character, Cell destination, bool moveTowardsIfOutOfMoveRange)
+    {
+        return MoveCharacterToCell(character, destination, character.remainingMoves, moveTowardsIfOutOfMoveRange);
     }
     private bool CheckPathIntegrity()
     {
@@ -401,7 +418,7 @@ public class CellManager : MonoBehaviour
         if (DiagonalAllowed(a.x, a.y, b.x-a.x, b.y-a.y)) return true;
         return false;
     }
-    private bool IsAdjacent(Cell a, Cell b)
+    public bool IsAdjacent(Cell a, Cell b)
     {
         int toX = a.x - b.x;
         int toY = a.y - b.y;
@@ -423,17 +440,6 @@ public class CellManager : MonoBehaviour
         foreach (Cell c in cells)
         {
             if (c != null) c.status = cellStatus;
-        }
-    }
-    private void MakeCharactersAvailable()
-    {
-        if (cells == null) return;
-        foreach (Cell c in cells)
-        {
-            if (c != null) 
-            {
-                if (c.occupant != null && c.occupant.characterType == CharacterType.HERO) c.status = CellStatus.AVAILABLE;
-            }
         }
     }
 
