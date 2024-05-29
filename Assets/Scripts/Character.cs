@@ -18,7 +18,7 @@ public class Character : MonoBehaviour
 
     // Display Variables
     [HideInInspector] public string characterDisplayName;
-    [HideInInspector] public Image characterDisplayPortrait;
+    [HideInInspector] public Texture characterDisplayPortrait;
 
     // Current variable statuses
     [HideInInspector] public int currentHealth;

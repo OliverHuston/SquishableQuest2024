@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StatsDisplayPanel : MonoBehaviour
 {
     public Character source_character;
     private DisplayText[] displayTexts;
     private DisplayBar[] displayBars;
+    public Image portraitDisplayer; 
 
     void Awake()
     {
@@ -30,5 +32,7 @@ public class StatsDisplayPanel : MonoBehaviour
         {
             db.UpdateBar(source_character);
         }
+
+        
     }
 }
