@@ -15,6 +15,14 @@ public class AnimatedText : MonoBehaviour
         tmp.text = "";
     }
 
+    public IEnumerator PlayMessageAndDestroy(string message, Color color, float secondsIn, float secondsOut)
+    {
+        SetMessage(message);
+        SetColor(color);
+        yield return FadeInAndOut(secondsIn, secondsOut);
+        Destroy(gameObject);
+    }
+
     public void SetMessage(string message)
     {
         tmp.text = message;

@@ -7,7 +7,6 @@ public enum CellStatus
     BASE = 0,
     AVAILABLE = 1,
     SELECTED = 2,
-    //TARGETED = 3
 }
 
 public class Cell: MonoBehaviour
@@ -32,13 +31,14 @@ public class Cell: MonoBehaviour
     [SerializeField] private Color enemyAvailableColor = Color.red;
     [SerializeField] private Color enemySelectedColor = Color.red;
 
+    //-----------------------------------------------------------------------------------------------------------------//
+    //***SETUP***
     private void Awake()
     {
         cellManager = FindAnyObjectByType<CellManager>();
         cell_material = this.gameObject.GetComponent<Renderer>().material;
         this.FindExitCode();
     }
-
     public void FindExitCode()
     {
         if (cell_code != 'o') { exitCode = -1; return; }
@@ -68,17 +68,24 @@ public class Cell: MonoBehaviour
         }
     }
 
+    //-----------------------------------------------------------------------------------------------------------------//
+    //***RUN TIME***
+    // Alert cellManager that cell has been clicked.
     private void OnMouseDown()
     {
         cellManager.ReceiveClick(this);
     }
-
-    // Temp color change anim
-    private void Update()
+    // Update cell color every frame. (TEMP?)
+    private void FixedUpdate()
     {
         SetCellColor();
     }
+    // Update moused status.
+    private void OnMouseEnter() { moused = true; } 
+    private void OnMouseExit() { moused = false; }
 
+    //-----------------------------------------------------------------------------------------------------------------//
+    // Set cell color based on status (called in FixedUpdate).
     private void SetCellColor()
     {
         if (status == CellStatus.AVAILABLE)
@@ -105,16 +112,5 @@ public class Cell: MonoBehaviour
                 {
                     cell_material.SetColor("_BaseColor", mousedColor);
                 }*/
-    }
-
-
-    private void OnMouseEnter()
-    {
-        moused = true;
-    }
-
-    private void OnMouseExit()
-    {
-        moused = false;
     }
 }

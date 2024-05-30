@@ -20,16 +20,19 @@ public enum AttackType
 
 public class DungeonManager : MonoBehaviour
 {
-    // UI elements
+    // UI instanced elements
+    public Transform dungeonUI_transform;
     public GameObject endTurnButton;
-    public AnimatedText attackDisplayText;
     public StatsDisplayPanel heroDisplayPanel;
     public StatsDisplayPanel enemyDisplayPanel;
 
-    // Status vars
+    // UI Prefabs
+    public AnimatedText actionAnimatedText;
+
+    // Status variables
     [HideInInspector] public Turn turn;
     
-    // Convenience reference
+    // Reference variables
     [HideInInspector] public Character[] characters;
     [HideInInspector] public Camera mainCamera;
 
@@ -46,7 +49,8 @@ public class DungeonManager : MonoBehaviour
          {2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4},
          {2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4}};
 
-
+    //-----------------------------------------------------------------------------------------------------------------//
+    //***SETUP***
     void Awake()
     {
         characters = FindObjectsOfType<Character>();  //needs fixing to exclude enemies
@@ -91,8 +95,6 @@ public class DungeonManager : MonoBehaviour
     {
         if (selectionPhase == SelectionPhase.CHOOSE_CHARACTER) { 
             endTurnButton.SetActive(true);
-/*            heroDisplayPanel.gameObject.SetActive(false);
-            enemyDisplayPanel.gameObject.SetActive(false);*/
         }
         else { endTurnButton.SetActive(false); }
     }
@@ -115,7 +117,16 @@ public class DungeonManager : MonoBehaviour
             enemyDisplayPanel.UpdateStats(character);
         }
     }
-    
+
+    // Used to display missed or damage amount for attacks against a target a characterLocation.
+    private void ActionText(Character characterLocation, string message)
+    {
+        AnimatedText animatedText = Instantiate(actionAnimatedText,
+            mainCamera.WorldToScreenPoint(characterLocation.gameObject.transform.position),
+            Quaternion.identity, dungeonUI_transform);
+        StartCoroutine(animatedText.PlayMessageAndDestroy(message, Color.white, .6f, 1.0f));
+    }
+
 
     //-----------------------------------------------------------------------------------------------------------------//
     //***ATTACK MANAGEMENT***
@@ -132,12 +143,12 @@ public class DungeonManager : MonoBehaviour
         // Roll to hit
         if (attackType == AttackType.MELEE && !Roll(ToHitChart[attacker.statline.weaponskill, defender.statline.weaponskill]))
         {
-            MissedText(defender);
+            ActionText(defender, "MISSED!");
             return;
         }
         else if (attackType == AttackType.RANGED && !Roll(7 - attacker.statline.ballisticskill))
         {
-            MissedText(defender);
+            ActionText(defender, "MISSED!");
             return;
         }
 
@@ -151,32 +162,11 @@ public class DungeonManager : MonoBehaviour
 
         Debug.Log("for " + damage);
 
-        DamageText(defender, damage);
+        ActionText(defender, "-" + damage);
         defender.currentHealth -= damage;
 
         // Check for deathblow if melee [NEEDS work]
         //....
-    }
-
-
-    // Attack UI display functions
-    private void DamageText(Character damagedCharacter, int damage)
-    {
-        attackDisplayText.gameObject.transform.position = mainCamera.WorldToScreenPoint(damagedCharacter.gameObject.transform.position);
-        attackDisplayText.gameObject.SetActive(true);
-        attackDisplayText.SetMessage("-" + damage);
-        attackDisplayText.SetColor(Color.white);        
-        StartCoroutine(attackDisplayText.FadeInAndOut(.6f, 1f));
-        attackDisplayText.gameObject.SetActive(true);
-    }
-    private void MissedText(Character missedCharacter)
-    {
-        attackDisplayText.gameObject.transform.position = mainCamera.WorldToScreenPoint(missedCharacter.gameObject.transform.position);
-        attackDisplayText.gameObject.SetActive(true);
-        attackDisplayText.SetMessage("MISSED!");
-        attackDisplayText.SetColor(Color.white);
-        StartCoroutine(attackDisplayText.FadeInAndOut(.6f, 1f));
-        attackDisplayText.gameObject.SetActive(true);
     }
 
     //-----------------------------------------------------------------------------------------------------------------//

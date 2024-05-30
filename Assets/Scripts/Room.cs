@@ -49,7 +49,14 @@ public class Room : ScriptableObject
     // Other
     [HideInInspector] public bool active = false;
     private char[,] cells;
+    public char[,] getCells()
+    {
+        return this.cells;
+    }
 
+
+    //-----------------------------------------------------------------------------------------------------------------//
+    //***SETUP***
     public void Initialize()
     {
         // 1. Get dimensions and count exits.
@@ -83,11 +90,6 @@ public class Room : ScriptableObject
         xPos = 0;
         yPos = 0;
         active = false;
-    }
-
-    public char[,] getCells()
-    {
-        return this.cells;
     }
 
     //-----------------------------------------------------------------------------------------------------------------//
