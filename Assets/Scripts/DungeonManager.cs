@@ -141,11 +141,15 @@ public class DungeonManager : MonoBehaviour
             return;
         }
 
+        Debug.Log(attacker.name + " hit " + defender.name);
+
         // Inflict damage
-        int weapon_damage = ParseDiceString(attacker.GetDamage());
-        int damage = weapon_damage + attacker.statline.strength - defender.statline.toughness;
+        int attacker_damage = ParseDiceString(attacker.GetDamage(attackType));
+        int damage = attacker_damage - defender.toughness;
         if (true) damage -= defender.GetArmor(); //temp: some weapons/abilities ignore armor
         damage = Mathf.Max(1, damage); // every hit should do at least one damage, regardless of any modifiers
+
+        Debug.Log("for " + damage);
 
         DamageText(defender, damage);
         defender.currentHealth -= damage;
@@ -191,13 +195,16 @@ public class DungeonManager : MonoBehaviour
     // NEEDS work for parsing 2d6, 3d6, d6 + 1 etc.
     public int ParseDiceString (string dice)
     {
-        int result = 0;
         if (dice == null) return 0;
 
-        if(dice.Equals("d6")) { result = D6(); }
-        else if(dice.Equals("d3")) { result = D3(); }
-        else if (dice.Equals("d66")) { result = D66(); }
-        return result;
+        while (dice.Contains('d'))
+        {
+            dice = dice.Replace("d66", D66() + "");
+            dice = dice.Replace("d6", D6()+"");
+            dice = dice.Replace("d3", D3() + "");
+        }
+
+        return StringFormulaToInt(dice); // function needs work
     }
 
     // Returns a d6 value.
@@ -214,5 +221,22 @@ public class DungeonManager : MonoBehaviour
     public int D66()
     {
         return (D6() * 10) + D6();
+    }
+
+    // NEEDS WORK for multi digit nums and mult/div
+    public int StringFormulaToInt(string s)
+    {
+        int result = 0;
+        int sign = 1;
+        s.Replace(" ", "");
+        for(int i = 0; i < s.Length; i++)
+        {
+            if (s[i] == '+') { sign = 1; }
+            else if (s[i] == '-') { sign = -1; }
+            else if (char.IsNumber(s[i])) {
+                result += sign * int.Parse(s[i]+"");
+            }
+        }
+        return result;
     }
 }

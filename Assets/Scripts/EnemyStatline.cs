@@ -28,9 +28,4 @@ public class EnemyStatline : CharacterStatline
     public EnemySpawn enemySpawn;
 
     [HideInInspector] public Character target;
-
-    private void Awake()
-    {
-        this.characterType = CharacterType.ENEMY;
-    }
 }

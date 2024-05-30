@@ -17,7 +17,7 @@ public class CharacterStatline : ScriptableObject
 
     // Display features
     public string displayName;
-    public Texture portrait;
+    public Sprite portrait;
 
     // Turn action allowances:
     public int moves = 4;

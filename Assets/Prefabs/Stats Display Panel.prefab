@@ -2622,6 +2622,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source_character: {fileID: 0}
+  portraitDisplayer: {fileID: 8097896327951082609}
 --- !u!1 &6802839714791303140
 GameObject:
   m_ObjectHideFlags: 0

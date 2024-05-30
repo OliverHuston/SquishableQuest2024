@@ -1,22 +1,25 @@
 # SquishableQuest2024
 
 ## To do
-	- add enemy AI: move and attacks on turn, with different behavior mode presets and special enemy statlines (i.e. simplified
-	armor bonuses, etc.); each enemy has a hero they are current targeting that is assigned at placement; characters moving out of 
-	range may allow enemy to change target
-	- Stat display includes character portrait
+	- enemies should wait between attacks
+	- ranged_default enemy behavior
+	- enemy spawning and target assignment; changing target assignment based on behavior
 	- Stat display shows special rules with pop up
 	- Add character equipment system
 	- Add character abilities system
+	- multiple enemies should fight in initiative order
 	- enemy death in combat
 	- deathblow for hero melee attacks
+	- pinning based on initiative
+	- fix character stat display sequencing (need to check what matches the original game)
 	- correct sequencing for room exploration (room reveals before destination reached in animation)
 	- optimize pathfinding, move display
 	- stat display backdrop turned into a still image for optimization)
 
 ## Known Bugs
-	- often unusual paths generated when moving around an ENEMY character; the move expense seems nonetheless to be accurate?
+	- often unusual paths generated when moving around a character; the move expense seems nonetheless to be accurate?
 	- rarely move does not occur and character gets stuck
+	- problems moving esp when more rooms in play
 
 ## Safety Code to add
 	- move anim should end/timeout after a certain amount of time to prevent characters from getting stuck

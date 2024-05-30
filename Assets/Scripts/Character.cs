@@ -4,8 +4,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 using UnityEngine.UIElements;
-using static Unity.VisualScripting.Member;
-
 
 
 public class Character : MonoBehaviour
@@ -18,7 +16,7 @@ public class Character : MonoBehaviour
 
     // Display Variables
     [HideInInspector] public string characterDisplayName;
-    [HideInInspector] public Texture characterDisplayPortrait;
+    [HideInInspector] public Sprite characterDisplayPortrait;
 
     // Current variable statuses
     [HideInInspector] public int currentHealth;
@@ -57,7 +55,10 @@ public class Character : MonoBehaviour
         cellManager = FindObjectOfType<CellManager>();
         dungeonManager = FindObjectOfType<DungeonManager>();
 
-        if(enemyStatline != null ) { statline = enemyStatline; }
+        if(enemyStatline != null ) {
+            statline = enemyStatline;
+            statline.characterType = CharacterType.ENEMY;
+        }
 
         characterDisplayName = statline.displayName;
         characterDisplayPortrait = statline.portrait;
@@ -114,12 +115,21 @@ public class Character : MonoBehaviour
     //-----------------------------------------------------------------------------------------------------------------//
     //***STAT REPORTING*** (method varies depending on whether character is using an EnemyStatline or a HeroStatline
 
-    public string GetDamage()
+    public string GetDamage(AttackType attackType)
     {
-        if (characterType == CharacterType.ENEMY) return enemyStatline.damage;
+        if (characterType == CharacterType.ENEMY) {
+            if(attackType == AttackType.MELEE)
+            {
+                return enemyStatline.damage + "+" + this.strength;
+            }
+            else if(attackType == AttackType.RANGED)
+            {
+                return FindRuleValue("Bow");
+            }
+        }
 
-        // Default d6 damage.
-        return "d6";
+        // Default d6 damage + strength.
+        return "d6" + "+" + this.strength;
     }
     public int GetArmor()
     {
@@ -137,10 +147,11 @@ public class Character : MonoBehaviour
         Character target = enemyStatline.target;
         if (target == null)
         {
-            if(enemyStatline.enemyBehavior == EnemyBehavior.DEFAULT_MELEE)
+            target = FindObjectsOfType<Character>()[1]; //temp
+
+            if (enemyStatline.enemyBehavior == EnemyBehavior.DEFAULT_MELEE)
             {
-                target = FindFirstObjectByType<Character>(); //temp
-                Debug.Log(target.name); //temp
+                
             }
         }
 
@@ -150,9 +161,7 @@ public class Character : MonoBehaviour
             MoveTowardTarget(target);
         }
         else if (enemyStatline.enemyBehavior == EnemyBehavior.DEFAULT_RANGED)
-        {
-
-        }
+        { }
 
         // Attack behavior
         MakeAllAttacks(target);
@@ -168,6 +177,23 @@ public class Character : MonoBehaviour
         //NEEDS WORK: allow temp target switching to use up all melee and ranged attacks
     }
 
+    //-----------------------------------------------------------------------------------------------------------------//
+    private string FindRuleValue(string ruleName)
+    {
+        if (this.characterType != CharacterType.ENEMY) return "";
+
+        foreach(string rule in enemyStatline.specialRules)
+        {
+            if (rule.Contains(ruleName))
+            {
+                string value = rule.Substring(rule.IndexOf('(')+1, rule.Length-(rule.IndexOf('(') + 1) - 1);
+                Debug.Log(value);
+
+                return value;
+            }
+        }
+        return "";
+    }
 
     //-----------------------------------------------------------------------------------------------------------------//
     //***ACTIONS***
@@ -176,7 +202,8 @@ public class Character : MonoBehaviour
         AttackType attackType = AttackType.RANGED;
         if (cellManager.IsAdjacent(this.cell, target.cell)) { attackType = AttackType.MELEE; }
         if((attackType == AttackType.MELEE && remainingMeleeAttacks < 1) 
-            || (attackType == AttackType.RANGED && remainingRangedAttacks < 1)) { return false; }
+            || (attackType == AttackType.RANGED && (remainingRangedAttacks < 1 || cellManager.LineOfSight(this.cell, target.cell)))) 
+            { return false; }
 
         dungeonManager.ProcessAttack(this, target, attackType);
         return true;

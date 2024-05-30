@@ -364,7 +364,7 @@ public class CellManager : MonoBehaviour
             }
         }
     }
-    private bool LineOfSight(Cell a, Cell b)
+    public bool LineOfSight(Cell a, Cell b)
     {
         if(a == null || b == null) {return false;}
 

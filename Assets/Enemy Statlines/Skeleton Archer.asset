@@ -10,24 +10,27 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b6eb985dd7c4124bb302fdcb74a9bdb, type: 3}
-  m_Name: Worrible
+  m_Name: Skeleton Archer
   m_EditorClassIdentifier: 
   characterType: 1
-  displayName: Worrible
-  portrait: {fileID: 2800000, guid: 5156dc1813dbf59419677b1be9e49a18, type: 3}
+  displayName: Skeleton Archer
+  portrait: {fileID: 0}
   moves: 4
   meleeAttacks: 1
-  rangedAttacks: 0
+  rangedAttacks: 1
   health: 5
-  weaponskill: 3
-  ballisticskill: 0
+  weaponskill: 2
+  ballisticskill: 2
   strength: 3
-  toughness: 4
-  initiative: 3
-  gold: 50
+  toughness: 3
+  initiative: 2
+  gold: 80
   armor: 0
   damage: d6
-  specialRules: []
-  enemyBehavior: 0
-  enemySpawn: 0
+  specialRules:
+  - Fear (5)
+  - Regenerate (1)
+  - Bow (d6+3)
+  enemyBehavior: 1
+  enemySpawn: 1
   target: {fileID: 0}

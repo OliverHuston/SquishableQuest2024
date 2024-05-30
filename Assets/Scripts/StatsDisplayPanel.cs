@@ -33,6 +33,6 @@ public class StatsDisplayPanel : MonoBehaviour
             db.UpdateBar(source_character);
         }
 
-        
+        portraitDisplayer.sprite = source_character.characterDisplayPortrait;
     }
 }
