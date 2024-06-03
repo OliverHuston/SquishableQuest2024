@@ -54,8 +54,6 @@ public class CellManager : MonoBehaviour
     //***CELL CLICK HANDLING
     public void ReceiveClick(Cell source)
     {
-
-
         // If click received from Table:
         if (source == null)
         {
@@ -66,19 +64,13 @@ public class CellManager : MonoBehaviour
             return;
         }
 
-
-
         // Initial character selection.
         if (source.status == CellStatus.BASE && source.occupant != null)
         {
             ResetSelection();
 
-            //Display stats of selected hero or enemy [NEEDS WORK]
-/*            dungeonManager.DisplayCharacterStats(source.occupant);
-*/            
-
             // Selecting a hero (player character):
-            if (source.occupant.characterType == CharacterType.HERO)
+            if (source.occupant.characterType == CharacterType.HERO && source.occupant.available)
             {
                 originCell = source;
                 DisplayMoveMeleeRanged(originCell);
@@ -296,8 +288,6 @@ public class CellManager : MonoBehaviour
         {
             character.remainingMoves -= distanceMoved;
             StartCoroutine(character.MoveAlongPath(path));
-
-            if (character.cell.cell_code == 'o') { mapManager.ExploreRoom(character.cell.room, character.cell.exitCode); }
         }
         else
         {

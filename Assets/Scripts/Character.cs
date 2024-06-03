@@ -43,15 +43,18 @@ public class Character : MonoBehaviour
     [HideInInspector] public int xPos;
     [HideInInspector] public int yPos;
     [HideInInspector] public Cell cell;
+    [HideInInspector] public bool available = true;
 
 
-    // Convenience
+    // Reference variables
+    private MapManager mapManager;
     private CellManager cellManager;
     private DungeonManager dungeonManager;
 
 
     void Awake()
     {
+        mapManager = FindObjectOfType<MapManager>();
         cellManager = FindObjectOfType<CellManager>();
         dungeonManager = FindObjectOfType<DungeonManager>();
 
@@ -214,6 +217,7 @@ public class Character : MonoBehaviour
     // Move and rotate along provided cell path.
     public IEnumerator MoveAlongPath(Cell[] path)
     {
+        this.available = false;
         Cell destination = path[path.Length-1];
         int iterations = path.Length;
         if (destination.occupant != null) { 
@@ -229,6 +233,10 @@ public class Character : MonoBehaviour
             yield return RotateAnimation(path[i].x, path[i].y);
             yield return MoveAnimation(path[i].x, path[i].y);
         }
+
+        // Upon arriving in cell
+        if (this.cell.cell_code == 'o') { mapManager.ExploreRoom(this.cell.room, this.cell.exitCode); }
+        this.available = true;
     }
     // Rotate to face a provided cell.
     public IEnumerator RotateToFace(Cell cell)

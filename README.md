@@ -12,9 +12,8 @@
 	- deathblow for hero melee attacks
 	- pinning based on initiative
 	- fix character stat display sequencing (need to check what matches the original game)
-	- correct sequencing for room exploration (room reveals before destination reached in animation)
 	- optimize pathfinding, move display
-	- stat display backdrop turned into a still image for optimization)
+	- stat display backdrop turned into a still image for optimization
 
 ## Known Bugs
 	- often unusual paths generated when moving around a character; the move expense seems nonetheless to be accurate?
