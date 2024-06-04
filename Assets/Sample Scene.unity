@@ -619,11 +619,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 194843091624354234, guid: 659849889e86fbc40924d79c5fb7154c, type: 3}
       propertyPath: m_Pivot.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 194843091624354234, guid: 659849889e86fbc40924d79c5fb7154c, type: 3}
       propertyPath: m_Pivot.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 194843091624354234, guid: 659849889e86fbc40924d79c5fb7154c, type: 3}
       propertyPath: m_AnchorMax.x
@@ -679,11 +679,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 194843091624354234, guid: 659849889e86fbc40924d79c5fb7154c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -400
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 194843091624354234, guid: 659849889e86fbc40924d79c5fb7154c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -200
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 194843091624354234, guid: 659849889e86fbc40924d79c5fb7154c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1125,7 +1125,7 @@ PrefabInstance:
     - target: {fileID: 8660839832883721442, guid: 0c56937bffadeaf42b706f5af55809cb, type: 3}
       propertyPath: enemyStatline
       value: 
-      objectReference: {fileID: 11400000, guid: fdb393f36d09a9d43863201d21f7dc69, type: 2}
+      objectReference: {fileID: 11400000, guid: 714d2074e6b365e40b8d0ae2f39ffee3, type: 2}
     - target: {fileID: 8660839832883721442, guid: 0c56937bffadeaf42b706f5af55809cb, type: 3}
       propertyPath: characterDisplayName
       value: Worrible

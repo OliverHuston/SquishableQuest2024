@@ -1,6 +1,7 @@
 # SquishableQuest2024
 
 ## To do
+	- enemy action and move needs a total rework (currently causes game to crash)
 	- enemies should wait between attacks
 	- ranged_default enemy behavior
 	- enemy spawning and target assignment; changing target assignment based on behavior
@@ -16,9 +17,9 @@
 	- stat display backdrop turned into a still image for optimization
 
 ## Known Bugs
-	- often unusual paths generated when moving around a character; the move expense seems nonetheless to be accurate?
+	- sometimes does not take the diagonal when moving around characters, resulting in an extra move expenditure
 	- rarely move does not occur and character gets stuck
-	- problems moving esp when more rooms in play
+	- enemy models will move off map
 
 ## Safety Code to add
 	- move anim should end/timeout after a certain amount of time to prevent characters from getting stuck

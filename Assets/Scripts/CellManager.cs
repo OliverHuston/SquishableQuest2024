@@ -2,14 +2,8 @@ using OpenCover.Framework.Model;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static Unity.VisualScripting.Member;
-using static UnityEditor.PlayerSettings;
-using static UnityEngine.GraphicsBuffer;
-using static UnityEngine.InputManagerEntry;
-using static UnityEngine.UI.Image;
+
 
 public enum SelectionPhase
 {
@@ -261,15 +255,15 @@ public class CellManager : MonoBehaviour
     // FindPath helper function (called through TraverseCells).
     private void AddCellToPath(Cell cell, int movesRemaining) {
         //Debug.Log("Trying to add (" +cell.x + ", " +cell.y + ") with " + movesRemaining + "moves remaining");
-        if (GetCellDistance(cell.x, cell.y) == -1 || path[movesRemaining] != null) { 
+        if (GetCellDistance(cell.x, cell.y) == -1 || movesRemaining == 0 || movesRemaining == path.Length-1 ) { 
             return; 
         }
         else if (GetCellDistance(cell.x, cell.y) == movesRemaining && IsAdjacentByMove(cell, path[movesRemaining + 1]))
         {
+            if (path[movesRemaining] != null && IsDiagonal(cell, path[movesRemaining + 1])) return; // prefer straight paths to avoid needless diagonals
             path[movesRemaining] = cell;
             return;
         }
-        return;
     }
     // Move character to cell; returns false if move is more than allowance.
     public bool MoveCharacterToCell(Character character, Cell destination, int searchRange, bool moveTowardsIfOutOfMoveRange) 
@@ -362,8 +356,6 @@ public class CellManager : MonoBehaviour
         if (a.x != b.x) m = (float)(a.y - b.y) / (a.x - b.x);
         float c = - (a.x * m) + a.y;
 
-        //Debug.Log(Mathf.Min(a.x, b.x) + "," + Mathf.Max(a.x, b.x) + "," + Mathf.Min(a.y, b.y) + "," + Mathf.Max(a.y, b.y));
-
         for (int i = Mathf.Min(a.x, b.x); i < Mathf.Max(a.x, b.x) + 1; i++)
         {
             for (int j = Mathf.Min(a.y, b.y); j < Mathf.Max(a.y, b.y) + 1; j++)
@@ -401,6 +393,12 @@ public class CellManager : MonoBehaviour
         if (a == null || b == null) { return false; }
         else if (a.occupant == null || b.occupant == null) { return true; }
         return false;
+    }
+    private bool IsDiagonal(Cell a, Cell b)
+    {
+        if (a == null || b == null) return false;
+        if (a.x == b.x || a.y == b.y) return false;
+        return true;
     }
     private bool IsAdjacentByMove(Cell a, Cell b)
     {

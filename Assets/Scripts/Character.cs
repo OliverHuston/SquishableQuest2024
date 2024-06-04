@@ -8,23 +8,16 @@ using UnityEngine.UIElements;
 
 public class Character : MonoBehaviour
 {
-    // Settings variables
+    //***VARIABLES***
+    #region
+    // Statline assignment
     //public HeroStatline heroStatline;
     public EnemyStatline enemyStatline;
-
     public CharacterStatline statline;
 
-    // Display Variables
+    // Stats and display settings (from this.statline)
     [HideInInspector] public string characterDisplayName;
     [HideInInspector] public Sprite characterDisplayPortrait;
-
-    // Current variable statuses
-    [HideInInspector] public int currentHealth;
-    [HideInInspector] public int remainingMoves;
-    [HideInInspector] public int remainingMeleeAttacks;
-    [HideInInspector] public int remainingRangedAttacks;
-
-    // Stats from this.statline
     [HideInInspector] public CharacterType characterType;
     [HideInInspector] public int weaponskill;
     [HideInInspector] public int ballisticskill;
@@ -33,45 +26,48 @@ public class Character : MonoBehaviour
     [HideInInspector] public int initiative;
     [HideInInspector] public int maxHealth;
 
-    // Move anim parameters (hardcoded)
-    public float moveAnimSpeed = 2f;
-    public float rotateAnimSpeed = 4f;
-    public float moveDestinationTolerance = .1f;
-    public float rotateAngleTolerance = .1f;
+    // Current stat values
+    [HideInInspector] public int currentHealth;
+    [HideInInspector] public int remainingMoves;
+    [HideInInspector] public int remainingMeleeAttacks;
+    [HideInInspector] public int remainingRangedAttacks;
 
-    // Status variables
+    // Position and status variables
     [HideInInspector] public int xPos;
     [HideInInspector] public int yPos;
     [HideInInspector] public Cell cell;
     [HideInInspector] public bool available = true;
 
+    // Move anim parameters (should be the same across all characters)
+    public float moveAnimSpeed = 2f;
+    public float rotateAnimSpeed = 4f;
+    public float moveDestinationTolerance = .1f;
+    public float rotateAngleTolerance = .1f;
 
     // Reference variables
     private MapManager mapManager;
     private CellManager cellManager;
     private DungeonManager dungeonManager;
+    #endregion
 
-
+    //***SETUP***
+    #region
     void Awake()
     {
+        // 1. Assign reference variables.
         mapManager = FindObjectOfType<MapManager>();
         cellManager = FindObjectOfType<CellManager>();
         dungeonManager = FindObjectOfType<DungeonManager>();
 
+        // 2. Assign statline based on provided EnemyStatline or HeroStatline.
         if(enemyStatline != null ) {
             statline = enemyStatline;
             statline.characterType = CharacterType.ENEMY;
         }
 
+        // 3. Assign stats based on statline.
         characterDisplayName = statline.displayName;
         characterDisplayPortrait = statline.portrait;
-
-        currentHealth = statline.health;
-        ResetActionAllowances();
-        OccupyCell();
-        xPos = (int)transform.position.x;
-        yPos = (int)transform.position.z;
-
         characterType = statline.characterType;
         weaponskill = statline.weaponskill;
         ballisticskill = statline.ballisticskill;
@@ -79,7 +75,15 @@ public class Character : MonoBehaviour
         toughness = statline.toughness;
         initiative = statline.initiative;
         maxHealth = statline.health;
+
+        // 4. Set current stat values to full and set starting position.
+        currentHealth = statline.health;
+        ResetActionAllowances();
+        OccupyCell();
+        xPos = (int)transform.position.x;
+        yPos = (int)transform.position.z; 
     }
+    #endregion
 
     void FixedUpdate()
     {
@@ -142,15 +146,18 @@ public class Character : MonoBehaviour
 
     //-----------------------------------------------------------------------------------------------------------------//
     //***ENEMY BEHAVIOR***
+    // Enemy character takes turn (called in EnemyTurn() in dungeonManager).
     public IEnumerator TakeTurn()
     {
         if (characterType != CharacterType.ENEMY) yield return null;
+        yield return new WaitForSeconds(1f);
+        yield break; // temp
 
         // Choosing target
         Character target = enemyStatline.target;
         if (target == null)
         {
-            target = FindObjectsOfType<Character>()[1]; //temp
+            target = GameObject.Find("Character").GetComponent<Character>();
 
             if (enemyStatline.enemyBehavior == EnemyBehavior.DEFAULT_MELEE)
             {
@@ -161,7 +168,7 @@ public class Character : MonoBehaviour
         // Move behavior
         if (enemyStatline.enemyBehavior == EnemyBehavior.DEFAULT_MELEE)
         {
-            MoveTowardTarget(target);
+            yield return MoveTowardTarget(target);
         }
         else if (enemyStatline.enemyBehavior == EnemyBehavior.DEFAULT_RANGED)
         { }
@@ -169,16 +176,19 @@ public class Character : MonoBehaviour
         // Attack behavior
         MakeAllAttacks(target);
     }
-    private void MoveTowardTarget(Character target)
+    private IEnumerator MoveTowardTarget(Character target)
     {
         cellManager.MoveCharacterToCell(this, target.cell, true);
-
+        //while (this.available == false) {}
+        yield return null;
     }
     private void MakeAllAttacks(Character target)
     {
         while(Attack(target)) { }
         //NEEDS WORK: allow temp target switching to use up all melee and ranged attacks
     }
+
+
 
     //-----------------------------------------------------------------------------------------------------------------//
     private string FindRuleValue(string ruleName)
@@ -190,8 +200,6 @@ public class Character : MonoBehaviour
             if (rule.Contains(ruleName))
             {
                 string value = rule.Substring(rule.IndexOf('(')+1, rule.Length-(rule.IndexOf('(') + 1) - 1);
-                Debug.Log(value);
-
                 return value;
             }
         }
@@ -214,6 +222,7 @@ public class Character : MonoBehaviour
 
     //-----------------------------------------------------------------------------------------------------------------//
     //***MOVE ANIMATIONS***
+    #region
     // Move and rotate along provided cell path.
     public IEnumerator MoveAlongPath(Cell[] path)
     {
@@ -279,4 +288,5 @@ public class Character : MonoBehaviour
         transform.position = targetPosition;
         yield break;
     }
+    #endregion
 }
