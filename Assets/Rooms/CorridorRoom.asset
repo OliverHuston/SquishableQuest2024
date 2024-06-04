@@ -14,10 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Name: Corridor
   _Type: 0
-  _roomModel: {fileID: 0}
+  _roomModel: {fileID: 3212857994692238550, guid: b56f9e0140efcc2418b0692437944db7, type: 3}
   layout: 'ii
-
-    11
 
     11
 
@@ -36,9 +34,10 @@ MonoBehaviour:
   rows: 4
   xPos: 0
   yPos: 0
-  active: 0
   entranceDirection: 0
-  exitDirections: 03000000
   entranceCoord: 0
+  exitDirections: 03000000
   exitCoords: 
   exitRooms: []
+  active: 0
+  timesRotated: 0

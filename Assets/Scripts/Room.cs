@@ -48,6 +48,8 @@ public class Room : ScriptableObject
 
     // Other
     [HideInInspector] public bool active = false;
+    [HideInInspector] public int timesRotated = 0;
+
     private char[,] cells;
     public char[,] getCells()
     {
@@ -113,6 +115,7 @@ public class Room : ScriptableObject
         rows = newRows;
         cols = newCols;
         UpdateEntrancesAndExits();
+        timesRotated++;
     }
 
     //-----------------------------------------------------------------------------------------------------------------//

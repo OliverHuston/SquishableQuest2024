@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Name: StartRoomA
   _Type: 1
-  _roomModel: {fileID: 0}
+  _roomModel: {fileID: 3197140018251471779, guid: 5c8e72282701f5c47a05875c7a82de18, type: 3}
   layout: '0000oo
 
     i11111
@@ -24,9 +24,9 @@ MonoBehaviour:
   rows: 4
   xPos: 0
   yPos: 0
-  active: 0
   entranceDirection: 0
-  exitDirections: 03000000
   entranceCoord: 0
+  exitDirections: 03000000
   exitCoords: 
   exitRooms: []
+  active: 0

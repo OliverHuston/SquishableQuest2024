@@ -35,8 +35,9 @@ public class MapManager : MonoBehaviour
             rooms[0].active = true;
             PrintRoom(rooms[0]);
 
-/*            SetAllRoomsActive();
-            PrintFullMap();*/
+            //temp
+            SetAllRoomsActive();
+            PrintFullMap();
         }
     }
 
@@ -119,7 +120,6 @@ public class MapManager : MonoBehaviour
 
 
             Room lastRoom = GenerateStraightPath(pathToSplitLength, startRoom, exitPath, "two_branch");
-            //Debug.Log(pathToSplitLength + "  " + pathLengthPartition + "  " + (pathLength-pathLengthPartition));
 
             GeneratePath(lastRoom, pathLengthPartition, 0, isBossPathA, numTwoBranchPartition, numThreeBranchPartition);
             GeneratePath(lastRoom, pathLength - pathLengthPartition, 1, isBossPathB, numTwoBranch - numTwoBranchPartition, numThreeBranch - numThreeBranchPartition);
@@ -164,7 +164,6 @@ public class MapManager : MonoBehaviour
         }
 
         if (roomsCount >= rooms.Length) { 
-            //Debug.Log("!!! tried to place a room at index of " + roomsCount);
             return null; 
         }
 
@@ -349,7 +348,7 @@ public class MapManager : MonoBehaviour
         if (room.active == false) return;
 
         if (room._roomModel == null) PrintRoomPlaceholder(room);
-        //else {PrintRoomModel(room);}
+        else {PrintRoomModel(room);}
         //Debug.Log("a");
         PrintRoomCells(room);
     }
@@ -406,10 +405,13 @@ public class MapManager : MonoBehaviour
             }
         }
     }
-    // Create 3d model for room. //NEEDS WORK
+    // Create 3d model for room.
     private void PrintRoomModel(Room room)
     {
-
+        GameObject roomModel = Instantiate(room._roomModel);
+        roomModel.transform.position = new Vector3((float)room.cols / 2 - .5f + room.xPos, 0, (float)room.rows / 2 - .5f + room.yPos);
+        roomModel.transform.rotation = Quaternion.Euler(0, roomModel.transform.rotation.eulerAngles.y + 90 * room.timesRotated, 0);
+        roomModel.transform.parent = this.transform.GetChild(1);
     }
 
     //-----------------------------------------------------------------------------------------------------------------//
