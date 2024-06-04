@@ -64,9 +64,9 @@ public class DungeonManager : MonoBehaviour
     {
         endTurnButton.SetActive(false);
         turn = Turn.ENEMIES;
-        EnemyTurn();
+        StartCoroutine(EnemyTurn());
     }
-    private void EnemyTurn()
+    private IEnumerator EnemyTurn()
     {
         foreach (Character c in characters)
         {
@@ -74,15 +74,15 @@ public class DungeonManager : MonoBehaviour
         }
         foreach (Character c in characters)
         {
-            if (c.characterType == CharacterType.ENEMY) c.TakeTurn();
+            if (c.characterType == CharacterType.ENEMY) yield return c.TakeTurn();
         }
 
-        turn = Turn.PLAYER;
         StartPlayerTurn();
-        return;
+        yield return null;
     }
     private void StartPlayerTurn()
     {
+        turn = Turn.PLAYER;
         foreach (Character c in characters)
         {
             if (c.characterType == CharacterType.HERO) c.ResetActionAllowances();

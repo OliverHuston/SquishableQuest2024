@@ -142,9 +142,9 @@ public class Character : MonoBehaviour
 
     //-----------------------------------------------------------------------------------------------------------------//
     //***ENEMY BEHAVIOR***
-    public void TakeTurn()
+    public IEnumerator TakeTurn()
     {
-        if (characterType != CharacterType.ENEMY) return;
+        if (characterType != CharacterType.ENEMY) yield return null;
 
         // Choosing target
         Character target = enemyStatline.target;
