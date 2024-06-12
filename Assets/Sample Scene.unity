@@ -1681,6 +1681,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 446453847457055687, guid: b56f9e0140efcc2418b0692437944db7, type: 3}
+      propertyPath: m_Range
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 446453847457055687, guid: b56f9e0140efcc2418b0692437944db7, type: 3}
+      propertyPath: m_UseColorTemperature
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 930793521360688493, guid: b56f9e0140efcc2418b0692437944db7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.5
@@ -1724,6 +1732,14 @@ PrefabInstance:
     - target: {fileID: 3212857994692238550, guid: b56f9e0140efcc2418b0692437944db7, type: 3}
       propertyPath: m_Name
       value: Corridor Room
+      objectReference: {fileID: 0}
+    - target: {fileID: 3568881602757166441, guid: b56f9e0140efcc2418b0692437944db7, type: 3}
+      propertyPath: m_Range
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8460181822068736816, guid: b56f9e0140efcc2418b0692437944db7, type: 3}
+      propertyPath: m_Range
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
