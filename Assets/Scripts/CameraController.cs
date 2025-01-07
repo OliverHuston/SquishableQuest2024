@@ -5,9 +5,23 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public int targetFrameRate = 20;
-    public float camera_sensitivity = .01f;
-    public float zoom_sensitivity = 80f;
+    public float camera_sensitivity = 10f;
+
+    [Space]
+    [Tooltip("Minimum zoom size (ortho)")]  public float zoom_min = 3f;
+    [Tooltip("Maximum zoom size (ortho)")]  public float zoom_max = 20f;
+    [Tooltip("Zoom sensitivity")]  public float zoom_sensitivity = 60f;
+
+    private float zoom_min_perspect;
+    private float zoom_max_perspect;
+
+
+
+    [Space]
     public float drag_sensitivity = 2;
+
+
+    private bool orthographic = true;
 
 
     private Vector3 dragOrigin;
@@ -17,6 +31,25 @@ public class CameraController : MonoBehaviour
     void Awake()
     {
         Application.targetFrameRate = targetFrameRate;
+        if (Camera.main.orthographic) { orthographic = true; }
+        else { orthographic = false; }
+        CalculatePerspectiveZoomMinMax();
+    }
+
+    private void CalculatePerspectiveZoomMinMax()
+    {
+        float fov = 60;
+        zoom_min_perspect = Orthographic2Perspective(zoom_min, fov);
+        zoom_max_perspect = Orthographic2Perspective(zoom_max, fov);
+    }
+
+    private float Orthographic2Perspective(float orthoSize, float fov)
+    {   
+        return orthoSize / Mathf.Tan(Mathf.Deg2Rad * fov / 2);
+    }
+    private float Perspective2Orthographic(float perspectiveDistance, float fov)
+    {
+        return Mathf.Tan(Mathf.Deg2Rad * fov / 2) / perspectiveDistance;
     }
 
     // Update is called once per frame
@@ -28,19 +61,25 @@ public class CameraController : MonoBehaviour
         else if (Input.GetKey(KeyCode.A)) { this.transform.position += new Vector3(-camera_sensitivity * Time.deltaTime, 0, 0); }
         else if (Input.GetKey(KeyCode.D)) { this.transform.position += new Vector3(camera_sensitivity * Time.deltaTime, 0, 0); }
 
-/*        // Mouse scroll zoom
-        if (Input.mouseScrollDelta.y > 0)
-        {
-            this.transform.position += new Vector3(0, -zoom_sensitivity * Time.deltaTime, 0);
-        }
-        else if (Input.mouseScrollDelta.y < 0)
-        {
-            this.transform.position += new Vector3(0, zoom_sensitivity * Time.deltaTime, 0);
-        }
-        if (transform.position.y > 40) transform.position = new Vector3(transform.position.x, 40, transform.position.z);
-        else if (transform.position.y < 4) transform.position = new Vector3(transform.position.x, 4, transform.position.z);*/
+        // Mouse scroll zoom
+        float zoom_amount = 0;
+        if(Input.mouseScrollDelta.y != 0) zoom_amount = Time.deltaTime * -zoom_sensitivity * Input.mouseScrollDelta.y / Mathf.Abs(Input.mouseScrollDelta.y);
 
-/*        // Drag
+
+        if (orthographic)
+        {
+            zoom_amount = Mathf.Clamp(Camera.main.orthographicSize + zoom_amount, zoom_min, zoom_max);
+            Camera.main.orthographicSize = zoom_amount;
+        }
+        else {
+            zoom_amount = Mathf.Clamp(this.transform.position.y + zoom_amount, zoom_min_perspect, zoom_max_perspect);
+            this.transform.position = new Vector3(this.transform.position.x, zoom_amount, this.transform.position.z);
+        }
+
+
+
+        //------------------
+        // Drag
         if (Input.GetMouseButtonDown(0))
         {
             dragOrigin = Input.mousePosition;
@@ -53,7 +92,7 @@ public class CameraController : MonoBehaviour
             return;
         }
         Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
-        Vector3 move = new Vector3(-pos.x * dragSpeed * Time.deltaTime, 0, -pos.y * dragSpeed * Time.deltaTime);
-        transform.Translate(move, Space.World);*/
+        Vector3 move = new Vector3(-pos.x, 0, -pos.y);
+        this.transform.position += move;
     }
 }
