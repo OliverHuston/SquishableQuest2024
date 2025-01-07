@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public int targetFrameRate = 20;
-    public float camera_sensitivity = 10f;
+    public float camera_movement_sensitivity = 10f;
 
     [Space]
     [Tooltip("Minimum zoom size (ortho)")]  public float zoom_min = 3f;
@@ -17,14 +17,11 @@ public class CameraController : MonoBehaviour
 
 
 
-    [Space]
-    public float drag_sensitivity = 2;
-
-
     private bool orthographic = true;
 
 
-    private Vector3 dragOrigin;
+    private Vector3 dragClickOrigin;
+    private Vector3 dragOldPosition;
     private bool dragActive = false;
 
     // Start is called before the first frame update
@@ -53,18 +50,17 @@ public class CameraController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         // WSAD move
-        if (Input.GetKey(KeyCode.W)) { this.transform.position += new Vector3(0, 0, camera_sensitivity * Time.deltaTime); }
-        else if (Input.GetKey(KeyCode.S)) { this.transform.position += new Vector3(0, 0, -camera_sensitivity * Time.deltaTime); }
-        else if (Input.GetKey(KeyCode.A)) { this.transform.position += new Vector3(-camera_sensitivity * Time.deltaTime, 0, 0); }
-        else if (Input.GetKey(KeyCode.D)) { this.transform.position += new Vector3(camera_sensitivity * Time.deltaTime, 0, 0); }
+        if (Input.GetKey(KeyCode.W)) { this.transform.position += new Vector3(0, 0, camera_movement_sensitivity * Time.deltaTime); }
+        else if (Input.GetKey(KeyCode.S)) { this.transform.position += new Vector3(0, 0, -camera_movement_sensitivity * Time.deltaTime); }
+        else if (Input.GetKey(KeyCode.A)) { this.transform.position += new Vector3(-camera_movement_sensitivity * Time.deltaTime, 0, 0); }
+        else if (Input.GetKey(KeyCode.D)) { this.transform.position += new Vector3(camera_movement_sensitivity * Time.deltaTime, 0, 0); }
 
         // Mouse scroll zoom
         float zoom_amount = 0;
         if(Input.mouseScrollDelta.y != 0) zoom_amount = Time.deltaTime * -zoom_sensitivity * Input.mouseScrollDelta.y / Mathf.Abs(Input.mouseScrollDelta.y);
-
 
         if (orthographic)
         {
@@ -77,22 +73,22 @@ public class CameraController : MonoBehaviour
         }
 
 
-
         //------------------
         // Drag
         if (Input.GetMouseButtonDown(0))
         {
-            dragOrigin = Input.mousePosition;
             dragActive = true;
-            return;
+            dragOldPosition = this.transform.position;
+            dragClickOrigin = Camera.main.ScreenToViewportPoint(Input.mousePosition);
         }
-        if (!Input.GetMouseButton(0))
+        else if (Input.GetMouseButton(0))
+        {
+            Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition) - dragClickOrigin;
+            this.transform.position = dragOldPosition - new Vector3(pos.x, 0, pos.y) * camera_movement_sensitivity;
+        }
+        else
         {
             dragActive = false;
-            return;
         }
-        Vector3 pos = Camera.main.ScreenToViewportPoint(Input.mousePosition - dragOrigin);
-        Vector3 move = new Vector3(-pos.x, 0, -pos.y);
-        this.transform.position += move;
     }
 }

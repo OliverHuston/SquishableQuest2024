@@ -639,11 +639,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetFrameRate: 30
-  camera_sensitivity: 10
+  camera_movement_sensitivity: 12
   zoom_min: 3
   zoom_max: 20
   zoom_sensitivity: 60
-  drag_sensitivity: 2
 --- !u!1 &358754710
 GameObject:
   m_ObjectHideFlags: 0
