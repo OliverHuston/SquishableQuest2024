@@ -6,26 +6,33 @@ using TMPro;
 
 public class TypeOutText : MonoBehaviour
 {
-    public string text = "SQUISHABLE QUEST.";
-    private TMP_Text tMPro;
-    private int count;
+    [TextArea] public string text = "SQUISHABLE QUEST.";
+    public float timeBetweenLetters = 1f;
+    public float randomAmount = .05f;
 
-    // Start is called before the first frame update
-    void Start()
+
+    public IEnumerator TypeOut(float timeBetweenLetters, float randomAmount)
     {
-        tMPro = this.GetComponent<TMP_Text>();
+        TMP_Text tMPro = this.GetComponent<TMP_Text>();
         tMPro.text = "";
-    }
+        float timeElapsed = 0;
+        float nextTime = 0;
+        int count = 0;
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        
-
-        if (count < text.Length)
+        while (count < text.Length)
         {
-            tMPro.text += text[count];
-            count++;
+            timeElapsed += Time.deltaTime;
+
+            if (timeElapsed > nextTime)
+            {
+                //  Determine time to letter after this one.
+                nextTime += (timeBetweenLetters + Random.Range(0, randomAmount));
+
+                //  Add next letter.
+                if (text[count] != '`') tMPro.text += text[count];
+                count++;
+            }
+            yield return null;
         }
     }
 }
