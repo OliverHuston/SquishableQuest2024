@@ -16,10 +16,9 @@ public class CameraController : MonoBehaviour
     private float zoom_max_perspect;
 
 
-
     private bool orthographic = true;
 
-
+    //
     private Vector3 dragClickOrigin;
     private Vector3 dragOldPosition;
     private bool dragActive = false;
@@ -35,11 +34,10 @@ public class CameraController : MonoBehaviour
 
     private void CalculatePerspectiveZoomMinMax()
     {
-        float fov = 60;
+        float fov = Camera.main.fieldOfView;
         zoom_min_perspect = Orthographic2Perspective(zoom_min, fov);
         zoom_max_perspect = Orthographic2Perspective(zoom_max, fov);
     }
-
     private float Orthographic2Perspective(float orthoSize, float fov)
     {   
         return orthoSize / Mathf.Tan(Mathf.Deg2Rad * fov / 2);
@@ -49,15 +47,11 @@ public class CameraController : MonoBehaviour
         return Mathf.Tan(Mathf.Deg2Rad * fov / 2) / perspectiveDistance;
     }
 
-    // Update is called once per frame
+
+
     void LateUpdate()
     {
-        // WSAD move
-        if (Input.GetKey(KeyCode.W)) { this.transform.position += new Vector3(0, 0, camera_movement_sensitivity * Time.deltaTime); }
-        else if (Input.GetKey(KeyCode.S)) { this.transform.position += new Vector3(0, 0, -camera_movement_sensitivity * Time.deltaTime); }
-        else if (Input.GetKey(KeyCode.A)) { this.transform.position += new Vector3(-camera_movement_sensitivity * Time.deltaTime, 0, 0); }
-        else if (Input.GetKey(KeyCode.D)) { this.transform.position += new Vector3(camera_movement_sensitivity * Time.deltaTime, 0, 0); }
-
+        //CAMERA ZOOM
         // Mouse scroll zoom
         float zoom_amount = 0;
         if(Input.mouseScrollDelta.y != 0) zoom_amount = Time.deltaTime * -zoom_sensitivity * Input.mouseScrollDelta.y / Mathf.Abs(Input.mouseScrollDelta.y);
@@ -73,7 +67,13 @@ public class CameraController : MonoBehaviour
         }
 
 
-        //------------------
+        // CAMERA MOVEMENT
+        // WSAD move
+        if (Input.GetKey(KeyCode.W)) { this.transform.position += new Vector3(0, 0, camera_movement_sensitivity * Time.deltaTime); }
+        else if (Input.GetKey(KeyCode.S)) { this.transform.position += new Vector3(0, 0, -camera_movement_sensitivity * Time.deltaTime); }
+        else if (Input.GetKey(KeyCode.A)) { this.transform.position += new Vector3(-camera_movement_sensitivity * Time.deltaTime, 0, 0); }
+        else if (Input.GetKey(KeyCode.D)) { this.transform.position += new Vector3(camera_movement_sensitivity * Time.deltaTime, 0, 0); }
+
         // Drag
         if (Input.GetMouseButtonDown(0))
         {
