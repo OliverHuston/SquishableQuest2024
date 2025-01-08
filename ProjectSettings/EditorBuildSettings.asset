@@ -8,4 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 8fb64f08cdd8347459efea2d26715132
+  - enabled: 1
+    path: Assets/Scenes/ChooseParty.unity
+    guid: 4521c1e8e57683f4290d0a82588e8fba
+  - enabled: 1
+    path: Assets/Scenes/WorldMap.unity
+    guid: 1685dc35b47211a40bb0b9336be43eca
+  - enabled: 1
+    path: Assets/Scenes/Dungeon.unity
+    guid: 604fd0a6d1966e6478f631f0b58ec46f
   m_configObjects: {}

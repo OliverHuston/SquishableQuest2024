@@ -9,14 +9,17 @@ public class MainMenuManager : MonoBehaviour
     public GameObject anyButtonToPlayMessage;
     public GameObject partySelector;
 
+    [SerializeField] private ASyncLoader aSyncLoader;
+
     private bool  buttonPressed = false;
 
     void Start()
     {
-        StartCoroutine(StartSequence());
+        StartCoroutine(GameLaunchSequence());
     }
 
-    private IEnumerator StartSequence()
+    // Manipulation of graphics elements for game start up sequence.
+    private IEnumerator GameLaunchSequence()
     {
         titleText.SetActive(false);
         anyButtonToPlayMessage.SetActive(false);
@@ -39,7 +42,7 @@ public class MainMenuManager : MonoBehaviour
         }
 
         // Fade to brown background.
-        StartCoroutine(anyButtonToPlayMessage.GetComponent<ColorLERP>().Transition(2, 0, 2f));
+        StartCoroutine(anyButtonToPlayMessage.GetComponent<ColorLERP>().Transition(2, 0, .5f));
         StartCoroutine(titleText.GetComponent<ColorLERP>().Transition(0, 1, 2f));
         yield return background.Transition(1, 2, 2.5f);
 
@@ -50,11 +53,20 @@ public class MainMenuManager : MonoBehaviour
         yield return partySelector.GetComponent<MoveUI>().Move(2, 1, .1f);
         yield return new WaitForSeconds(.25f);
         Cursor.visible = true;
-
     }
 
+    // Check for input.
     void Update()
     {
         if(Input.anyKey) { buttonPressed = true; }
+    }
+
+    // NAVIGATION TO OTHER LEVELS
+    public void LoadGame() { }
+
+    public void CreateNewGame(int saveNumber)
+    {
+        Debug.Log("Game created in save slot #" + saveNumber + ".");
+        aSyncLoader.LoadLevelBtn("ChooseParty");
     }
 }
