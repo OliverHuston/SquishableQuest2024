@@ -6,9 +6,6 @@ using TMPro;
 public class TypeOutText : MonoBehaviour
 {
     [TextArea] public string text = "SQUISHABLE QUEST.";
-    public float timeBetweenLetters = 1f;
-    public float randomAmount = .05f;
-
 
     public IEnumerator TypeOut(float timeBetweenLetters, float randomAmount)
     {

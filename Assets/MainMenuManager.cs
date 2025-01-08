@@ -7,6 +7,7 @@ public class MainMenuManager : MonoBehaviour
     public ColorLERP background;
     public GameObject titleText;
     public GameObject anyButtonToPlayMessage;
+    public GameObject partySelector;
 
     private bool  buttonPressed = false;
 
@@ -19,6 +20,8 @@ public class MainMenuManager : MonoBehaviour
     {
         titleText.SetActive(false);
         anyButtonToPlayMessage.SetActive(false);
+        partySelector.SetActive(false);
+        Cursor.visible = false;
 
         // Fade in from black to display title.
         yield return background.Transition(0, 1, 3f);
@@ -31,14 +34,22 @@ public class MainMenuManager : MonoBehaviour
         buttonPressed = false;
         yield return anyButtonToPlayMessage.GetComponent<ColorLERP>().Transition(0, 2, 1.5f);
         while (!buttonPressed) {
-            yield return anyButtonToPlayMessage.GetComponent<ColorLERP>().Transition(2, 1, .75f);
-            yield return anyButtonToPlayMessage.GetComponent<ColorLERP>().Transition(1, 2, .75f);
+            yield return anyButtonToPlayMessage.GetComponent<ColorLERP>().Transition(2, 1, 1f);
+            yield return anyButtonToPlayMessage.GetComponent<ColorLERP>().Transition(1, 2, 1f);
         }
 
         // Fade to brown background.
         StartCoroutine(anyButtonToPlayMessage.GetComponent<ColorLERP>().Transition(2, 0, 2f));
         StartCoroutine(titleText.GetComponent<ColorLERP>().Transition(0, 1, 2f));
-        yield return background.Transition(1, 2, 5f);
+        yield return background.Transition(1, 2, 2.5f);
+
+        // Party selection screen drops down from top (with slight bounce).
+        partySelector.SetActive(true);
+        yield return partySelector.GetComponent<MoveUI>().Move(0, 1, .5f);
+        yield return partySelector.GetComponent<MoveUI>().Move(1, 2, .1f);
+        yield return partySelector.GetComponent<MoveUI>().Move(2, 1, .1f);
+        yield return new WaitForSeconds(.25f);
+        Cursor.visible = true;
 
     }
 
