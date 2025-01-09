@@ -683,7 +683,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '[press any button to continue]'
+  m_text: press any button to continue
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e38380ccbda95ba40b01c68fad47da51, type: 2}
   m_sharedMaterial: {fileID: -375131388370525544, guid: e38380ccbda95ba40b01c68fad47da51, type: 2}
@@ -1448,7 +1448,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: v 0.1
+  m_text: Test Build v 0.1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3e7814c12b1e4714e802ebaea8612d9c, type: 2}
   m_sharedMaterial: {fileID: -7441761007213018595, guid: 3e7814c12b1e4714e802ebaea8612d9c, type: 2}
