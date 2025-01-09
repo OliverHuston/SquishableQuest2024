@@ -9,8 +9,6 @@ public class MainMenuManager : MonoBehaviour
     public GameObject anyButtonToPlayMessage;
     public GameObject partySelector;
 
-    [SerializeField] private ASyncLoader aSyncLoader;
-
     private bool  buttonPressed = false;
 
     void Start()
@@ -67,6 +65,6 @@ public class MainMenuManager : MonoBehaviour
     public void CreateNewGame(int saveNumber)
     {
         Debug.Log("Game created in save slot #" + saveNumber + ".");
-        aSyncLoader.LoadLevelBtn("ChooseParty");
+        ASyncLoader.instance.LoadLevelBtn("ChooseParty");
     }
 }

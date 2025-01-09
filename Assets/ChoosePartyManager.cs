@@ -130,5 +130,10 @@ public class ChoosePartyManager : MonoBehaviour
         }
     }
 
-
+    public void StartAdventure()
+    {
+        // *SAVE HERE* -- create savefile for new party, etc.
+        //need to make sure dungeon loads into proper first mission 'The Horror! Pt. 1'
+        ASyncLoader.instance.LoadLevelBtn("Dungeon");
+    }
 }

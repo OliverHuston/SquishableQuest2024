@@ -8,14 +8,24 @@ public class ASyncLoader : MonoBehaviour
 {
     [Header("Menu Screens")]
     [SerializeField] private GameObject loadingScreen;
-    //[SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject sceneUI;
 
-    [Header("Slider")]
-    [SerializeField] private Slider loadingSlider;
+    private Slider loadingSlider;
 
-    public void LoadLevelBtn(string levelToLoad)
+    public static ASyncLoader instance { get; private set; }
+    private void Awake()
     {
-        //mainMenu.SetActive(false);
+        if (instance != null)
+        {
+            Debug.LogError("Found more than one ASyncLoader in the scene.");
+        }
+        instance = this;
+        loadingSlider = loadingScreen.transform.GetChild(0).GetChild(0).GetComponent<Slider>();
+    }
+
+        public void LoadLevelBtn(string levelToLoad)
+    {
+        sceneUI.SetActive(false);
         loadingScreen.SetActive(true);
 
         StartCoroutine(LoadLevelAsync(levelToLoad));
