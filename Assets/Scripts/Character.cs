@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
-using UnityEngine.UIElements;
 
 
 public class Character : MonoBehaviour
@@ -11,7 +9,7 @@ public class Character : MonoBehaviour
     //***VARIABLES***
     #region
     // Statline assignment
-    //public HeroStatline heroStatline;
+    public HeroStatline heroStatline;
     public EnemyStatline enemyStatline;
     public CharacterStatline statline;
 
@@ -37,35 +35,26 @@ public class Character : MonoBehaviour
     [HideInInspector] public int yPos;
     [HideInInspector] public Cell cell;
     [HideInInspector] public bool available = true;
+    [HideInInspector] public Character target;
 
     // Move anim parameters (should be the same across all characters)
     public float moveAnimSpeed = 2f;
     public float rotateAnimSpeed = 4f;
     public float moveDestinationTolerance = .1f;
     public float rotateAngleTolerance = .1f;
-
-    // Reference variables
-    private MapManager mapManager;
-    private CellManager cellManager;
-    private DungeonManager dungeonManager;
     #endregion
 
     //***SETUP***
     #region
     void Awake()
     {
-        // 1. Assign reference variables.
-        mapManager = FindObjectOfType<MapManager>();
-        cellManager = FindObjectOfType<CellManager>();
-        dungeonManager = FindObjectOfType<DungeonManager>();
-
-        // 2. Assign statline based on provided EnemyStatline or HeroStatline.
+        // 1. Assign statline based on provided EnemyStatline or HeroStatline.
         if(enemyStatline != null ) {
             statline = enemyStatline;
             statline.characterType = CharacterType.ENEMY;
         }
 
-        // 3. Assign stats based on statline.
+        // 2. Assign stats based on statline.
         characterDisplayName = statline.displayName;
         characterDisplayPortrait = statline.portrait;
         characterType = statline.characterType;
@@ -76,12 +65,12 @@ public class Character : MonoBehaviour
         initiative = statline.initiative;
         maxHealth = statline.health;
 
-        // 4. Set current stat values to full and set starting position.
+        // 3. Set current stat values to full and set starting position.
         currentHealth = statline.health;
         ResetActionAllowances();
-        OccupyCell();
+        //OccupyCell();
         xPos = (int)transform.position.x;
-        yPos = (int)transform.position.z; 
+        yPos = (int)transform.position.z;
     }
     #endregion
 
@@ -103,7 +92,7 @@ public class Character : MonoBehaviour
         }
         
         // Character changed cells. Clear old cell's occupant. Set new cell occupant and set new cell to cell.
-        Cell new_cell = cellManager.FindCell(xPos, yPos);
+        Cell new_cell = CellManager.instance.FindCell(xPos, yPos);
         if (new_cell == null) { cell = null; return; }
 
         if (cell != null) { cell.occupant = null; }
@@ -149,15 +138,14 @@ public class Character : MonoBehaviour
     // Enemy character takes turn (called in EnemyTurn() in dungeonManager).
     public IEnumerator TakeTurn()
     {
-        if (characterType != CharacterType.ENEMY) yield return null;
+        if (characterType != CharacterType.ENEMY) { yield break; }
         yield return new WaitForSeconds(1f);
         yield break; // temp
 
         // Choosing target
-        Character target = enemyStatline.target;
         if (target == null)
         {
-            target = GameObject.Find("Character").GetComponent<Character>();
+            target = GameObject.Find("Character").GetComponent<Character>(); // temp
 
             if (enemyStatline.enemyBehavior == EnemyBehavior.DEFAULT_MELEE)
             {
@@ -178,7 +166,7 @@ public class Character : MonoBehaviour
     }
     private IEnumerator MoveTowardTarget(Character target)
     {
-        cellManager.MoveCharacterToCell(this, target.cell, true);
+        CellManager.instance.MoveCharacterToCell(this, target.cell, true);
         //while (this.available == false) {}
         yield return null;
     }
@@ -195,11 +183,11 @@ public class Character : MonoBehaviour
     {
         if (this.characterType != CharacterType.ENEMY) return "";
 
-        foreach(string rule in enemyStatline.specialRules)
+        foreach(Skill skill in enemyStatline.skills)
         {
-            if (rule.Contains(ruleName))
+            if (skill.skillName.Equals(ruleName))
             {
-                string value = rule.Substring(rule.IndexOf('(')+1, rule.Length-(rule.IndexOf('(') + 1) - 1);
+                string value = skill.effectCode.Substring(skill.effectCode.IndexOf('(')+1, skill.effectCode.Length-(skill.effectCode.IndexOf('(') + 1) - 1);
                 return value;
             }
         }
@@ -211,12 +199,12 @@ public class Character : MonoBehaviour
     public bool Attack(Character target)
     {
         AttackType attackType = AttackType.RANGED;
-        if (cellManager.IsAdjacent(this.cell, target.cell)) { attackType = AttackType.MELEE; }
+        if (CellManager.instance.IsAdjacent(this.cell, target.cell)) { attackType = AttackType.MELEE; }
         if((attackType == AttackType.MELEE && remainingMeleeAttacks < 1) 
-            || (attackType == AttackType.RANGED && (remainingRangedAttacks < 1 || cellManager.LineOfSight(this.cell, target.cell)))) 
+            || (attackType == AttackType.RANGED && (remainingRangedAttacks < 1 || CellManager.instance.LineOfSight(this.cell, target.cell)))) 
             { return false; }
 
-        dungeonManager.ProcessAttack(this, target, attackType);
+        DungeonManager.instance.ProcessAttack(this, target, attackType);
         return true;
     }
 
@@ -244,7 +232,7 @@ public class Character : MonoBehaviour
         }
 
         // Upon arriving in cell
-        if (this.cell.cell_code == 'o') { mapManager.ExploreRoom(this.cell.room, this.cell.exitCode); }
+        if (this.cell.cell_code == 'o') { MapManager.instance.ExploreRoom(this.cell.room, this.cell.exitCode); }
         this.available = true;
     }
     // Rotate to face a provided cell.

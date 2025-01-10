@@ -38,4 +38,7 @@ public class CharacterStatline : ScriptableObject
     public int toughness = 3;
     [Tooltip("Determines pinning and dodge chances")]
     public int initiative = 3;
+
+
+    public List<Skill> skills;
 }

@@ -28,16 +28,12 @@ public class CellManager : MonoBehaviour
     private int[,] cellDistances;
     private Cell[] path;
 
-    // Convenience references
-    DungeonManager dungeonManager;
-    MapManager mapManager;
 
-
-    // Start is called before the first frame update
+    public static CellManager instance { get; private set; }
     void Awake()
     {
-        dungeonManager = FindAnyObjectByType<DungeonManager>();
-        mapManager = FindAnyObjectByType<MapManager>();
+        if (instance != null) Debug.LogError("Found more than one CellManager in the scene.");
+        instance = this;
 
         ResetSelection();
     }
@@ -50,8 +46,8 @@ public class CellManager : MonoBehaviour
         if (source == null)
         {
             ResetSelection();
-            dungeonManager.CellManagerStatusUpdate(selectionPhase);
-            dungeonManager.DisplayCharacterStats(null);
+            DungeonManager.instance.CellManagerStatusUpdate(selectionPhase);
+            DungeonManager.instance.DisplayCharacterStats(null);
 
             return;
         }
@@ -91,7 +87,7 @@ public class CellManager : MonoBehaviour
             {
                 Character character = originCell.occupant;
                 MoveCharacterToCell(character, source);
-                dungeonManager.DisplayCharacterStats(character);
+                DungeonManager.instance.DisplayCharacterStats(character);
             }
             //Attack function
             else
@@ -102,7 +98,7 @@ public class CellManager : MonoBehaviour
                 }
                 // eventually add further code for special healing abilities etc. that target friendly characters
 
-                dungeonManager.DisplayCharacterStats(originCell.occupant);
+                DungeonManager.instance.DisplayCharacterStats(originCell.occupant);
             }
 
             // Reset
@@ -110,12 +106,12 @@ public class CellManager : MonoBehaviour
         }
 
 
-        dungeonManager.CellManagerStatusUpdate(selectionPhase);
-        if(originCell != null) dungeonManager.DisplayCharacterStats(originCell.occupant);
-        //else { dungeonManager.DisplayCharacterStats(null); }
+        DungeonManager.instance.CellManagerStatusUpdate(selectionPhase);
+        if(originCell != null) DungeonManager.instance.DisplayCharacterStats(originCell.occupant);
+        //else { DungeonManager.instance.DisplayCharacterStats(null); }
         if(source.occupant != null)
         {
-            if (source.occupant.characterType == CharacterType.ENEMY) { dungeonManager.DisplayCharacterStats(source.occupant); }
+            if (source.occupant.characterType == CharacterType.ENEMY) { DungeonManager.instance.DisplayCharacterStats(source.occupant); }
         }
     }
 
@@ -335,7 +331,7 @@ public class CellManager : MonoBehaviour
     {
         if(origin.occupant.remainingRangedAttacks <= 0) { return; }
 
-        foreach(Character c in dungeonManager.characters)
+        foreach(Character c in DungeonManager.instance.characters)
         {
             if (c != origin.occupant)
             {

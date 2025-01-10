@@ -14,13 +14,11 @@ public class MapManager : MonoBehaviour
     private Room[] rooms;
     private int roomsCount = 0;
 
-    // Convenience variables
-    CellManager cellManager;
-
-    // Start is called before the first frame update
-    void Awake()
+    public static MapManager instance { get; private set; }
+    private void Awake()
     {
-        cellManager = GetComponentInChildren<CellManager>();    
+        if (instance != null) Debug.LogError("Found more than one MapManager in the scene.");
+        instance = this;
     }
 
     private void Update()
@@ -29,7 +27,7 @@ public class MapManager : MonoBehaviour
         {
             // Generation map
             int iterations = GenerateRandomMap(20, 3, 0);
-            cellManager.SetCellArrayDimensions(rooms); //necessary after all map generations
+            CellManager.instance.SetCellArrayDimensions(rooms); //necessary after all map generations
 
             // Begin display
             rooms[0].active = true;
@@ -376,7 +374,7 @@ public class MapManager : MonoBehaviour
                 }
             }
         }
-        cellManager.UpdateCellArray();
+        CellManager.instance.UpdateCellArray();
     }
     // Create a placeholder model for a given room.
     private void PrintRoomPlaceholder(Room room)

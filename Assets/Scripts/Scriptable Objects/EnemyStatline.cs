@@ -6,7 +6,7 @@ using UnityEngine;
 public enum EnemyBehavior
 {
     DEFAULT_MELEE = 0,  // move toward chosen target, attack that target
-    DEFAULT_RANGED =1
+    DEFAULT_RANGED = 1
 }
 
 public enum EnemySpawn
@@ -22,10 +22,7 @@ public class EnemyStatline : CharacterStatline
     public int gold = 10;
     public int armor = 0;
     public string damage = "d6";
-    public string[] specialRules;
 
     public EnemyBehavior enemyBehavior;
     public EnemySpawn enemySpawn;
-
-    [HideInInspector] public Character target;
 }

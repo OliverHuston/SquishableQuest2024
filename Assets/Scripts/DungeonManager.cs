@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing.Text;
 using UnityEngine;
-using static Unity.VisualScripting.Member;
 
 public enum Turn
 {
@@ -34,7 +33,6 @@ public class DungeonManager : MonoBehaviour
     
     // Reference variables
     [HideInInspector] public Character[] characters;
-    [HideInInspector] public Camera mainCamera;
 
     // Charts
     private int[,] ToHitChart =                 //attacker, defender
@@ -51,10 +49,13 @@ public class DungeonManager : MonoBehaviour
 
     //-----------------------------------------------------------------------------------------------------------------//
     //***SETUP***
+    public static DungeonManager instance { get; private set; }
     void Awake()
     {
+        if (instance != null) Debug.LogError("Found more than one DungeonManager in the scene.");
+        instance = this;
+
         characters = FindObjectsOfType<Character>();  //needs fixing to exclude enemies
-        mainCamera = Camera.main;
         endTurnButton.SetActive(false);
     }
 
@@ -122,7 +123,7 @@ public class DungeonManager : MonoBehaviour
     private void ActionText(Character characterLocation, string message)
     {
         AnimatedText animatedText = Instantiate(actionAnimatedText,
-            mainCamera.WorldToScreenPoint(characterLocation.gameObject.transform.position),
+            Camera.main.WorldToScreenPoint(characterLocation.gameObject.transform.position),
             Quaternion.identity, dungeonUI_transform);
         StartCoroutine(animatedText.PlayMessageAndDestroy(message, Color.white, .6f, 1.0f));
     }
