@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public enum CharacterType
 {
@@ -33,7 +32,7 @@ public class CharacterStatline : ScriptableObject
     public int weaponskill = 3;
     [Tooltip("Determines ranged hit chance, subject to modifiers for range, moving, etc.")]
     public int ballisticskill = 3;
-    [Tooltip("Determines base wound chance for melee")]
+    [Tooltip("Determines base damage bonus for melee")]
     public int strength = 3;
     [Tooltip("Determines base wound resistance against attacks")]
     public int toughness = 3;

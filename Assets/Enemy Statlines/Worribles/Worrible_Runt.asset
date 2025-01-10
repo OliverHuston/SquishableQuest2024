@@ -10,27 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b6eb985dd7c4124bb302fdcb74a9bdb, type: 3}
-  m_Name: Skeleton Archer
+  m_Name: Worrible_Runt
   m_EditorClassIdentifier: 
   characterType: 1
-  displayName: Skeleton Archer
-  portrait: {fileID: 0}
+  displayName: Worrible Runt
+  portrait: {fileID: 21300000, guid: 5156dc1813dbf59419677b1be9e49a18, type: 3}
+  model: {fileID: 0}
   moves: 4
   meleeAttacks: 1
-  rangedAttacks: 1
-  health: 5
-  weaponskill: 2
-  ballisticskill: 2
-  strength: 3
+  rangedAttacks: 0
+  health: 3
+  weaponskill: 3
+  ballisticskill: 0
+  strength: 2
   toughness: 3
-  initiative: 2
-  gold: 80
+  initiative: 3
+  gold: 30
   armor: 0
   damage: d6
-  specialRules:
-  - Fear (5)
-  - Regenerate (1)
-  - Bow (d6+3)
-  enemyBehavior: 1
-  enemySpawn: 1
+  specialRules: []
+  enemyBehavior: 0
+  enemySpawn: 0
   target: {fileID: 0}

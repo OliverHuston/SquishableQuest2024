@@ -3452,7 +3452,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4154067213984699235, guid: 4ebf9431d5733b84b9f5b77a78de5a71, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4300027706326114650, guid: 4ebf9431d5733b84b9f5b77a78de5a71, type: 3}
       propertyPath: m_text
@@ -3460,31 +3460,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4435053172567816084, guid: 4ebf9431d5733b84b9f5b77a78de5a71, type: 3}
       propertyPath: m_text
-      value: 'The secretive timberwolves largely keep to borders of their native
-        forest, but the most skilled of them, inducted into the Archiperian Rangers,
-        have been known to venture forth on quests of their own.
+      value: 'A jackalope who has left the warrens of Jackanope, whether because
+        of one too many run-ins with the Oowsla or from a desire to explore the world,
+        is known as a hlessi. These hlessil are swift and capable warriors, and often
+        find a place in adventuring parties.
 
 '
       objectReference: {fileID: 0}
     - target: {fileID: 5132569809204100660, guid: 4ebf9431d5733b84b9f5b77a78de5a71, type: 3}
       propertyPath: m_text
-      value: 'The Archiperian Ranger is a skilled and elusive archer. They can call
-        on the power of their god Archiper to aid them in battle, including to heal
-        themselves mid-combat.
-
-'
+      value: "The Hlessi is a highly mobile fighter, able to attack and then move
+        out of harm\u2019s way. At higher levels, the Hlessi can also be equipped
+        with javelins and unlocks the ability to hop over enemies.\r\n\n"
       objectReference: {fileID: 0}
     - target: {fileID: 5805922305481816322, guid: 4ebf9431d5733b84b9f5b77a78de5a71, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 290
+      value: 330
       objectReference: {fileID: 0}
     - target: {fileID: 9134278881690696076, guid: 4ebf9431d5733b84b9f5b77a78de5a71, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 290
+      value: 360
       objectReference: {fileID: 0}
     - target: {fileID: 9134278881690696076, guid: 4ebf9431d5733b84b9f5b77a78de5a71, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 90
+      value: 200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -10,21 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b6eb985dd7c4124bb302fdcb74a9bdb, type: 3}
-  m_Name: Worrible
+  m_Name: Giant_Earthworm
   m_EditorClassIdentifier: 
-  characterType: 1
-  displayName: Worrible
-  portrait: {fileID: 21300000, guid: 5156dc1813dbf59419677b1be9e49a18, type: 3}
-  moves: 4
+  characterType: 0
+  displayName: 
+  portrait: {fileID: 0}
+  model: {fileID: 0}
+  moves: 3
   meleeAttacks: 1
   rangedAttacks: 0
-  health: 5
-  weaponskill: 3
+  health: 6
+  weaponskill: 2
   ballisticskill: 0
   strength: 3
   toughness: 4
-  initiative: 3
-  gold: 50
+  initiative: 1
+  gold: 80
   armor: 0
   damage: d6
   specialRules: []
