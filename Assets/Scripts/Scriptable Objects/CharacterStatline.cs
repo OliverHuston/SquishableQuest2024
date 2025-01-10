@@ -8,7 +8,6 @@ public enum CharacterType
     ENEMY = 1
 }
 
-[CreateAssetMenu]
 public class CharacterStatline : ScriptableObject
 {
     // Set automatically by EnemyStatline/HeroStatline objects

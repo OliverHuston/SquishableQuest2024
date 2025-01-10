@@ -1098,6 +1098,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 3e42dd0e132f6d74bbf02b57930f1c8f, type: 2}
     - target: {fileID: 8660839832883721442, guid: 0c56937bffadeaf42b706f5af55809cb, type: 3}
+      propertyPath: heroStatline
+      value: 
+      objectReference: {fileID: 11400000, guid: 6b4416d1e6ad9d7458876d537387100b, type: 2}
+    - target: {fileID: 8660839832883721442, guid: 0c56937bffadeaf42b706f5af55809cb, type: 3}
       propertyPath: enemyStatline
       value: 
       objectReference: {fileID: 0}
@@ -2481,6 +2485,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character
       objectReference: {fileID: 0}
+    - target: {fileID: 8660839832883721442, guid: 0c56937bffadeaf42b706f5af55809cb, type: 3}
+      propertyPath: statline
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8660839832883721442, guid: 0c56937bffadeaf42b706f5af55809cb, type: 3}
+      propertyPath: heroStatline
+      value: 
+      objectReference: {fileID: 11400000, guid: 6b4416d1e6ad9d7458876d537387100b, type: 2}
     - target: {fileID: 8660839832883721442, guid: 0c56937bffadeaf42b706f5af55809cb, type: 3}
       propertyPath: moveAllowance
       value: 3

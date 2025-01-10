@@ -11,7 +11,7 @@ public class Character : MonoBehaviour
     // Statline assignment
     public HeroStatline heroStatline;
     public EnemyStatline enemyStatline;
-    public CharacterStatline statline;
+    [HideInInspector] public CharacterStatline statline;
 
     // Stats and display settings (from this.statline)
     [HideInInspector] public string characterDisplayName;
@@ -52,6 +52,11 @@ public class Character : MonoBehaviour
         if(enemyStatline != null ) {
             statline = enemyStatline;
             statline.characterType = CharacterType.ENEMY;
+        }
+        else if (heroStatline != null)
+        {
+            statline = heroStatline;
+            statline.characterType = CharacterType.HERO;
         }
 
         // 2. Assign stats based on statline.

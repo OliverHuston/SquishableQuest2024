@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+[CreateAssetMenu]
 public class HeroStatline : CharacterStatline
 {
     public int xp = 0;

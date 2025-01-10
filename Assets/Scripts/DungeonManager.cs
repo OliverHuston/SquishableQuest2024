@@ -172,7 +172,6 @@ public class DungeonManager : MonoBehaviour
 
     //-----------------------------------------------------------------------------------------------------------------//
     //***DICE ROLLING FUNCTIONS***
-
     // Roll an X+. 1 always fails, 6 always succeeds.
     public bool Roll(int target)
     {
