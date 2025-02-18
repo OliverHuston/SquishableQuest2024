@@ -25,10 +25,10 @@ MonoBehaviour:
   strength: 3
   toughness: 4
   initiative: 3
+  skills:
+  - {fileID: 0}
   gold: 80
   armor: 0
   damage: d6
-  specialRules: []
   enemyBehavior: 0
   enemySpawn: 0
-  target: {fileID: 0}

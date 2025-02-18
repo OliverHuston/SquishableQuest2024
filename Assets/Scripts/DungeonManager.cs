@@ -5,9 +5,10 @@ using UnityEngine;
 
 public enum Turn
 {
-    PLAYER = 0,
-    ENEMIES = 1,
-    POPUP = 2
+    START = 0,
+    HERO = 1,
+    MONSTER = 2,
+    END = 4
 }
 
 public enum AttackType
@@ -57,18 +58,43 @@ public class DungeonManager : MonoBehaviour
 
         characters = FindObjectsOfType<Character>();  //needs fixing to exclude enemies
         endTurnButton.SetActive(false);
+
+        StartCoroutine(StartOfTurnPhase());
     }
 
     //-----------------------------------------------------------------------------------------------------------------//
     //***TURN MANAGEMENT***
-    public void EndTurn()
+    private IEnumerator StartOfTurnPhase()
+    {
+        turn = Turn.START;
+
+        //StartOfTurnCodeHere
+        //NB: when first turn starts, ambush special event shouldn't be allowed (not allowed until at least on room explored)
+
+        StartHeroPhase();
+        yield return null;
+    }
+
+    private void StartHeroPhase()
+    {
+        turn = Turn.HERO;
+        foreach (Character c in characters)
+        {
+            if (c.characterType == CharacterType.HERO) c.ResetActionAllowances();
+        }
+    }
+
+    // EndHeroPhase called by the NextTurnButton
+    public void EndHeroPhase()
     {
         endTurnButton.SetActive(false);
-        turn = Turn.ENEMIES;
-        StartCoroutine(EnemyTurn());
+        StartCoroutine(MonsterPhase());
     }
-    private IEnumerator EnemyTurn()
+
+    private IEnumerator MonsterPhase()
     {
+        turn = Turn.MONSTER;
+
         foreach (Character c in characters)
         {
             if (c.characterType == CharacterType.ENEMY) c.ResetActionAllowances();
@@ -78,17 +104,21 @@ public class DungeonManager : MonoBehaviour
             if (c.characterType == CharacterType.ENEMY) yield return c.TakeTurn();
         }
 
-        StartPlayerTurn();
+        StartCoroutine(EndOfTurnPhase());
         yield return null;
     }
-    private void StartPlayerTurn()
+
+    private IEnumerator EndOfTurnPhase()
     {
-        turn = Turn.PLAYER;
-        foreach (Character c in characters)
-        {
-            if (c.characterType == CharacterType.HERO) c.ResetActionAllowances();
-        }
+        turn = Turn.END;
+
+        //EndOfTurn code here
+
+        StartCoroutine(StartOfTurnPhase());
+        yield return null;
     }
+
+
 
     //-----------------------------------------------------------------------------------------------------------------//
     //***UI MANAGEMENT***

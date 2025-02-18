@@ -29,13 +29,14 @@ public class MapManager : MonoBehaviour
             int iterations = GenerateRandomMap(20, 3, 0);
             CellManager.instance.SetCellArrayDimensions(rooms); //necessary after all map generations
 
+
             // Begin display
             rooms[0].active = true;
             PrintRoom(rooms[0]);
 
-/*            //temp
-            SetAllRoomsActive();
-            PrintFullMap();*/
+            /*            //temp
+                        SetAllRoomsActive();
+                        PrintFullMap();*/
         }
     }
 
@@ -383,6 +384,8 @@ public class MapManager : MonoBehaviour
         roomPlaceholder.transform.parent = this.transform.GetChild(1);
         roomPlaceholder.transform.position += new Vector3(room.xPos, 0, room.yPos);
 
+        Color randomRoomColor = Random.ColorHSV(.5f, 1f, .5f, 1f, 1f, 1f);
+
         int cols = room.cols;
         int rows = room.rows;
         char[,] cells = room.getCells();
@@ -395,6 +398,7 @@ public class MapManager : MonoBehaviour
                     GameObject newCube = Instantiate(_placeholderPrefab, transform.position, Quaternion.identity);
                     newCube.transform.parent = roomPlaceholder.transform;
                     newCube.transform.position += new Vector3(room.xPos + j, 0, room.yPos + rows - 1 - i);
+                    newCube.GetComponent<Renderer>().material.color = randomRoomColor;
                 }
                 //temp debugging
                 /*                GameObject a = Instantiate(_placeholderPrefab, transform.position, Quaternion.identity);
