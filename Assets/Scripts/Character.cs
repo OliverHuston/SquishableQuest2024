@@ -55,9 +55,15 @@ public class Character : MonoBehaviour
         }
         else if (heroStatline != null)
         {
+            heroStatline.LoadStatline();
+
             statline = heroStatline;
             statline.characterType = CharacterType.HERO;
+
         }
+
+
+
 
         // 2. Assign stats based on statline.
         characterDisplayName = statline.displayName;

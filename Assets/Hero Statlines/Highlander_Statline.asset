@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed429286ddd8c94fbfae83f364eb515, type: 3}
+  m_Name: Highlander_Statline
+  m_EditorClassIdentifier: 
+  characterType: 0
+  displayName: Highlander
+  portrait: {fileID: 0}
+  model: {fileID: 0}
+  moves: 4
+  meleeAttacks: 1
+  rangedAttacks: 0
+  health: 10
+  weaponskill: 3
+  ballisticskill: 3
+  strength: 3
+  toughness: 3
+  initiative: 3
+  skills: []
+  levelMatrixAddress: Assets/Highlander_LevelMatrix.csv
+  xp: 0
+  commonInv:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  uncommonInv:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  rareInv:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

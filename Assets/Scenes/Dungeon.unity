@@ -2835,7 +2835,7 @@ PrefabInstance:
     - target: {fileID: 8660839832883721442, guid: 0c56937bffadeaf42b706f5af55809cb, type: 3}
       propertyPath: heroStatline
       value: 
-      objectReference: {fileID: 11400000, guid: 6b4416d1e6ad9d7458876d537387100b, type: 2}
+      objectReference: {fileID: 11400000, guid: bdcf830783edd7e4db757f8f4c0d1d74, type: 2}
     - target: {fileID: 8660839832883721442, guid: 0c56937bffadeaf42b706f5af55809cb, type: 3}
       propertyPath: moveAllowance
       value: 3
