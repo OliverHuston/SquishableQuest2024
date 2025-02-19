@@ -55,15 +55,9 @@ public class Character : MonoBehaviour
         }
         else if (heroStatline != null)
         {
-            heroStatline.LoadStatline();
-
             statline = heroStatline;
             statline.characterType = CharacterType.HERO;
-
         }
-
-
-
 
         // 2. Assign stats based on statline.
         characterDisplayName = statline.displayName;
@@ -89,6 +83,20 @@ public class Character : MonoBehaviour
     {
         // Update occupied cell connection
         OccupyCell();
+
+    }
+
+    //temp save/load
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K) && this.characterType == CharacterType.HERO)
+        {
+            this.heroStatline.SaveStatline();
+        }
+        else if (Input.GetKeyDown(KeyCode.L) && this.characterType == CharacterType.HERO)
+        {
+            this.heroStatline.LoadStatline();
+        }
     }
 
 

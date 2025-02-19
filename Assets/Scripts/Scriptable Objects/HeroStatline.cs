@@ -6,41 +6,68 @@ using System.IO;
 [CreateAssetMenu]
 public class HeroStatline : CharacterStatline
 {
-    public string levelMatrixAddress = "";
+    // Loading Sources
+    private string levelMatrixFolder = "Assets/Hero Level Matrices/";
 
+    [Space]
+    public int saveSlot = 0;
+
+    [Space]
+    public int level = 0;
     public int xp = 0;
-
     public Item[] commonInv = new Item[4];
     public Item[] uncommonInv = new Item[4];
     public Item[] rareInv = new Item[4];
 
 
-
     public void LoadStatline()
     {
-        //temp 
-        int loaded_lvl = 10;
-        int loaded_maxHealth = 12;
-        int loaded_xp = 0;
-
-        string[] loaded_Skills;
-        string[] loaded_commonInv;
-        string[] loaded_uncommonInv;
-        string[] loaded_rareInv;
-
-
-
-        LoadStatsFromLevelMatrix(loaded_lvl);
+        Debug.Log("Loading...");
+        LoadStatsFromJson();
+        LoadStatsFromLevelMatrix(this.level);
     }
 
     public void SaveStatline()
     {
+        HeroSaveData heroSaveData = new HeroSaveData();
 
+        // Copy statline data to save object.
+        heroSaveData.level = this.level;
+        heroSaveData.maxHealth = this.health;
+        heroSaveData.xp = this.xp;
+        heroSaveData.skills = new List<Skill>(this.skills);
+        heroSaveData.commonInv = new Item[4];
+        this.commonInv.CopyTo(heroSaveData.commonInv, 0);
+        heroSaveData.uncommonInv = new Item[4];
+        this.uncommonInv.CopyTo(heroSaveData.uncommonInv, 0);
+        heroSaveData.rareInv = new Item[4];
+
+        this.rareInv.CopyTo(heroSaveData.rareInv, 0);
+
+        // Save to Json
+        string inventoryData = JsonUtility.ToJson(heroSaveData);
+        string filepath = Application.persistentDataPath + "/"+saveSlot+"_"+this.displayName+".json";
+        System.IO.File.WriteAllText(filepath, inventoryData);
+        Debug.Log("Saved.");
     }
+    private void LoadStatsFromJson()
+    {
+        string filepath = Application.persistentDataPath + "/" + saveSlot + "_" + this.displayName + ".json";
+        string inventoryData = System.IO.File.ReadAllText(filepath);
+        HeroSaveData heroSaveData = JsonUtility.FromJson<HeroSaveData>(inventoryData);
 
+        // Copy from save object to statline.
+        this.level = heroSaveData.level;
+        this.health = heroSaveData.maxHealth;
+        this.xp = heroSaveData.xp;
+        this.skills = new List<Skill>(heroSaveData.skills);
+        heroSaveData.commonInv.CopyTo(this.commonInv, 0);
+        heroSaveData.uncommonInv.CopyTo(this.uncommonInv, 0);
+        heroSaveData.rareInv.CopyTo(this.rareInv, 0);
+    }
     private void LoadStatsFromLevelMatrix(int level)
     {
-        StreamReader strReader = new StreamReader(levelMatrixAddress);
+        StreamReader strReader = new StreamReader(levelMatrixFolder+this.displayName+ "_LevelMatrix.csv");
         bool reading = true;
         while (reading)
         {
@@ -72,4 +99,19 @@ public class HeroStatline : CharacterStatline
             }
         }
     }
+ 
+}
+
+[System.Serializable]
+public class HeroSaveData
+{
+    public int level;
+    public int maxHealth;
+    public int xp;
+
+    public List<Skill> skills;
+
+    public Item[] commonInv;
+    public Item[] uncommonInv;
+    public Item[] rareInv;
 }

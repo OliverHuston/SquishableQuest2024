@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ed429286ddd8c94fbfae83f364eb515, type: 3}
-  m_Name: Highlander_Statline
+  m_Name: Mercenary_Statline
   m_EditorClassIdentifier: 
   characterType: 0
-  displayName: Highlander
+  displayName: Mercenary
   portrait: {fileID: 0}
   model: {fileID: 0}
   moves: 4

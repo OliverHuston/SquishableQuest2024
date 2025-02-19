@@ -25,8 +25,7 @@ MonoBehaviour:
   strength: 3
   toughness: 4
   initiative: 3
-  skills:
-  - {fileID: 0}
+  skills: []
   gold: 80
   armor: 0
   damage: d6

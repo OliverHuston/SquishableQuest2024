@@ -18,6 +18,8 @@ public class CharacterStatline : ScriptableObject
     public Sprite portrait;
     public Model model;
 
+
+    [Space]
     // Turn action allowances:
     public int moves = 4;
     public int meleeAttacks = 1;
@@ -27,6 +29,7 @@ public class CharacterStatline : ScriptableObject
     public int health = 10;
 
     // Fixed stats
+    [Space]
     [Tooltip("Compared with enemy WS to determine melee hit chance")]
     public int weaponskill = 3;
     [Tooltip("Determines ranged hit chance, subject to modifiers for range, moving, etc.")]
@@ -37,7 +40,6 @@ public class CharacterStatline : ScriptableObject
     public int toughness = 3;
     [Tooltip("Determines pinning and dodge chances")]
     public int initiative = 3;
-
 
     public List<Skill> skills;
 }
