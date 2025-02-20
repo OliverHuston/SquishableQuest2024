@@ -398,7 +398,7 @@ public class MapManager : MonoBehaviour
                     GameObject newCube = Instantiate(_placeholderPrefab, transform.position, Quaternion.identity);
                     newCube.transform.parent = roomPlaceholder.transform;
                     newCube.transform.position += new Vector3(room.xPos + j, 0, room.yPos + rows - 1 - i);
-                    newCube.GetComponent<Renderer>().material.color = randomRoomColor;
+                    //newCube.GetComponent<Renderer>().material.color = randomRoomColor;
                 }
                 //temp debugging
                 /*                GameObject a = Instantiate(_placeholderPrefab, transform.position, Quaternion.identity);
