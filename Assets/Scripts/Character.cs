@@ -91,11 +91,11 @@ public class Character : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.K) && this.characterType == CharacterType.HERO)
         {
-            this.heroStatline.SaveStatline();
+            this.heroStatline.Save();
         }
         else if (Input.GetKeyDown(KeyCode.L) && this.characterType == CharacterType.HERO)
         {
-            this.heroStatline.LoadStatline();
+            this.heroStatline.Load();
         }
     }
 

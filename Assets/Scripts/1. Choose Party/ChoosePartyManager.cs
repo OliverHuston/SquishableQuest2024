@@ -17,6 +17,7 @@ public class ChoosePartyManager : MonoBehaviour
     [SerializeField] private GameObject characterPortraitsPanel;
 
     [Space]
+    [Space]
     [SerializeField] private GameObject chosenPartyDisplay;
 
     [Space]

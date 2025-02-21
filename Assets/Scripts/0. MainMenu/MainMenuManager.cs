@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -9,12 +10,16 @@ public class MainMenuManager : MonoBehaviour
     public GameObject anyButtonToPlayMessage;
     public GameObject partySelector;
 
+    public GameObject[] newGameButtons;
+    public GameObject[] loadGameButtons;
+
     [Space] [SerializeField] private bool skipIntroSequence;
 
     private bool  buttonPressed = false;
 
     void Start()
     {
+        SetupStartGameButtons();
         if(!skipIntroSequence) StartCoroutine(GameLaunchSequence());
         else
         {
@@ -66,22 +71,33 @@ public class MainMenuManager : MonoBehaviour
         if(Input.anyKey) { buttonPressed = true; }
     }
 
-    // NAVIGATION TO OTHER LEVELS
-    public void LoadGame() { }
 
-    public void CreateNewGame(int saveNumber)
+    private void SetupStartGameButtons()
     {
-        Debug.Log("Game created in save slot #" + saveNumber + ".");
+        for(int i = 0; i < newGameButtons.Length; i++)
+        {
+            bool slotActive = DataPersistenceManager.instance.hasData(i + 1);
+            newGameButtons[i].SetActive(!slotActive);
+            loadGameButtons[i].SetActive(slotActive);
 
+            if(slotActive)
+            {
+                loadGameButtons[i].transform.GetChild(2).GetComponent<TMP_Text>().text = DataPersistenceManager.instance.getPartyName(i + 1);
+            }
+        }
+    }
 
-
+    // NAVIGATION TO OTHER LEVELS
+    public void LoadGame(int saveSlot) {
+        DataPersistenceManager.instance.LoadGame(saveSlot);
+        Debug.Log("Game loading from Save Slot " + saveSlot + ".");
         ASyncLoader.instance.LoadLevelBtn("ChooseParty");
     }
-}
 
-
-public class PartySaveData
-{
-    public int gold;
-    public Item[] inventory;
+    public void CreateNewGame(int saveSlot)
+    {
+        DataPersistenceManager.instance.NewGame(saveSlot);
+        Debug.Log("Game created in Save Slot " + saveSlot + ".");
+        ASyncLoader.instance.LoadLevelBtn("ChooseParty");
+    }
 }

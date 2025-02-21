@@ -20,18 +20,11 @@ public class HeroStatline : CharacterStatline
     public Item[] rareInv = new Item[4];
 
 
-    public void LoadStatline()
-    {
-        Debug.Log("Loading...");
-        LoadStatsFromJson();
-        LoadStatsFromLevelMatrix(this.level);
-    }
-
-    public void SaveStatline()
+    public void Save()
     {
         HeroSaveData heroSaveData = new HeroSaveData();
 
-        // Copy statline data to save object.
+        // Copy data to HeroSaveData object.
         heroSaveData.level = this.level;
         heroSaveData.maxHealth = this.health;
         heroSaveData.xp = this.xp;
@@ -41,22 +34,29 @@ public class HeroStatline : CharacterStatline
         heroSaveData.uncommonInv = new Item[4];
         this.uncommonInv.CopyTo(heroSaveData.uncommonInv, 0);
         heroSaveData.rareInv = new Item[4];
-
         this.rareInv.CopyTo(heroSaveData.rareInv, 0);
 
-        // Save to Json
-        string inventoryData = JsonUtility.ToJson(heroSaveData);
+        // Save to Json.
+        string saveData = JsonUtility.ToJson(heroSaveData);
         string filepath = Application.persistentDataPath + "/"+saveSlot+"_"+this.displayName+".json";
-        System.IO.File.WriteAllText(filepath, inventoryData);
-        Debug.Log("Saved.");
+        System.IO.File.WriteAllText(filepath, saveData);
+        Debug.Log("Saved " + this.displayName + " data in Save Slot " + this.saveSlot + ".");
     }
+
+    public void Load()
+    {
+        LoadStatsFromJson();
+        LoadStatsFromLevelMatrix(this.level);
+    }
+
     private void LoadStatsFromJson()
     {
+        // Load from Json.
         string filepath = Application.persistentDataPath + "/" + saveSlot + "_" + this.displayName + ".json";
-        string inventoryData = System.IO.File.ReadAllText(filepath);
-        HeroSaveData heroSaveData = JsonUtility.FromJson<HeroSaveData>(inventoryData);
+        string data = System.IO.File.ReadAllText(filepath);
+        HeroSaveData heroSaveData = JsonUtility.FromJson<HeroSaveData>(data);
 
-        // Copy from save object to statline.
+        // Copy data from HeroSaveObject object to statline.
         this.level = heroSaveData.level;
         this.health = heroSaveData.maxHealth;
         this.xp = heroSaveData.xp;
@@ -98,6 +98,19 @@ public class HeroStatline : CharacterStatline
                 break;
             }
         }
+    }
+
+
+    public void SetToDefaults()
+    {
+        level = 0;
+        health = 0;
+        xp = 0;
+        skills = new List<Skill>();
+        commonInv = new Item[0];
+        uncommonInv = new Item[0];
+        rareInv = new Item[0];
+        LoadStatsFromLevelMatrix(level);
     }
  
 }
