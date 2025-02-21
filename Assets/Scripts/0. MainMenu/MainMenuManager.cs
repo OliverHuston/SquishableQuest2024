@@ -9,11 +9,18 @@ public class MainMenuManager : MonoBehaviour
     public GameObject anyButtonToPlayMessage;
     public GameObject partySelector;
 
+    [Space] [SerializeField] private bool skipIntroSequence;
+
     private bool  buttonPressed = false;
 
     void Start()
     {
-        StartCoroutine(GameLaunchSequence());
+        if(!skipIntroSequence) StartCoroutine(GameLaunchSequence());
+        else
+        {
+            partySelector.SetActive(true);
+            Cursor.visible = true;
+        }
     }
 
     // Manipulation of graphics elements for game start up sequence.
@@ -65,6 +72,16 @@ public class MainMenuManager : MonoBehaviour
     public void CreateNewGame(int saveNumber)
     {
         Debug.Log("Game created in save slot #" + saveNumber + ".");
+
+
+
         ASyncLoader.instance.LoadLevelBtn("ChooseParty");
     }
+}
+
+
+public class PartySaveData
+{
+    public int gold;
+    public Item[] inventory;
 }

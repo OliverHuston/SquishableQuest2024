@@ -1,35 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-
-public enum Rarity
+public enum ItemRarity
 {
     COMMON = 0,
     UNCOMMON = 1,
     RARE = 2
 }
 
-public enum ItemSlot
+public enum ItemType
 {
     NONE = 0,
     ONEHANDED_WEAPON = 1,
     TWOHANDED_WEAPON = 2,
     RANGED_WEAPON = 3,
     SINGLE_USE = 4,
-    ONCE_PER_DUNGEON = 5,
-    ARMOR = 6,
-    HELMET = 7,
-    SHIELD = 8
+    ONCE_PER_TURN = 5,
+    ONCE_PER_DUNGEON = 6,
+    ARMOR = 7,
+    HELMET = 8,
+    SHIELD = 9
 }
 
+[CreateAssetMenu]
 public class Item : ScriptableObject
 {
     public string itemName;
 
     [Space]
-    public Rarity rarity;
+    public ItemRarity rarity;
+    public ItemType type;
     [TextArea] public string displayDescription;
 
-    public string effectCodes;
+    [Space]
+    public string effectCode;
 }
