@@ -12,4 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6783b03082759964b982ea3a6393d5df, type: 3}
   m_Name: Leones
   m_EditorClassIdentifier: 
+  region_name: Leones
+  region_description: "The owls of Icleise make their homes and cities high in the
+    branches of the region\u2019s deep forests. Icleise controls the crucial South
+    Pass along the great northern trade routes and the kings of Istia have long sought
+    to incorporate the territory as a vassal, whether through diplomacy or force
+    of arms.\r"
   saveSlot: 0
+  available: 1
+  unlocked: 0
+  locationNames: []
+  locationsProgressCodes: 
