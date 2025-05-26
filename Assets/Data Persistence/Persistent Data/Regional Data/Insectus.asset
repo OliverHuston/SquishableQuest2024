@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: Insectus
   m_EditorClassIdentifier: 
   region_name: Insectus
-  region_description: This is Insectus. It is very cool.
+  region_description: "Insectus is the largest port in King Sabre\u2019s domain,
+    set as the end of a large inlet. The region\u2019s steep cliffs are studded with
+    forts and bases for the Sabre fleet.\r"
   saveSlot: 0
   available: 1
   unlocked: 0
+  unlocked_status: 2
   locationNames: []
   locationsProgressCodes: 

@@ -13,13 +13,12 @@ MonoBehaviour:
   m_Name: Carthage
   m_EditorClassIdentifier: 
   region_name: Carthage
-  region_description: "The owls of Icleise make their homes and cities high in the
-    branches of the region\u2019s deep forests. Icleise controls the crucial South
-    Pass along the great northern trade routes and the kings of Istia have long sought
-    to incorporate the territory as a vassal, whether through diplomacy or force
-    of arms.\r"
+  region_description: The elephants of Carthage provide King Sabre with legions of
+    well-disciplined infantry. They have an ancestral feud with Leones, held in check
+    only by the careful diplomacy of Agrosan mediators.
   saveSlot: 0
   available: 1
   unlocked: 0
+  unlocked_status: 2
   locationNames: []
   locationsProgressCodes: 

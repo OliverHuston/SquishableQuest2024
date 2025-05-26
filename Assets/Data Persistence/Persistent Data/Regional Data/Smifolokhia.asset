@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6783b03082759964b982ea3a6393d5df, type: 3}
-  m_Name: Plow
+  m_Name: Smifolokhia
   m_EditorClassIdentifier: 
-  region_name: Plow
-  region_description: "The Republic of Plow occupies the fertile land around the
-    Bovine River. It has close ties to Agros but carefully maintains its independence.
-    The territory southwest of the river borders on the Dark Forest and is watched
-    over by blue oxen devoted to the legendary forester Bun-Yan.\r"
+  region_name: Smifolokhia
+  region_description: "The Smifolok River Valley and the rugged lands to the southeast
+    are home to several minor powers, including the great trading emporium of Hive
+    along the Voracine coast and the fortress city of It-Bit nestled among the mountains.
+    \r"
   saveSlot: 0
-  available: 1
+  available: 0
   unlocked: 0
-  unlocked_status: 2
+  unlocked_status: 0
   locationNames: []
   locationsProgressCodes: 

@@ -1,6 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum RegionUnlocked
+{
+    NOT_YET_AVAILABLE,
+    COMING_SOON,
+    LOCKED,
+    UNLOCKED
+};
+
 [CreateAssetMenu]
 public class RegionalData : ScriptableObject
 {
@@ -13,6 +22,7 @@ public class RegionalData : ScriptableObject
     [Space]
     public bool available = false;
     public bool unlocked = false;
+    public RegionUnlocked unlocked_status;
 
     [Space]
     public string[] locationNames;

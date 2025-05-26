@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: Agros
   m_EditorClassIdentifier: 
   region_name: Agros
-  region_description: "The owls of Icleise make their homes high in the branches
-    of the region\u2019s deep forests. Icleise controls the crucial South Pass along
-    the great northern trade routes. The kings of Istia have long sought to incorporate
-    the territory as a vassal, whether through diplomacy or force of arms.\r"
+  region_description: "The kingdom of Agros is known for its agriculture and for
+    the incredible wealth of its nobility, who have enriched themselves from the
+    kingdom\u2019s place at the confluence of the northern and eastern trade routes.
+    The holy city of Sanctuary controls an independent territory to the north of
+    Agros.\r"
   saveSlot: 0
   available: 1
   unlocked: 1
+  unlocked_status: 3
   locationNames: []
   locationsProgressCodes: 

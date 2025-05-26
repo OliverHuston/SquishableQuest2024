@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Leones
   m_EditorClassIdentifier: 
   region_name: Leones
-  region_description: "The owls of Icleise make their homes and cities high in the
-    branches of the region\u2019s deep forests. Icleise controls the crucial South
-    Pass along the great northern trade routes and the kings of Istia have long sought
-    to incorporate the territory as a vassal, whether through diplomacy or force
-    of arms.\r"
+  region_description: "The lions of Leones are vassals of King Sabre and inhabit
+    the remains of the once-vast savannah extending north of the Perezoso River.
+    The lions are expert skirmishers who have the thankless task of defending Agrosan
+    territory from the horrors that often spill south from the Worrible Wastes.\r"
   saveSlot: 0
   available: 1
   unlocked: 0
+  unlocked_status: 2
   locationNames: []
   locationsProgressCodes: 

@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Haystack
   m_EditorClassIdentifier: 
   region_name: Haystack
-  region_description: "The owls of Icleise make their homes and cities high in the
-    branches of the region\u2019s deep forests. Icleise controls the crucial South
-    Pass along the great northern trade routes and the kings of Istia have long sought
-    to incorporate the territory as a vassal, whether through diplomacy or force
-    of arms.\r"
+  region_description: "Haystack is the capital of clydesdale kingdom that rules over
+    the Golden Isles. This chain of islands is so named for its fields of wheat that
+    stretch as far as the eye can see, but other regions, especially the smaller
+    islands, have more rugged terrain, home to Haystack\u2019s many highland clans.\r"
   saveSlot: 0
   available: 0
   unlocked: 0
+  unlocked_status: 0
   locationNames: []
   locationsProgressCodes: 
