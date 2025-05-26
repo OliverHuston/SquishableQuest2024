@@ -238,7 +238,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: 7b396b58db6a75c46a6b17b0141e0f98, type: 3}
     - target: {fileID: 7025949998044860510, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
       propertyPath: m_Color.a
-      value: 1
+      value: 0.5019608
       objectReference: {fileID: 0}
     - target: {fileID: 7025949998044860510, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
       propertyPath: m_Color.b
@@ -261,6 +261,146 @@ PrefabInstance:
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
   m_PrefabInstance: {fileID: 40490186}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &82806629
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1101416122}
+    m_Modifications:
+    - target: {fileID: 1314614755861324622, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: regionalData
+      value: 
+      objectReference: {fileID: 11400000, guid: db67a64497da9a343a2ced6822e13ad5, type: 2}
+    - target: {fileID: 1314614755861324622, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: province_name
+      value: Agros
+      objectReference: {fileID: 0}
+    - target: {fileID: 1314614755861324622, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: province_description
+      value: "A vassal of Istia, Geom is perhaps the northernmost kingdom in the
+        known world. The Geomites have been tasked with defending Bergen Pass against
+        the wild tribes of the far north.\r"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Pivot.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 521
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 668
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 626
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1265
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5098966645788246871, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Name
+      value: antum
+      objectReference: {fileID: 0}
+    - target: {fileID: 5098966645788246871, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025949998044860510, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8d9e0049f3af6b24b9ebadeea0cdc186, type: 3}
+    - target: {fileID: 7025949998044860510, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Color.a
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025949998044860510, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025949998044860510, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025949998044860510, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+--- !u!224 &82806630 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+  m_PrefabInstance: {fileID: 82806629}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &129267880
 GameObject:
@@ -439,6 +579,146 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 195241217}
   m_CullTransparentMesh: 1
+--- !u!1001 &300806258
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1101416122}
+    m_Modifications:
+    - target: {fileID: 1314614755861324622, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: regionalData
+      value: 
+      objectReference: {fileID: 11400000, guid: be4950bab9d0f084b9893c2dc056d8f8, type: 2}
+    - target: {fileID: 1314614755861324622, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: province_name
+      value: Agros
+      objectReference: {fileID: 0}
+    - target: {fileID: 1314614755861324622, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: province_description
+      value: "A vassal of Istia, Geom is perhaps the northernmost kingdom in the
+        known world. The Geomites have been tasked with defending Bergen Pass against
+        the wild tribes of the far north.\r"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Pivot.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 828
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 816
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 992
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 801
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5098966645788246871, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Name
+      value: smifolokhia
+      objectReference: {fileID: 0}
+    - target: {fileID: 5098966645788246871, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025949998044860510, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7ab9efe4085fb3543b750f40ec170414, type: 3}
+    - target: {fileID: 7025949998044860510, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Color.a
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025949998044860510, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025949998044860510, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025949998044860510, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+--- !u!224 &300806259 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+  m_PrefabInstance: {fileID: 300806258}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &334488043
 GameObject:
   m_ObjectHideFlags: 0
@@ -1103,6 +1383,146 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 703620421}
   m_CullTransparentMesh: 1
+--- !u!1001 &735358786
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1101416122}
+    m_Modifications:
+    - target: {fileID: 1314614755861324622, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: regionalData
+      value: 
+      objectReference: {fileID: 11400000, guid: 35cdfd1421bf22a46ac019f4774f79b0, type: 2}
+    - target: {fileID: 1314614755861324622, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: province_name
+      value: Agros
+      objectReference: {fileID: 0}
+    - target: {fileID: 1314614755861324622, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: province_description
+      value: "A vassal of Istia, Geom is perhaps the northernmost kingdom in the
+        known world. The Geomites have been tasked with defending Bergen Pass against
+        the wild tribes of the far north.\r"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Pivot.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 801
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 569
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 897
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1094
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5098966645788246871, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Name
+      value: forcleise
+      objectReference: {fileID: 0}
+    - target: {fileID: 5098966645788246871, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025949998044860510, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 82d8b982140caf64389bfb7cfd01d37e, type: 3}
+    - target: {fileID: 7025949998044860510, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Color.a
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025949998044860510, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025949998044860510, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025949998044860510, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+--- !u!224 &735358787 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+  m_PrefabInstance: {fileID: 735358786}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &749903146
 GameObject:
   m_ObjectHideFlags: 0
@@ -1365,6 +1785,146 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1062874460
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1101416122}
+    m_Modifications:
+    - target: {fileID: 1314614755861324622, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: regionalData
+      value: 
+      objectReference: {fileID: 11400000, guid: efacab4b8886ab64a9e6cd9b8661a2d1, type: 2}
+    - target: {fileID: 1314614755861324622, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: province_name
+      value: Agros
+      objectReference: {fileID: 0}
+    - target: {fileID: 1314614755861324622, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: province_description
+      value: "A vassal of Istia, Geom is perhaps the northernmost kingdom in the
+        known world. The Geomites have been tasked with defending Bergen Pass against
+        the wild tribes of the far north.\r"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Pivot.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 542
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 557
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 244
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1192
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5098966645788246871, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Name
+      value: mousepile
+      objectReference: {fileID: 0}
+    - target: {fileID: 5098966645788246871, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025949998044860510, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6731503200bf63944bfd596d96204441, type: 3}
+    - target: {fileID: 7025949998044860510, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Color.a
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025949998044860510, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025949998044860510, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025949998044860510, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+--- !u!224 &1062874461 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+  m_PrefabInstance: {fileID: 1062874460}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1096673130
 GameObject:
   m_ObjectHideFlags: 0
@@ -1453,7 +2013,7 @@ Transform:
   m_GameObject: {fileID: 1096673130}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 100, z: 0}
+  m_LocalPosition: {x: 5.13, y: 100, z: 500.48}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1556,6 +2116,11 @@ Transform:
   - {fileID: 1543146244}
   - {fileID: 2128400935}
   - {fileID: 40490187}
+  - {fileID: 300806259}
+  - {fileID: 735358787}
+  - {fileID: 82806630}
+  - {fileID: 1062874461}
+  - {fileID: 1619742980}
   m_Father: {fileID: 669236877}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1101416123
@@ -1681,7 +2246,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 800, y: 74.1}
+  m_SizeDelta: {x: 800, y: 200}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1384852647
 MonoBehaviour:
@@ -2560,6 +3125,146 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1597318487}
   m_CullTransparentMesh: 1
+--- !u!1001 &1619742979
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1101416122}
+    m_Modifications:
+    - target: {fileID: 1314614755861324622, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: regionalData
+      value: 
+      objectReference: {fileID: 11400000, guid: 9042ab6be070f614ebfcdbacd38435aa, type: 2}
+    - target: {fileID: 1314614755861324622, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: province_name
+      value: Agros
+      objectReference: {fileID: 0}
+    - target: {fileID: 1314614755861324622, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: province_description
+      value: "A vassal of Istia, Geom is perhaps the northernmost kingdom in the
+        known world. The Geomites have been tasked with defending Bergen Pass against
+        the wild tribes of the far north.\r"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Pivot.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 771
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 563
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 342
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 856
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5098966645788246871, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Name
+      value: sarda
+      objectReference: {fileID: 0}
+    - target: {fileID: 5098966645788246871, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025949998044860510, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: acc4621af795e9e46bcf4e5261b1d0b1, type: 3}
+    - target: {fileID: 7025949998044860510, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Color.a
+      value: 0.5019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025949998044860510, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025949998044860510, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7025949998044860510, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+--- !u!224 &1619742980 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2744516013757716835, guid: fa0e94e2596eb9348abe8f16c846c9dd, type: 3}
+  m_PrefabInstance: {fileID: 1619742979}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1821877517
 GameObject:
   m_ObjectHideFlags: 0

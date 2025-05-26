@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6783b03082759964b982ea3a6393d5df, type: 3}
+  m_Name: Forcleise
+  m_EditorClassIdentifier: 
+  region_name: Forcleise
+  region_description: The kingdom of Forcleise is best known to the outside world
+    for its popular ski resorts on the slopes of the Eastern Grey Mountains, but
+    the dark forests and icy peaks beyond the well-groomed trails are known to few
+    outside of the Forcleisian Ski Patrol.
+  saveSlot: 0
+  available: 0
+  unlocked: 0
+  unlocked_status: 0
+  locationNames: []
+  locationsProgressCodes: 
