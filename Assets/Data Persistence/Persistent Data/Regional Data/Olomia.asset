@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6783b03082759964b982ea3a6393d5df, type: 3}
+  m_Name: Olomia
+  m_EditorClassIdentifier: 
+  region_name: Olomia
+  region_description: "Olomia\u2014the region surrounding the Olm River\u2014contains
+    the two small kingdoms of Sprig and Melbourne. At the mouth of the Olm River
+    lies the port of Olmsgaard, a major trading hub in the southern Sea of Vorax.\r"
+  saveSlot: 0
+  unlocked_status: 0
+  locationNames: []
+  locationsProgressCodes: 

@@ -20,8 +20,6 @@ public class RegionalData : ScriptableObject
     public int saveSlot;
 
     [Space]
-    public bool available = false;
-    public bool unlocked = false;
     public RegionUnlocked unlocked_status;
 
     [Space]

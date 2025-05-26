@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6783b03082759964b982ea3a6393d5df, type: 3}
+  m_Name: Heim
+  m_EditorClassIdentifier: 
+  region_name: Heim
+  region_description: "The kingdom of Heim is inhabited by the frilled lizards, who
+    proudly uphold their chivalric traditions. For a thousand years, the knights
+    of Heim have waged a bitter war against the Archiperian timberwolves, giving
+    the Red River that divides the two territories its name. \r"
+  saveSlot: 0
+  unlocked_status: 0
+  locationNames: []
+  locationsProgressCodes: 

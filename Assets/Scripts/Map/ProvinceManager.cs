@@ -25,14 +25,11 @@ public class ProvinceManager : MonoBehaviour
         provinceInfoDisplay.SetActive(false);
     }
 
-    public void DisplayProvinceDetails(string name, string description, bool available, bool unlocked)
+    public void DisplayProvinceDetails(string name, string description, RegionUnlocked unlocked_status)
     {
         provinceNameText.text = "-"+name.ToUpper()+"-";
         provinceDescriptionText.text = description;
-        if (!available) { SetAvailabilityDisplay(0); }
-        else if (!unlocked) { SetAvailabilityDisplay(1); }
-        else { SetAvailabilityDisplay(2); }
-
+        SetAvailabilityDisplay(unlocked_status);
         provinceInfoDisplay.SetActive(true);
     }
 
@@ -42,28 +39,37 @@ public class ProvinceManager : MonoBehaviour
     }
 
 
-    //  0 = unavailable, 1 = locked, 2 = unlocked
-    private void SetAvailabilityDisplay(int status)
+    private void SetAvailabilityDisplay(RegionUnlocked status)
     {
-        if(status == 0)
+        if(status == RegionUnlocked.NOT_YET_AVAILABLE)
         {
             provinceInfoDisplay.transform.GetChild(2).gameObject.SetActive(true); 
             provinceInfoDisplay.transform.GetChild(3).gameObject.SetActive(false);
             provinceInfoDisplay.transform.GetChild(4).gameObject.SetActive(false);
+            provinceInfoDisplay.transform.GetChild(5).gameObject.SetActive(false);
 
         }
-        else if (status == 1)
+        else if (status == RegionUnlocked.COMING_SOON)
         {
             provinceInfoDisplay.transform.GetChild(2).gameObject.SetActive(false);
             provinceInfoDisplay.transform.GetChild(3).gameObject.SetActive(true);
             provinceInfoDisplay.transform.GetChild(4).gameObject.SetActive(false);
+            provinceInfoDisplay.transform.GetChild(5).gameObject.SetActive(false);
 
         }
-        if (status == 2)
+        else if (status == RegionUnlocked.LOCKED)
         {
             provinceInfoDisplay.transform.GetChild(2).gameObject.SetActive(false);
             provinceInfoDisplay.transform.GetChild(3).gameObject.SetActive(false);
             provinceInfoDisplay.transform.GetChild(4).gameObject.SetActive(true);
+            provinceInfoDisplay.transform.GetChild(5).gameObject.SetActive(false);
+        }
+        else if (status == RegionUnlocked.UNLOCKED)
+        {
+            provinceInfoDisplay.transform.GetChild(2).gameObject.SetActive(false);
+            provinceInfoDisplay.transform.GetChild(3).gameObject.SetActive(false);
+            provinceInfoDisplay.transform.GetChild(4).gameObject.SetActive(false);
+            provinceInfoDisplay.transform.GetChild(5).gameObject.SetActive(true);
         }
     }
 }

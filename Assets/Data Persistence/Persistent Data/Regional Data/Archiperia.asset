@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6783b03082759964b982ea3a6393d5df, type: 3}
+  m_Name: Archiperia
+  m_EditorClassIdentifier: 
+  region_name: Archiperia
+  region_description: "The reclusive timberwolves inhabit a stretch of forest south
+    of the Valti Mountains known as the Archiperian Wood. They are devoted to the
+    worship of their god Archiper, and their ways and lands are little known to outsiders.\r"
+  saveSlot: 0
+  unlocked_status: 0
+  locationNames: []
+  locationsProgressCodes: 

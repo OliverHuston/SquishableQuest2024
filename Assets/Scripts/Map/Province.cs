@@ -37,15 +37,15 @@ public class Province : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void SetColor()
     {
-        if(this.regionalData.unlocked) { image.color = unlocked_color; }
-        else if (this.regionalData.available) { image.color = locked_color; }
+        if(this.regionalData.unlocked_status == RegionUnlocked.UNLOCKED) { image.color = unlocked_color; }
+        else if (this.regionalData.unlocked_status == RegionUnlocked.LOCKED) { image.color = locked_color; }
         else { image.color = unavailable_color; }
     }
 
     private void highlightProvince()
     {
         image.color = moused_color;
-        ProvinceManager.instance.DisplayProvinceDetails(this.regionalData.region_name, this.regionalData.region_description, this.regionalData.available, this.regionalData.unlocked);
+        ProvinceManager.instance.DisplayProvinceDetails(this.regionalData.region_name, this.regionalData.region_description, this.regionalData.unlocked_status);
     }
 
     private void unhighlightProvince()
