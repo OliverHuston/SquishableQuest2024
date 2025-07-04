@@ -28,7 +28,7 @@ public class Room : ScriptableObject
     public string _Name;
     public RoomType _Type;
     public GameObject _roomModel;
-    [TextAreaAttribute]
+    [TextArea(5, 10)]
     public string layout;
 
     // Dimensions and Position

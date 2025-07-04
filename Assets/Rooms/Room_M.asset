@@ -14,14 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Name: M
   _Type: 0
-  _roomModel: {fileID: 0}
-  layout: 'o1111
+  _roomModel: {fileID: 7269378240028137406, guid: 376c0483f17a971499e01c5513f05db5, type: 3}
+  layout: '00oo
 
-    o1111
+    0011
 
-    00011
+    0011
 
-    000ii'
+    i111
+
+    i111'
   cols: 0
   rows: 0
   xPos: 0

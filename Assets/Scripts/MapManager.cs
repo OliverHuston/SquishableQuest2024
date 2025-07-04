@@ -26,7 +26,7 @@ public class MapManager : MonoBehaviour
         if (Input.GetKey(KeyCode.Q))
         {
             // Generation map
-            int iterations = GenerateRandomMap(20, 3, 0);
+            int iterations = GenerateRandomMap(20, 1, 0);
             CellManager.instance.SetCellArrayDimensions(rooms); //necessary after all map generations
 
 
@@ -34,9 +34,9 @@ public class MapManager : MonoBehaviour
             rooms[0].active = true;
             PrintRoom(rooms[0]);
 
-            /*            //temp
-                        SetAllRoomsActive();
-                        PrintFullMap();*/
+/*            //temp
+            SetAllRoomsActive();
+            PrintFullMap();*/
         }
     }
 
@@ -348,7 +348,6 @@ public class MapManager : MonoBehaviour
 
         if (room._roomModel == null) PrintRoomPlaceholder(room);
         else {PrintRoomModel(room);}
-        //Debug.Log("a");
         PrintRoomCells(room);
     }
     // Instantiate cells for a given room.
@@ -412,8 +411,11 @@ public class MapManager : MonoBehaviour
     {
         GameObject roomModel = Instantiate(room._roomModel);
         roomModel.transform.position = new Vector3((float)room.cols / 2 - .5f + room.xPos, 0, (float)room.rows / 2 - .5f + room.yPos);
-        roomModel.transform.rotation = Quaternion.Euler(0, roomModel.transform.rotation.eulerAngles.y + 90 * room.timesRotated, 0);
+        roomModel.transform.rotation = Quaternion.Euler(0, roomModel.transform.rotation.eulerAngles.y - 90 * room.timesRotated, 0);
         roomModel.transform.parent = this.transform.GetChild(1);
+
+        /*//temp
+        PrintRoomPlaceholder(room);*/
     }
 
     //-----------------------------------------------------------------------------------------------------------------//

@@ -15,11 +15,13 @@ MonoBehaviour:
   _Name: T
   _Type: 0
   _roomModel: {fileID: 0}
-  layout: '1ii10
+  layout: '00oo0
 
-    1111o
+    01111
 
-    1111o
+    i1111
+
+    i1111
 
     01110'
   cols: 0
