@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Name: G
   _Type: 0
-  _roomModel: {fileID: 0}
+  _roomModel: {fileID: 6430268206129910276, guid: a49a51ff89847ff4eb97928c3cf06254, type: 3}
   layout: 'i11111o
 
     i11111o'
