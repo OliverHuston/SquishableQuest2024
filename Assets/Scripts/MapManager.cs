@@ -34,9 +34,9 @@ public class MapManager : MonoBehaviour
             rooms[0].active = true;
             PrintRoom(rooms[0]);
 
-/*            //temp
+            //temp
             SetAllRoomsActive();
-            PrintFullMap();*/
+            PrintFullMap();
         }
     }
 
