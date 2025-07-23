@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2363408192867443149}
   - component: {fileID: 5981645414538328923}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: Backdrop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,14 +59,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.30588236, g: 0.49019608, b: 0.5529412, a: 1}
+  m_Color: {r: 0.5939124, g: 0.8518232, b: 0.93962264, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3cbe963bc05c896479203d14122c27e8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9239b8e027bb00a4b9f60c46023d82b6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 3677850568643528481}
   - component: {fileID: 899013074183699526}
   - component: {fileID: 6197495940062733846}
+  - component: {fileID: 1599687910152975636}
   m_Layer: 5
   m_Name: LoadingScreen
   m_TagString: Untagged
@@ -109,6 +110,7 @@ RectTransform:
   m_Children:
   - {fileID: 6659008303712648328}
   - {fileID: 8776122852946361027}
+  - {fileID: 8392262210917460617}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -179,6 +181,61 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1599687910152975636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1919659710623237813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9b692d43b570f24b8ea1a7e4d0c79cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadingScreenTipText: {fileID: 7007917767544467863}
+  loadingScreenTips:
+  - "\u201CFirst we eat it, then we... eat it again?\u201D \u2013 warcry of a confused
+    Sabre nobleman "
+  - "After King Sabre III died under mysterious circumstances while besieging Sanctuary,
+    King Sabre IV (\u2018the Pious\u2019) pledged to forever uphold the holy city\u2019s
+    autonomy. "
+  - 'The Hay Festival of Haystack is not to be missed! '
+  - 'Father Idricus was the first to bring the worship of the Sphere and Squish to
+    the cities of the north. His travels brought him beyond Geom, where he describes
+    meeting with a tribe of albino bears. '
+  - 'Beware of cloaked strangers approaching the gates! '
+  - 'In the distant east, there are said to be bears with black and white fur who
+    are masters of the healing arts. '
+  - 'The king of Istia wields an ancestral mace, rumored to weigh 400 pounds. '
+  - 'In recent months, merchant caravans returning to Agros have brought word of
+    major upheavals among the camels of the east as a mysterious new leader brings
+    more and more tribes under his sway. '
+  - "Years are commonly counted from when the Fourth Prophet of the Sphere and Squish
+    United deposited his writings in a cave on the Holy Mount\u2014the future site
+    of Sanctuary\u2014and then mysteriously vanished. "
+  - 'Faron was the original capital of the Sabre kingdom, founded in the 4th century
+    BSC. Only after the city was sacked by the lions during the Second War of the
+    Cats was the capital moved to Agros. '
+  - 'In the year 1000, contrary to expectation, the world did not end. '
+  - 'Several sailors claim to have seen a blue dragon riding the crests of tall waves
+    on particularly stormy nights. '
+  - 'Travelers are warned against wandering the heights of the Valti Mountains, for
+    it is said that they are inhabited by an ancient sorcerer whose spells drive
+    mortals to insanity. '
+  - "The 12th century saw a resurgence in heretical cults worshipping an entity known
+    as \u201CSquishalina.\u201D "
+  - "Many explorers have gone missing or have been driven mad in the quest for the
+    fabled \u201CLost City,\u201D rumored to contain measureless stores of gold and/or
+    to be guarded by the living fossils of ancient reptiles. "
+  - "\u201CGamble responsibly.\u201D \u2014 disgraced Sabre noble "
+  - "At feasts, the queen of Agros is introduced as \u201Cthe royal Lata,\u201D invoking
+    an ancient title of the Sabre nobility. "
+  - 'Try the eucalyptus spa at Koala Lumpur! '
+  - 'The moose like to mock the repetitive lyrics of Sabre national anthem, but the
+    tune goes back to ancient times. The archives in Agros hold an old manuscript
+    of the anthem, which lists as the composer a certain Gustavo. '
+  - "The platypi of Melbourne are, for unknown reasons, sometimes called \u201CKiwis.\u201D "
 --- !u!1 &2438478722629980217
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,8 +376,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 407023bedac175f439c27ae7bdb446db, type: 3}
-  m_Type: 2
+  m_Sprite: {fileID: 21300000, guid: 3cb9f1280fbe5944a97dc146df1dd541, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -341,7 +398,7 @@ GameObject:
   - component: {fileID: 3304314889807143834}
   - component: {fileID: 107655744676205210}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Loading Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -552,6 +609,142 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &8219676774910743019
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8392262210917460617}
+  - component: {fileID: 2637363351529217167}
+  - component: {fileID: 7007917767544467863}
+  m_Layer: 5
+  m_Name: Loading Screen Tip
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8392262210917460617
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8219676774910743019}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3896254798342020687}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 228}
+  m_SizeDelta: {x: 700, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &2637363351529217167
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8219676774910743019}
+  m_CullTransparentMesh: 1
+--- !u!114 &7007917767544467863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8219676774910743019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: "Years are commonly counted from when the Fourth Prophet of the Sphere
+    and Squish United deposited his writings in a cave on the Holy Mount\u2014the
+    future site of Sanctuary\u2014and then mysteriously vanished.\r"
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 3e7814c12b1e4714e802ebaea8612d9c, type: 2}
+  m_sharedMaterial: {fileID: -7441761007213018595, guid: 3e7814c12b1e4714e802ebaea8612d9c, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 32
+  m_fontSizeBase: 32
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 8
+  m_VerticalAlignment: 1024
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &8313393633406963279
 GameObject:
   m_ObjectHideFlags: 0

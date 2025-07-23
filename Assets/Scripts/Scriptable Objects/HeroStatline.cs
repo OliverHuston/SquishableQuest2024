@@ -10,7 +10,7 @@ public class HeroStatline : CharacterStatline
     private string levelMatrixFolder = "Assets/Hero Level Matrices/";
 
     [Space]
-    public int saveSlot = 0;
+    public int saveSlot;
 
     [Space]
     public int level = 0;
@@ -67,7 +67,15 @@ public class HeroStatline : CharacterStatline
     }
     private void LoadStatsFromLevelMatrix(int level)
     {
+        Debug.Log("Loading " + this.displayName +" (lvl " + this.level+ ") from matrix.");
+
+        if(this.level == 0) { 
+            this.SetStatsToZero();
+            return;
+        }
+
         StreamReader strReader = new StreamReader(levelMatrixFolder+this.displayName+ "_LevelMatrix.csv");
+
         bool reading = true;
         while (reading)
         {
@@ -93,7 +101,6 @@ public class HeroStatline : CharacterStatline
                 this.meleeAttacks = int.Parse(data_values[8]);
                 this.rangedAttacks = int.Parse(data_values[9]);
 
-
                 reading = false;
                 break;
             }
@@ -111,6 +118,18 @@ public class HeroStatline : CharacterStatline
         uncommonInv = new Item[0];
         rareInv = new Item[0];
         LoadStatsFromLevelMatrix(level);
+    }
+
+    private void SetStatsToZero()
+    {
+        this.moves = 0;
+        this.weaponskill = 0;
+        this.ballisticskill = 0;
+        this.strength = 0;
+        this.toughness = 0;
+        this.initiative = 0;
+        this.meleeAttacks = 0;
+        this.rangedAttacks = 0;
     }
  
 }

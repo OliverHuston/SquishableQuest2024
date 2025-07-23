@@ -34,6 +34,7 @@ public class PartyData : ScriptableObject
         {
             // Load from Json.
             string filepath = Application.persistentDataPath + "/" + saveSlot + "_party.json";
+
             string data = System.IO.File.ReadAllText(filepath);
             PartySaveData partySaveData = JsonUtility.FromJson<PartySaveData>(data);
 
@@ -42,7 +43,7 @@ public class PartyData : ScriptableObject
             this.gold = partySaveData.gold;
             this.inventory = new Item[partySaveData.inventory.Length];
             partySaveData.inventory.CopyTo(this.inventory, 0);
-            Debug.Log("Loaded party data from Save Slot " + this.saveSlot + ".");
+            Debug.Log("Found and loaded party data from Save Slot " + this.saveSlot + ".");
             return true;
         }
         catch
@@ -51,6 +52,7 @@ public class PartyData : ScriptableObject
             return false;
         }
     }
+
 
     public void SetToDefaults()
     {

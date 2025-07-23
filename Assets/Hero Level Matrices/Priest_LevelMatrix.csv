@@ -1,0 +1,11 @@
+﻿Lvl.,Gold,M,WS,BS,S,T,I,MA,RA,H,Skills
+1,0,4,2,3,3,3,3,1,0,1D6+6,"Favor Dice: 1, Scorch, Healing Light, Purfication"
+2,2000,4,2,3,3,3,3,1,0,2D6+6,"Favor Dice: 1, +1 Prayer (4 total)"
+3,4000,4,2,3,3,3,4,2,0,2D6+6,Favor Dice: 2
+4,8000,4,3,4,3,3,4,2,0,3D6+6,"Favor Dice: 2, +1 Prayer (5 total)"
+5,12000,4,3,4,3,3,4,2,0,3D6+6,"Favor Dice: 2, +1 Prayer (6 total)"
+6,18000,4,3,4,4,3,5,2,0,4D6+6,Favor Dice: 3
+7,24000,4,4,4,4,4,5,3,0,4D6+6,"Favor Dice: 3, +1 Prayer (7 total)"
+8,32000,4,4,5,4,4,5,3,0,5D6+6,"Favor Dice: 3, +1 Prayer (8 total)"
+9,45000,4,4,5,4,4,5,3,0,5D6+6,Favor Dice: 4
+10,50000,4,5,5,4,4,6,3,0,6D6+6,"Favor Dice: 4, +1 Prayer (9 total)"

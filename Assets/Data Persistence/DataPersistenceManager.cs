@@ -48,11 +48,6 @@ public class DataPersistenceManager : MonoBehaviour
         }
     }
 
-    public void LoadGame()
-    {
-        LoadGame(partyData.saveSlot);
-    }
-
     public void SaveGame()
     {
         partyData.Save();
@@ -62,14 +57,20 @@ public class DataPersistenceManager : MonoBehaviour
 
     public bool hasData(int saveSlot)
     {
+        bool result = false;
+        int currentSaveSlot = partyData.saveSlot;
+
         partyData.saveSlot = saveSlot;
-        return partyData.Load();
+        result = partyData.Load();
+
+        partyData.saveSlot = currentSaveSlot;
+
+        return result;
     }
 
     public string getPartyName(int saveSlot)
     {
         partyData.saveSlot = saveSlot;
-        partyData.Load();
         return partyData.partyName;
     }
 

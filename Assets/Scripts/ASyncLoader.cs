@@ -27,6 +27,7 @@ public class ASyncLoader : MonoBehaviour
     {
         sceneUI.SetActive(false);
         loadingScreen.SetActive(true);
+        loadingScreen.GetComponent<LoadingScreen>().DisplayNewTip();
 
         StartCoroutine(LoadLevelAsync(levelToLoad));
     }
