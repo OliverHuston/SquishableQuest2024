@@ -37,8 +37,8 @@ public class MainMenuManager : MonoBehaviour
         Cursor.visible = false;
 
         // Fade in from black to display title.
-        //yield return background.Transition(0, 1, 3f);
-        yield return new WaitForSeconds(1f);
+        yield return background.Transition(0, 1, 3f);
+        //yield return new WaitForSeconds(1f);
 
         titleText.SetActive(true);
         yield return titleText.GetComponent<ColorLERP>().Transition(1, 0, 3f);

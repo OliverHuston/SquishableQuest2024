@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Healing Potion
   m_EditorClassIdentifier: 
   itemName: Healing Potion
+  displayPNG: {fileID: 21300000, guid: b14da28c350fdda4a97176120c7adae7, type: 3}
   rarity: 0
   type: 4
   displayDescription: Single Use. Heal 3D6 lost Health.

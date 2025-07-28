@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum ItemRarity
 {
@@ -25,6 +26,8 @@ public enum ItemType
 public class Item : ScriptableObject
 {
     public string itemName;
+
+    public Sprite displayPNG;
 
     [Space]
     public ItemRarity rarity;
