@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public enum ItemRarity
 {
+    NA = -1,
     COMMON = 0,
     UNCOMMON = 1,
     RARE = 2
