@@ -37,4 +37,12 @@ public class Item : ScriptableObject
 
     [Space]
     public string effectCode;
+
+    public string RarityAsText()
+    {
+        if(this.rarity == ItemRarity.COMMON) { return "Common"; }
+        else if(this.rarity == ItemRarity.UNCOMMON) { return "Uncommon"; }
+        else if (this.rarity == ItemRarity.RARE) { return "Rare"; }
+        return "";
+    }
 }

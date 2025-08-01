@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class InventoryScreenManager : MonoBehaviour
 {
-    public ItemDisplay draggedItemDisplay;
-    public InventorySlot highlightedSlot;
+    [HideInInspector] public ItemDisplay draggedItemDisplay;
+    [HideInInspector] public InventorySlot highlightedSlot;
 
+
+    [SerializeField] private ItemDetailsPanel itemDetailsPanel;
     [SerializeField] private Transform characterInventory;
     [SerializeField] private Transform storageInventory;
 
@@ -40,7 +42,6 @@ public class InventoryScreenManager : MonoBehaviour
         Debug.Log("Something went wrong. Could not find an available Inventory Slot in the Storage Inventory.");
         return null;
     }
-
     public InventorySlot FindNearestAvailableStorageSlot(Vector3 position)
     {
         float closestPossibleDistance = 112.0f; //hardcoded minimum distance based on layout --- should save time in this operation
@@ -61,6 +62,8 @@ public class InventoryScreenManager : MonoBehaviour
         return closestAvailableSlot;
     }
 
-
-    //(closest possible distance = 110)
+    public void DisplayItem(Item item)
+    {
+        itemDetailsPanel.DisplayItem(item);
+    }
 }

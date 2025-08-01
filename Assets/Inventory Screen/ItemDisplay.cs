@@ -28,12 +28,12 @@ public class ItemDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     private Image backdrop;
     private Image itemDisplayImage;
 
+
     void Awake()
     {
         baseScale = this.transform.localScale;
         backdrop = this.transform.GetChild(0).GetComponent<Image>();
         itemDisplayImage = this.transform.GetChild(3).GetComponent<Image>();
-
         this.SetAppearance();
         this.PlaceInSlot(this, slot);
     }
@@ -57,6 +57,7 @@ public class ItemDisplay : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         else if(InventoryScreenManager.instance.draggedItemDisplay == null)
         {
             this.transform.localScale = baseScale * scaleIncreaseOnMoused;
+            InventoryScreenManager.instance.DisplayItem(this.item);
         }
     }
     public void OnPointerExit(PointerEventData pointerEventData)
