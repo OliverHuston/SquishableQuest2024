@@ -220,7 +220,7 @@ public class DungeonManager : MonoBehaviour
         while (dice.Contains('d'))
         {
             dice = dice.Replace("d66", D66() + "");
-            dice = dice.Replace("d6", D6()+"");
+            dice = dice.Replace("d6", D6() + "");
             dice = dice.Replace("d3", D3() + "");
         }
 

@@ -117,7 +117,7 @@ public class HeroStatline : CharacterStatline
         commonInv = new Item[0];
         uncommonInv = new Item[0];
         rareInv = new Item[0];
-        LoadStatsFromLevelMatrix(level);
+        SetStatsToZero();
     }
 
     private void SetStatsToZero()
@@ -130,6 +130,20 @@ public class HeroStatline : CharacterStatline
         this.initiative = 0;
         this.meleeAttacks = 0;
         this.rangedAttacks = 0;
+    }
+
+    public void LevelUp()
+    {
+        Debug.Log(this.displayName + " leveled up from lvl. " + this.level + " to lvl. " + (this.level+1) + ".");
+        level++;
+
+        // 1.Add health based on level table
+
+        // 2. Add new skills from level table, randomly generating where necessary
+        // 3. Load stat FROM MATRIX ONLY
+
+        // 4. Save
+
     }
  
 }

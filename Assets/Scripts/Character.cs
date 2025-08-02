@@ -86,18 +86,7 @@ public class Character : MonoBehaviour
 
     }
 
-    //temp save/load
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.K) && this.characterType == CharacterType.HERO)
-        {
-            this.heroStatline.Save();
-        }
-        else if (Input.GetKeyDown(KeyCode.L) && this.characterType == CharacterType.HERO)
-        {
-            this.heroStatline.Load();
-        }
-    }
+
 
 
     //-----------------------------------------------------------------------------------------------------------------//

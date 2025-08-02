@@ -134,6 +134,15 @@ public class ChoosePartyManager : MonoBehaviour
     public void StartAdventure()
     {
         // *SAVE HERE* -- create savefile for new party, etc
+        //(new game called at end of MainMenu
+
+        // 0. Set Party name
+        //  1. Level up the 4 selected characters, giving them health and skills
+        //  2. Give the 4 selected characters their starting equipment
+
+
+        // Ends with saving game data
+        DataPersistenceManager.instance.SaveGame();
 
         
    
