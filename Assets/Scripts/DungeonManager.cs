@@ -16,7 +16,7 @@ public enum AttackType
     MELEE = 0,
     RANGED = 1
 }
- 
+
 
 public class DungeonManager : MonoBehaviour
 {
@@ -31,7 +31,7 @@ public class DungeonManager : MonoBehaviour
 
     // Status variables
     [HideInInspector] public Turn turn;
-    
+
     // Reference variables
     [HideInInspector] public Character[] characters;
 
@@ -124,7 +124,7 @@ public class DungeonManager : MonoBehaviour
     //***UI MANAGEMENT***
     public void CellManagerStatusUpdate(SelectionPhase selectionPhase)
     {
-        if (selectionPhase == SelectionPhase.CHOOSE_CHARACTER) { 
+        if (selectionPhase == SelectionPhase.CHOOSE_CHARACTER) {
             endTurnButton.SetActive(true);
         }
         else { endTurnButton.SetActive(false); }
@@ -137,12 +137,12 @@ public class DungeonManager : MonoBehaviour
             enemyDisplayPanel.gameObject.SetActive(false);
 
         }
-        else if(character.characterType == CharacterType.HERO)
+        else if (character.characterType == CharacterType.HERO)
         {
             heroDisplayPanel.gameObject.SetActive(true);
             heroDisplayPanel.UpdateStats(character);
         }
-        else if(character.characterType == CharacterType.ENEMY)
+        else if (character.characterType == CharacterType.ENEMY)
         {
             enemyDisplayPanel.gameObject.SetActive(true);
             enemyDisplayPanel.UpdateStats(character);
@@ -164,7 +164,7 @@ public class DungeonManager : MonoBehaviour
     public void ProcessAttack(Character attacker, Character defender, AttackType attackType)
     {
         attacker.remainingMoves = 0; //no moves after attacking
-        if(attackType == AttackType.MELEE) { attacker.remainingMeleeAttacks--; }
+        if (attackType == AttackType.MELEE) { attacker.remainingMeleeAttacks--; }
         else if (attackType == AttackType.RANGED) { attacker.remainingRangedAttacks--; }
 
 
@@ -172,12 +172,12 @@ public class DungeonManager : MonoBehaviour
         StartCoroutine(attacker.RotateToFace(defender.cell));
 
         // Roll to hit
-        if (attackType == AttackType.MELEE && !Roll(ToHitChart[attacker.statline.weaponskill, defender.statline.weaponskill]))
+        if (attackType == AttackType.MELEE && !SQuestUtilities.RollXPlus(ToHitChart[attacker.statline.weaponskill, defender.statline.weaponskill]))
         {
             ActionText(defender, "MISSED!");
             return;
         }
-        else if (attackType == AttackType.RANGED && !Roll(7 - attacker.statline.ballisticskill))
+        else if (attackType == AttackType.RANGED && !SQuestUtilities.RollXPlus(7 - attacker.statline.ballisticskill))
         {
             ActionText(defender, "MISSED!");
             return;
@@ -186,7 +186,7 @@ public class DungeonManager : MonoBehaviour
         Debug.Log(attacker.name + " hit " + defender.name);
 
         // Inflict damage
-        int attacker_damage = ParseDiceString(attacker.GetDamage(attackType));
+        int attacker_damage = SQuestUtilities.Roll(attacker.GetDamage(attackType));
         int damage = attacker_damage - defender.toughness;
         if (true) damage -= defender.GetArmor(); //temp: some weapons/abilities ignore armor
         damage = Mathf.Max(1, damage); // every hit should do at least one damage, regardless of any modifiers
@@ -201,19 +201,19 @@ public class DungeonManager : MonoBehaviour
     }
 
     //-----------------------------------------------------------------------------------------------------------------//
-    //***DICE ROLLING FUNCTIONS***
+    //***DICE ROLLING FUNCTIONS*** [DEFUNCT: use SQuestUtilities.Roll() instead
     // Roll an X+. 1 always fails, 6 always succeeds.
-    public bool Roll(int target)
+/*    public bool Roll(int target)
     {
         if (target < 2) target = 2;
         else if (target > 6) target = 6;
 
         if (D6() >= target) return true;
         return false;
-    }
+    }*/
 
-    // NEEDS work for parsing 2d6, 3d6, d6 + 1 etc.
-    public int ParseDiceString (string dice)
+    // Defunct rolling methods
+/*    public int ParseDiceString (string dice)
     {
         if (dice == null) return 0;
 
@@ -225,10 +225,10 @@ public class DungeonManager : MonoBehaviour
         }
 
         return StringFormulaToInt(dice); // function needs work
-    }
+    }*/
 
     // Returns a d6 value.
-    public int D6()
+/*    public int D6()
     {
         int roll = (int)Random.Range(0, 5) + 1;
         return roll;
@@ -241,10 +241,8 @@ public class DungeonManager : MonoBehaviour
     public int D66()
     {
         return (D6() * 10) + D6();
-    }
-
-    // NEEDS WORK for multi digit nums and mult/div
-    public int StringFormulaToInt(string s)
+    }*/
+/*    public int StringFormulaToInt(string s)
     {
         int result = 0;
         int sign = 1;
@@ -258,5 +256,5 @@ public class DungeonManager : MonoBehaviour
             }
         }
         return result;
-    }
+    }*/
 }

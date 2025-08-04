@@ -56,6 +56,23 @@ public class ChoosePartyManager : MonoBehaviour
     }
 
 
+    //Roll Function Testing
+    private void Update()
+    {
+        if(Input.GetMouseButtonUp(0))
+        {
+            float iterations = 10000f;
+            float total = 0;
+            string diceCode = "4d3*3d6";
+            for (int i = 0; i < iterations; i++)
+            {
+                total += SQuestUtilities.Roll(diceCode);
+            }
+            Debug.Log(diceCode + " --> " + (total / iterations));
+        }
+    }
+
+
     public void DisplayCharacterDetails(int index)
     {
         characterDisplaysArray[index].SetActive(true);
