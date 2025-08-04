@@ -21,7 +21,9 @@ public class ChoosePartyManager : MonoBehaviour
     [SerializeField] private GameObject chosenPartyDisplay;
 
     [Space]
+    [SerializeField] private GameObject confirmPartyButton;
     [SerializeField] private GameObject startAdventureButton;
+
 
 
     private GameObject[] characterDisplaysArray;
@@ -44,8 +46,13 @@ public class ChoosePartyManager : MonoBehaviour
         }
 
         chosenPartyDisplay.SetActive(true);
+        characterPortraitsPanel.SetActive(true);
+        characterDetailsPanel.SetActive(true);
+        confirmPartyButton.SetActive(false);
         startAdventureButton.SetActive(false);
-        foreach(GameObject display in characterDisplaysArray)
+
+
+        foreach (GameObject display in characterDisplaysArray)
         {
             if(display != null) display.SetActive(false);
         }
@@ -110,8 +117,8 @@ public class ChoosePartyManager : MonoBehaviour
 
     private void UpdateDisplays()
     {
-        if(chosenCharacters.Count == 4 && chosenPartyDisplay.activeSelf) { startAdventureButton.SetActive(true); }
-        else { startAdventureButton.SetActive(false); }
+        if(chosenCharacters.Count == 4 && chosenPartyDisplay.activeSelf) { confirmPartyButton.SetActive(true); }
+        else { confirmPartyButton.SetActive(false); }
 
         chosenCharacters.Sort();
         this.ConfigureCharacterPortraits();
@@ -148,6 +155,16 @@ public class ChoosePartyManager : MonoBehaviour
         }
     }
 
+    public void ConfirmPartySelection()
+    {
+        characterDetailsPanel.SetActive(false);
+        characterPortraitsPanel.SetActive(false);
+        chosenPartyDisplay.SetActive(false);
+        confirmPartyButton.SetActive(false);
+
+        startAdventureButton.SetActive(true);
+    }
+
     public void StartAdventure()
     {
         // *SAVE HERE* -- create savefile for new party, etc
@@ -162,7 +179,6 @@ public class ChoosePartyManager : MonoBehaviour
         DataPersistenceManager.instance.SaveGame();
 
         
-   
         //need to make sure dungeon loads into proper first mission 'The Horror! Pt. 1'
         ASyncLoader.instance.LoadLevelBtn("Dungeon");
     }

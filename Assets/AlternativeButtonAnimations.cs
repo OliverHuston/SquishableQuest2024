@@ -23,13 +23,16 @@ public class AlternativeButtonAnimations : MonoBehaviour, IPointerEnterHandler, 
     [HideInInspector] public bool altButtonSelected = false;
 
     private List<AlternativeButtonAnimations> buttonGroup;
+    private bool hasGroup;
 
     private void Awake()
     {
         baseScale = this.transform.localScale;
         image = this.transform.GetComponent<Image>();
 
-        if (!buttonGroupName.Equals(""))
+        hasGroup = !buttonGroupName.Equals("");
+
+        if (hasGroup)
         {
             buttonGroup = new List<AlternativeButtonAnimations>();
             foreach (AlternativeButtonAnimations alternativeButton in FindObjectsOfType<AlternativeButtonAnimations>())
@@ -55,7 +58,7 @@ public class AlternativeButtonAnimations : MonoBehaviour, IPointerEnterHandler, 
     {
         altButtonSelected = !altButtonSelected;
         UpdateAppearance();
-        if (altButtonSelected) DeselectOthersInButtonGroup();
+        if (altButtonSelected && hasGroup) DeselectOthersInButtonGroup();
     }
 
     private void DeselectOthersInButtonGroup()
