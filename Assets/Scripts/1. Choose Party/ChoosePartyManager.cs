@@ -57,7 +57,7 @@ public class ChoosePartyManager : MonoBehaviour
 
 
     //Roll Function Testing
-    private void Update()
+/*    private void Update()
     {
         if(Input.GetMouseButtonUp(0))
         {
@@ -70,7 +70,7 @@ public class ChoosePartyManager : MonoBehaviour
             }
             Debug.Log(diceCode + " --> " + (total / iterations));
         }
-    }
+    }*/
 
 
     public void DisplayCharacterDetails(int index)

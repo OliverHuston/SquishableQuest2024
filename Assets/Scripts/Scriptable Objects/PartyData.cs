@@ -23,7 +23,7 @@ public class PartyData : ScriptableObject
 
         // Save to Json.
         string saveData = JsonUtility.ToJson(partySaveData);
-        string filepath = Application.persistentDataPath + "/" + saveSlot + "_party.json";
+        string filepath = Application.persistentDataPath + "/" + this.saveSlot + "_party.json";
         System.IO.File.WriteAllText(filepath, saveData);
         Debug.Log("Saved party data in Save Slot " + this.saveSlot + ".");
     }
@@ -58,7 +58,7 @@ public class PartyData : ScriptableObject
     {
         partyName = null;
         gold = 0;
-        inventory = new Item[0];
+        inventory = new Item[48];
     }
 }
 

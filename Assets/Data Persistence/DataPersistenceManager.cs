@@ -91,7 +91,12 @@ public class DataPersistenceManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
+        SaveGame();
+
         // Save game on exit, assuming the party has been fully created.
-        if(partyData.partyName != null) { SaveGame(); }
+        if (partyData.partyName != null && !partyData.partyName.Equals("")) {
+            Debug.Log("Party name: " + partyData.partyName);
+            SaveGame(); 
+        }
     }
 }

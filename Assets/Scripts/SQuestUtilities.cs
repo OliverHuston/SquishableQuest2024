@@ -60,8 +60,12 @@ public static class SQuestUtilities
 
     public static bool RollXPlus(int target)
     {
+        return RollXPlus(target, false);
+    }
+    public static bool RollXPlus(int target, bool sixAlwaysSucceeds)
+    {
         if (target < 2) target = 2;
-        //else if (target > 6) target = 6;
+        else if (target > 6 && sixAlwaysSucceeds) target = 6;
 
         if (Roll("d6") >= target) return true;
         return false;

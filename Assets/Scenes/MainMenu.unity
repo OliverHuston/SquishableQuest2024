@@ -795,11 +795,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 97336147700876447, guid: 67e6303ce4a15a344a5490b4ee19c47f, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.584
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 97336147700876447, guid: 67e6303ce4a15a344a5490b4ee19c47f, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1919659710623237813, guid: 67e6303ce4a15a344a5490b4ee19c47f, type: 3}
       propertyPath: m_Name
@@ -807,7 +807,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1919659710623237813, guid: 67e6303ce4a15a344a5490b4ee19c47f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3896254798342020687, guid: 67e6303ce4a15a344a5490b4ee19c47f, type: 3}
       propertyPath: m_Pivot.x

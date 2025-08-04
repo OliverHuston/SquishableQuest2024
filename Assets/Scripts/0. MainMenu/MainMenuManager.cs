@@ -94,7 +94,7 @@ public class MainMenuManager : MonoBehaviour
     public void LoadGame(int saveSlot) {
         DataPersistenceManager.instance.LoadGame(saveSlot);
         Debug.Log("Game loading from Save Slot " + saveSlot + ".");
-        ASyncLoader.instance.LoadLevelBtn("ChooseParty");
+        ASyncLoader.instance.LoadLevelBtn("Dungeon");
     }
 
     public void CreateNewGame(int saveSlot)
